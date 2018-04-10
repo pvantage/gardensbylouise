@@ -1,9 +1,9 @@
 
 document.addEventListener("deviceready", onDeviceReady, false);
-
+var db;
 // Cordova is ready
 function onDeviceReady() {
-	var db = window.openDatabase("gardensbylouise", "1.0", "Gardens By Louise LLC", 200000);
+	db = window.openDatabase("Databases", "1.0", "Gardens By Louise LLC", 200000);
 	db.transaction(populateDB, errorCB, successCB);
 }
 
@@ -20,13 +20,14 @@ function onDeviceReady() {
                         alert(res.rows.item(iii).job_id);
                         alert(res.rows.item(iii).address);
                     }
-                })
+                });
     }
 
     // Transaction error callback
     //
     function errorCB(tx, err) {
-        alert("Error processing SQL: "+err);
+        alert("Error processing SQL: "+err.code);
+		alert("Error processing SQL: "+err.message);
     }
 
     // Transaction success callback
