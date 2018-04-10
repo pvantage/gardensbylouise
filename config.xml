@@ -26,7 +26,6 @@
 	<plugin name="cordova.plugins.diagnostic" source="npm" />
 	<plugin name="cordova-plugin-dialogs" source="npm" />
 	<plugin name="cordova-plugin-ios-camera-permissions" source="npm" />-->
-	<plugin name="mongo-sql" source="npm" />
 	<platform name="android">
 	  <resource-file src="google-services.json" target="google-services.json" />
 	</platform>
