@@ -1,0 +1,41 @@
+.showmessage{width:287px; background:#29a03f; color:#FFFFFF; height:40px; line-height:40px; font-size:16px; text-align:center; position:fixed; bottom:10px; left:10px; z-index:999999; border:1px solid #FFFFFF;}
+.showpopmessage {
+    width: 100%;
+    background: #FFFFFF;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 999999;
+    box-shadow: 2px 3px 3px #c8c8c8;
+    padding: 10px;
+}
+#ourgmap{width:100%; height:500px;}
+.mapbox{width:100%; height:330px;}
+ul.not-box label.processed-job{background:#4289ff;}
+ul.not-box label.assigned-job{background:#f79e34;}
+ul.not-box label.completed-job{background:#3cbc3c;}
+.schedule-detail.processing-status:before,.schedule-detail.processing-status .alp-badge{background-color:#4289ff;}
+.schedule-detail.assigned-status:before,.schedule-detail.assigned-status .alp-badge{background-color:#f79e34;}
+.schedule-detail.unassigned-status:before,.schedule-detail.unassigned-status .alp-badge{background-color:#e74c3c;}
+.schedule-detail.completed-status:before,.schedule-detail.completed-status .alp-badge{background-color:#3cbc3c;}
+.map-maincnt .schedule-detail.selected-schedule { background: #ddd;}
+.cl-wrap .cl-address a{overflow:hidden;}
+.cl-wrap .cl-address a.completed-status{background-color:#b8ffb8;border-color:#3cbc3c;}
+.cl-wrap .cl-address a.completed-status:hover{color:#FFFFFF;background-color:#3cbc3c;}
+.suggestion_box{position:absolute; top:80px; left:0px; height:0px; overflow:auto; width:350px; z-index:99999999; background:#FFFFFF;}
+.suggestion_box ul li{list-style:none; display:block; width:100%;}
+.suggestion_box ul{margin:0px; padding:0px;}
+.suggestion_box a{color:#000000; text-decoration:none;}
+.suggestion_box .cust_f_name{float:left; display:block; width:35%;}
+.suggestion_box .cust_addres{float:right; display:block; width:65%;}
+.str-job.endjob{background:#FF0000;}
+input.error, textarea.error, select.error{border:1px solid #FF0000 !important;}
+.popupnotification{background:#f79e34 !important; font-weight:700 !important;font-size: 17px !important; color:#000000 !important; width:auto !important; padding:0px 10px;box-shadow: 2px 5px 2px #000;height:auto  !important; line-height:25px !important;}
+.popupnotification2{background:#ffffff !important; font-size: 14px !important; font-weight:bold; color:#FF0000 !important; border:1px solid #FF0000 !important;box-shadow: 2px 2px 2px #FF0000;}
+img.uploadloader{text-align:center; margin:0 auto 10px; float:none; display:none;}
+.m-signature-pad--body2 img{max-height:150px;}
+ul.calsubmenus{display:none;}
+ul.current {display:block;}
+.loadmore3, .loadmore4, .loadmore3:active, .loadmore4:active{width:100%; display:block; background:#29a03f; color:#FFFFFF; border:1px solid #FFFFFF; text-align:center; padding:2px;}
+.login-box{text-align:center;}
+.showmessage.forgotpwd{width:350px;}
