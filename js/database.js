@@ -3,7 +3,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 // Cordova is ready
 function onDeviceReady() {
-	var db = window.openDatabase("Database", "1.0", "gardensbylouise", 200000);
+	var db = window.openDatabase("gardensbylouise", "1.0", "Gardens By Louise LLC", 200000);
 	db.transaction(populateDB, errorCB, successCB);
 }
 
