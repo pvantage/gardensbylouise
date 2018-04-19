@@ -7,37 +7,108 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css" >
-<link rel="stylesheet" href="css/style.css" >
-<link rel="stylesheet" href="css/mycss.css" >
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/fonts-styles.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/jquery-ui.css">
+<link rel="stylesheet" href="css/mycss.css">
 </head>
-
-<body>
-<div class="wrapper">
-  <div class="container">
-    <div class="launchpage">
-      <div class="logobox"><img src="images/1.png"/></div>
+<body class="light-grey-bg after-login schlbody">
+<!----- Header Top ----->
+<div class="container mysch-fix-hdr">
+  <div class="header-top">
+    <div class="row  align-items-center">
+	<img src="images/hdr-logo.png" alt="header-logo" />
     </div>
   </div>
 </div>
-<div class="bottom-nav-bar"></div>
-<script src="js/jquery-3.2.1.min.js" ></script>
+<!----- /Header Top ----->
+<div class="clearfix"></div>
+<div class="container cntbox tab-content">
+  <div id="home" class="tab-pane fade in active show">
+    <h1 class="myschle">Database Tables</h1>
+   
+	<ul class="starttodayjob_times">
+		<li style="float:left; list-style:none;"><a href="database.html?table=userlogin">userlogin</a></li>
+		<li style="float:left; margin-left:10px; list-style:none;"><a href="database.html?table=jobs">jobs</a></li>
+		<li style="float:left; margin-left:10px; list-style:none;"><a href="database.html?table=job_times">job_times</a></li>
+		<li style="float:left; margin-left:10px; list-style:none;"><a href="database.html?table=job_daytimes">job_daytimes</a></li>
+		<li style="float:left; margin-left:10px; list-style:none;"><a href="database.html?table=job_schedule">job_schedule</a></li>
+		<li style="float:left; margin-left:10px; list-style:none;"><a href="database.html?table=job_forms">job_forms</a></li>
+		<li style="float:left; margin-left:10px; list-style:none;"><a href="database.html?table=job_form_values">job_form_values</a></li>
+		<li style="float:left; margin-left:10px; list-style:none;"><a href="database.html?table=job_notifications">job_notifications</a></li>
+		<li style="float:left; margin-left:10px; list-style:none;"><a href="database.html?table=job_timesheets">job_timesheets</a></li>
+	</ul>
+  </div>
+  <div class="clearfix"></div>
+  <h2 class="tablename"></h2>
+  <table class="dbtable" border="1" style="display:none;"></table>
+</div>
+<!----- Bottom Nav Bar ----->
+
+<script src="js/jquery-3.2.1.min.js" ></script> 
+
+<script src="js/jquery-ui.min.js" ></script>
+<script src="js/popper.min.js" ></script> 
+<script src="js/bootstrap.min.js" ></script>
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/database.js"></script>
-	<script type="text/javascript">
-		jQuery(document).ready(function(){
-			jQuery('.logobox img').css({'min-height':jQuery(window).height()+'px'});
-		});
-		jQuery( document ).on( "mobileinit", function() {
-			jQuery.mobile.allowCrossDomainPages = true;
-		});
-		var contentType ="application/x-www-form-urlencoded; charset=utf-8";
-		if(window.XDomainRequest){contentType = "text/plain";}
-		jQuery.support.cors = true;
-		
-		
-		
-	</script>
-  </body>
+<script type="text/javascript">
+
+
+jQuery(document).ready(function(){
+	
+	jQuery( document ).on( "mobileinit", function() {
+		jQuery.mobile.allowCrossDomainPages = true;
+	});
+	var contentType ="application/x-www-form-urlencoded; charset=utf-8";
+    if(window.XDomainRequest){contentType = "text/plain";}
+	
+	jQuery.support.cors = true;
+	var table=gup('table');
+	var truncat=gup('truncat');
+	if(table!='' && typeof table!='undefined'){
+		jQuery('.tablename').html(table);
+		db.transaction(startdaytime2, errorDB, successDB);
+			function startdaytime2(tx){
+				if(truncat=='1'){
+					var q="DELETE FROM "+table;
+					tx.executeSql(q);
+				}
+				var q="SELECT * FROM "+table+"";
+				var cond=[];
+				tx.executeSql(q, cond, function(tx, res){
+					if(parseInt(res.rows.length)>0){
+						var html='<tr>';
+						var object=res.rows.item(0);
+						for (var property in object) {
+						  html+='<th>'+property+'</th>';
+						}
+						html+='</tr>';
+						for(var i = 0; i < res.rows.length; i++)
+						{
+							html+='<tr>';
+							object=res.rows.item(i);
+							for (var property in object) {
+							  html+='<td>'+object[property]+'</td>';
+							}
+							html+='</tr>';
+						}
+						html+='<tr><td><a href="database.html?table='+table+'&truncat=1">Empty this</a></td></tr>';
+						jQuery('table.dbtable').html(html);
+						
+						jQuery('table.dbtable').show();
+					}
+				});
+			}
+	}
+	
+	
+	
+});
+
+</script>
+</body>
 </html>

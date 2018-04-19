@@ -25,7 +25,7 @@
       <div class="modal-body">
         <div class="pop-head">
           <div class="row">
-            <a class="close col-2 donbtn gottoback" href="javascript:;">Back</a>
+            <a class="close col-2 donbtn gottoback" href="my-schedule.html">Back</a>
             <div class="col-7 pop-title job-title"></div>
             
           </div>
@@ -40,25 +40,20 @@
             </div>
           </div>
 		  <form id="editform" name="editform" action="" method="post">
-			<input type="hidden" id="recid" name="recid" value="" />
-			<input type="hidden" id="customer_id" name="customer_id" value="" />
-			<input type="hidden" id="old_status" name="old_status" value="" />
-			<input type="hidden" name="add_by" value="" />
           <div class="Edit-job-bottom">
             <div class="pop-edit-item">
               <h1>Job Detail:</h1>
               <div class="pickup-msg">
                 <textarea class="whitebase" placeholder="Collect CPU" name="description" id="job_description"></textarea>
               </div>
-            </div>
-		
-			
-			
+            </div>			
 			<div class="pop-edit-item p-pic-req">
               <h1>Notes</h1>
               <div class="pop-multibox notelists" style="padding-top:10px;"></div>
             </div>
-            
+            <div class="formvalues">
+              
+            </div>
           </div>
 		  </form>
         </div>
@@ -66,7 +61,114 @@
     </div>
 	</div>
 
-
+<div id="addjobform" class="modal fade popupformats taskpopup" role="dialog">
+  <div class="modal-dialog"> 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="pop-head">
+          <div class="row">
+            <a href="javascript:;" data-dismiss="modal">Cancel</a>
+            <div class="col-10 pop-title">Form</div>
+          </div>
+        </div>
+        <div class="new-forms-formats">
+			<form id="jobform" name="jobform" action="" method="post">
+			<input type="hidden" name="form_id" id="form_id" value="0">
+			  <div class="nf-box">
+			  	<label>Notes</label>
+				<textarea name="notemsg" rows="3" cols="50" class="forminput"></textarea>
+			  </div>
+			  <div class="nf-box">
+				<label>Bags of mulch used</label>
+				<input type="number" class="forminput" name="bags_of_mulch_used" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Bag size</label>
+				<input type="number" class="forminput" name="mulch_bag_size" min="0" value="0" />
+			  </div>
+			   <div class="nf-box">
+				<label>Bags of compost used</label>
+				<input type="number" class="forminput" name="bags_of_compost_used" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Bag size</label>
+				<input type="number" class="forminput" name="compost_bag_size" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Bags of Holly Tone used</label>
+				<input type="number" class="forminput" name="bags_of_holly_tone_used" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Bag size</label>
+				<input type="number" class="forminput" name="holly_tone_bag_size" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Are you leaving a wheelbarrow?</label>
+				<div class="form-radios">
+				  <label>
+					<input value="Yes" type="radio" name="leaving_a_wheelbarrow" />
+					Yes</label>
+				  <label>
+					<input value="No" type="radio" name="leaving_a_wheelbarrow" />
+					No</label>
+				</div>
+			  </div>
+			  <div class="nf-box">
+				<label>Bags of debris</label>
+				<input type="number" class="forminput" name="bags_of_debris" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Any issues with bees, plants/bushes not doing well, poison ivy? Put details in Notes</label>
+				<div class="form-radios">
+				  <label>
+					<input value="Yes" type="radio" name="problem_with_bees_plants_bushes" />
+					Yes</label>
+				  <label>
+					<input value="No" type="radio" name="problem_with_bees_plants_bushes" />
+					No</label>
+				</div>
+			  </div>
+			  <div class="nf-box">
+				<label>Any messages from homeowner? Put details in Notes</label>
+				<div class="form-radios">
+				  <label>
+					<input value="Yes" type="radio" name="messages_from_homeowner" />
+					Yes</label>
+				  <label>
+					<input value="No" type="radio" name="messages_from_homeowner" />
+					No</label>
+				</div>
+			  </div>
+			  <div class="nf-box">
+				<label>If there is work still to be done, estimate how much is left in hours</label>
+				<input type="number" class="forminput" name="pending_task_time" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>If additional materials are needed, provide details in Notes</label>
+				<div class="form-radios">
+				  <label>
+					<input value="Yes" type="radio" name="additional_materials_are_needed" />
+					Yes</label>
+				  <label>
+					<input value="No" type="radio" name="additional_materials_are_needed" />
+					No</label>
+				</div>
+			  </div>
+			  <div class="nf-box">
+				<label>How much of your time was spent planting?</label>
+				<input type="number" class="forminput" name="time_spent_planting" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<button class="nf-box-btn savenejobform" type="button">Done</button>
+			  </div>
+          
+		  </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="js/jquery-3.2.1.min.js" ></script> 
 <script src="js/jquery-ui.min.js" ></script>
@@ -75,254 +177,122 @@
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript">
-
+var formfields={'bags_of_mulch_used':'Bags of mulch used', 'notemsg':'Notes', 'mulch_bag_size':'Bag size', 'bags_of_compost_used':'Bags of compost used', 'compost_bag_size':'Bag size', 'bags_of_holly_tone_used':'Bags of Holly Tone used', 'holly_tone_bag_size':'Bag size', 'leaving_a_wheelbarrow':'Are you leaving a wheelbarrow?', 'bags_of_debris':'Bags of debris', 'problem_with_bees_plants_bushes':'Any issues with bees, plants/bushes not doing well, poison ivy? Put details in Notes', 'messages_from_homeowner':'Any messages from homeowner? Put details in Notes', 'pending_task_time':'If there is work still to be done, estimate how much is left in hours', 'additional_materials_are_needed':'If additional materials are needed, provide details in Notes', 'time_spent_planting':'How much of your time was spent planting?'};
+function showform(){
+	jQuery('#addjobform').modal();
+}
 function loadjob(job_id){
-	var url=siteurl+'/api/jobs/singlerecord';
-	var uid=localStorage.getItem('Staff_ID');
-	jQuery.ajax({  
-		type: 'POST',  
-		url: url,           
-		dataType: 'json',  
-		crossDomain: true,
-		data: {job_id:job_id}, 
-		beforeSend: function() {
-		
-		},		
-		complete: function() {
-		}, 
-		crossDomain: true,  
-		success: function(res) { 
-		if(res['record'])
-		{
-			var mobile=res['record']['contact_mobile'];
-			if(jQuery.trim(mobile)==''){
-				var mobile=res['record']['contact_phone'];
-			}
-			jQuery('#myModal20 .callclientto').attr('href','tel:'+mobile);
-			jQuery('#job_description').val(res['record']['description']);
-			jQuery('#job_address').val(res['record']['address']);
-			jQuery('.company_name').html(res['record']['customer_name']);
-			jQuery('.sch-adr').html(res['record']['address']);
-			jQuery('.grey-color').html('<a href="tel:'+mobile+'">'+mobile+'</a>');
-			
-			if(res['record']['status']=='Unassigned'){
-				jQuery('.showjobstatus').addClass('unassigned-status');
-				//jQuery('.showjobstatus .alp-badge').html('U');
-			}
-			else if(res['record']['status']=='Assigned'){
-				jQuery('.showjobstatus').addClass('assigned-status');
-				//jQuery('.showjobstatus .alp-badge').html('A');
-			}
-			else if(res['record']['status']=='Being Processed'){
-				jQuery('.showjobstatus').addClass('processing-status');
-				//jQuery('.showjobstatus .alp-badge').html('P');
-			}
-			else if(res['record']['status']=='Completed'){
-				jQuery('.showjobstatus').addClass('completed-status');
-				//jQuery('.showjobstatus .alp-badge').html('C');
-			}
-			
-			jQuery('.str-job').hide();
-			/*jQuery('.tasklists').html('');
-			if(res['record']['tasks']!=''){
-				var html='';
-				jQuery(res['record']['tasks']).each(function(index){
-					html+='<div class="pickup-msg"><a class="whitebase taskdetail" href="javascript:;" data-id="'+res['record']['tasks'][index]['ID']+'"><span  class="left-block">'+res['record']['tasks'][index]['task']+' </span><p class="assign-name">'+res['record']['tasks'][index]['assinto']+'</p></a></div>';
-				  
-				});
-				jQuery('.tasklists').html(html);
-			}*/
-			var showstartbtn=false;
-			/*jQuery('.pulists').html('');
-			if(res['record']['pus']!=''){
-				var html='';
-				jQuery(res['record']['pus']).each(function(index){
-					html+='<div class="pickup-msg"><a class="whitebase pudetail" href="javascript:;" data-id="'+res['record']['pus'][index]['ID']+'"><span  class="left-block">'+res['record']['pus'][index]['task']+' </span><p class="assign-name">'+res['record']['pus'][index]['assinto']+'</p></a></div>';
-				  if(uid==res['record']['pus'][index]['assigned_to'])
-				  {
-				  	showstartbtn=true;
-				  }
-				  jQuery('li.addnewpurbtn').remove();
-				});
-				jQuery('.pulists').html(html);
-			}*/
-			jQuery('.notelists').html('');
-			if(res['record']['notes']!=''){
-				var html='';
-				jQuery(res['record']['notes']).each(function(index){
-					html+='<div class="pickup-msg"><span  class="left-block">'+res['record']['notes'][index]['task']+' </span><p class="assign-name">'+res['record']['notes'][index]['assinto']+'</p></div>';
-				  
-				});
-				jQuery('.notelists').html(html);
-			}
-			/*if(res['record']['forms']!=''){
-				var html='';
-				jQuery(res['record']['forms']).each(function(index){
-					html+='<div class="pickup-msg"><span  class="left-block">'+res['record']['forms'][index]['task']+' </span><p class="assign-name">'+res['record']['forms'][index]['formtitle']+' by '+res['record']['forms'][index]['addby']+'</p></div>';
-				  
-				});
-				jQuery('.formlists').html(html);
-			}*/
-			
-			if(res['record']['status']=='Completed' || res['record']['status']=='Unassigned'){
-				jQuery('.str-job').hide();
-			}
-			else if(res['record']['status']=='Being Processed' && showstartbtn){
-				jQuery('.str-job').show();
-				jQuery('.str-job').html('End Job');
-				jQuery('.str-job').addClass('endjob');
-				jQuery('.str-job').removeClass('start-job');
-			}
-			else if(res['record']['status']=='Assigned' && showstartbtn){
-				jQuery('.str-job').show();
-				jQuery('.str-job').html('Start Job');
-				jQuery('.str-job').addClass('start-job');
-				jQuery('.str-job').removeClass('endjob');
-			}
-			
-			setTimeout(function(){
-				jQuery('select[name="status"]').val(res['record']['status']);
-				jQuery('select[name="category_id"]').val(res['record']['category_id']);
-			},1000);
-			
-			
-			var newjob=gup('newjob');
-			if(newjob=='1'){
-				jQuery('#myModal2').modal();
-				setTimeout(function(){jQuery('#myModal2 #assigned_to').val(uid);},1000);
-			}
-			var ht=jQuery(window).height();
-			var newstyle='top:'+(parseInt(ht/2)-40)+'px; left:50%; margin-left:-143px;';
-			jQuery('.endjob').click(function(){
-				var endjob=true;
-				if(!jQuery('.formlists .left-block a').hasClass('form_missiletag')){
-					endjob=false;
-					jQuery('body .showmessage').remove();
-					var html='<div class="showmessage popupnotification2" style="'+newstyle+'">Please complete TOR/Missile Tag form.</div>';
-					jQuery('body').append(html);
-					setTimeout(function(){jQuery('.showmessage').slideUp();},2000);
-				}
-				else if(!jQuery('.formlists .left-block a').hasClass('form_transferresponse')){
-					endjob=false;
-					jQuery('body .showmessage').remove();
-					var html='<div class="showmessage popupnotification2" style="'+newstyle+'">Please complete TOR/Missile Tag form.</div>';
-					jQuery('body').append(html);
-					setTimeout(function(){jQuery('.showmessage').slideUp();},2000);
-				}
-				if(endjob){
-					var url=siteurl+'/api/jobs/updatejobstatus';
-					jQuery.ajax({  
-						type: 'POST',  
-						url: url,           
-						crossDomain: true,
-						data: {status:'Completed',job_id:job_id, add_by:uid}, 
-						beforeSend: function() {
-							
-						},		
-						complete: function() {
-						}, 
-						crossDomain: true,  
-						success: function(res) { 
-							loadjob(job_id);
-							var html='<div class="showmessage">Job is completed.</div>';
-							jQuery('body').append(html);
-							setTimeout(function(){jQuery('.showmessage').slideUp();},3000);
-							jQuery('.str-job').remove();
-						},  
-						error: function(response, d, a){
-						
-						jQuery('body .showmessage').remove();
-						var html='<div class="showmessage">Server Error.</div>';
-						jQuery('body').append(html);
-						setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
-						return false; 
+	db.transaction(showlistjobs, errorDB, successDB);
+	function showlistjobs(tx){
+		var q="SELECT * FROM jobs WHERE job_id=? AND user_id=?";
+		var cond=[job_id,uid];
+		tx.executeSql(q, cond, function(tx, res){
+			if(parseInt(res.rows.length)>0){
+				for(var i = 0; i < res.rows.length; i++)
+				{
+					var mobile=res.rows.item(i).contact_phone;
+					jQuery('#myModal20 .callclientto').attr('href','tel:'+mobile);
+					jQuery('#job_description').val(res.rows.item(i).description);
+					jQuery('#job_address').val(res.rows.item(i).address);
+					jQuery('.company_name').html(res.rows.item(i).contact_fname+' '+res.rows.item(i).contact_lname);
+					jQuery('.sch-adr').html(res.rows.item(i).address);
+					jQuery('.grey-color').html('<a href="tel:'+mobile+'">'+mobile+'</a>');
+					
+					if(res.rows.item(i).status=='Unassigned'){
+						jQuery('.showjobstatus').addClass('unassigned-status');
+					}
+					else if(res.rows.item(i).status=='Assigned'){
+						jQuery('.showjobstatus').addClass('assigned-status');
+					}
+					else if(res.rows.item(i).status=='Being Processed'){
+						jQuery('.showjobstatus').addClass('processing-status');
+					}
+					else if(res.rows.item(i).status=='Completed'){
+						jQuery('.showjobstatus').addClass('completed-status');
+					}
+					
+					jQuery('.str-job').hide();
+					
+					var showstartbtn=false;
+					
+					jQuery('.notelists').html('');
+					var q="SELECT * FROM job_notifications WHERE job_id=? AND title=?";
+					var cond=[job_id,'Note'];
+					tx.executeSql(q, cond, function(tx, res2){
+						if(parseInt(res2.rows.length)>0){
+							var html='';
+							for(var i = 0; i < res2.rows.length; i++)
+							{
+								html+='<div class="pickup-msg"><span  class="left-block">'+res2.rows.item(i).message+' </span><p class="assign-name">'+res2.rows.item(i).add_by+'</p></div>';
+							}
+							jQuery('.notelists').html(html);
 						}
 					});
-				}
-			});
-			jQuery('.start-job').click(function(){
-				var startjob=true;
-				if(jQuery(this).hasClass('endjob')){
-					startjob=false;
-				}
-				if(startjob){
-					var url=siteurl+'/api/jobs/updatejobstatus';
-					jQuery.ajax({  
-						type: 'POST',  
-						url: url,           
-						crossDomain: true,
-						data: {status:'Being Processed',job_id:job_id, add_by:uid}, 
-						beforeSend: function() {
+					
+					jQuery('.formvalues').html('');
+					var q="SELECT * FROM job_forms WHERE job_id=? AND add_by=? AND form_title=?";
+					var cond=[job_id, uid,'jobform'];
+					tx.executeSql(q, cond, function(tx, res2){
+						if(parseInt(res2.rows.length)>0){
 							
-						},		
-						complete: function() {
-						}, 
-						crossDomain: true,  
-						success: function(res) { 
-							loadjob(job_id);
-							var html='<div class="showmessage">Job is being processed.</div>';
-							jQuery('body').append(html);
-							setTimeout(function(){jQuery('.showmessage').slideUp();},3000);
-						},  
-						error: function(response, d, a){
-						
-						jQuery('body .showmessage').remove();
-						var html='<div class="showmessage">Server Error.</div>';
-						jQuery('body').append(html);
-						setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
-						return false; 
+							for(var i = 0; i < res2.rows.length; i++)
+							{
+								var form_id=res2.rows.item(i).id;
+								var q2="SELECT * FROM job_form_values WHERE job_id=? AND form_id=?";
+								var cond2=[job_id, form_id];
+								tx.executeSql(q2, cond2, function(tx, res3){
+									if(parseInt(res3.rows.length)>0){
+										var html='<h1>Job Form <a href="javascript:;" onclick="showform();">Edit</a></h1>';
+										jQuery('#form_id').val(form_id);
+										for(var j = 0; j < res3.rows.length; j++)
+										{
+											html+='<div class="nf-box"><label>'+formfields[res3.rows.item(j).field_key]+': </label> '+res3.rows.item(j).field_value+'</div>';
+											if(res3.rows.item(j).field_type=='textarea'){
+												jQuery('textarea[name="'+res3.rows.item(j).field_key+'"]').val(res3.rows.item(j).field_value);
+											}
+											else if(res3.rows.item(j).field_type=='number' || res3.rows.item(j).field_type=='text'){
+												jQuery('input[name="'+res3.rows.item(j).field_key+'"]').val(res3.rows.item(j).field_value);
+											}
+											else if(res3.rows.item(j).field_type=='radio' && res3.rows.item(j).field_value!=''){
+												jQuery('input[name="'+res3.rows.item(j).field_key+'"][value="'+res3.rows.item(j).field_value+'"]').attr('checked',true);
+											}
+										}
+										jQuery('.formvalues').html(html);
+									}
+								});
+							}
+							
 						}
 					});
+					
+					if(res.rows.item(i).status=='Completed' || res.rows.item(i).status=='Unassigned'){
+						jQuery('.str-job').hide();
+					}
+					else if(res.rows.item(i).status=='Being Processed' && showstartbtn){
+						jQuery('.str-job').show();
+						jQuery('.str-job').html('End Job');
+						jQuery('.str-job').addClass('endjob');
+						jQuery('.str-job').removeClass('start-job');
+					}
+					else if(res.rows.item(i).status=='Assigned' && showstartbtn){
+						jQuery('.str-job').show();
+						jQuery('.str-job').html('Start Job');
+						jQuery('.str-job').addClass('start-job');
+						jQuery('.str-job').removeClass('endjob');
+					}
+					
 				}
-			});
-		}
+				
+				var ht=jQuery(window).height();
+				var newstyle='top:'+(parseInt(ht/2)-40)+'px; left:50%; margin-left:-143px;';
+			}
+		});
 		
-		},  
-		error: function(response, d, a){
-		
-		jQuery('body .showmessage').remove();
-		var html='<div class="showmessage">Server Error.</div>';
-		jQuery('body').append(html);
-		setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
-		return false; 
-		}
-	});
+	}
 }
 
-function completetask(task_id, shownotification,job_id)
-{
-	var uid=localStorage.getItem('Staff_ID');
-	var url2=siteurl+'/api/jobs/completetask';
-	jQuery.ajax({  
-		type: 'POST',  
-		url: url2,           
-		crossDomain: true,
-		data: {task_id:task_id,uid:uid}, 
-		beforeSend: function() {
-		},		
-		complete: function() {
-		}, 
-		crossDomain: true,  
-		success: function(res) {
-			if(shownotification=='1'){
-				jQuery('body .showmessage').remove();
-				var html='<div class="showmessage">Task completed.</div>';
-				jQuery('body').append(html);
-				setTimeout(function(){jQuery('.showmessage').slideUp();},3000);
-				jQuery('#myModal11').modal('hide');
-			}
-			loadjob(job_id);
-		},  
-		error: function(response, d, a){
-		
-			jQuery('body .showmessage').remove();
-			var html='<div class="showmessage">Server Error.</div>';
-			jQuery('body').append(html);
-			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
-			return false; 
-		}
-	});
-}
+
+
 jQuery(document).ready(function(){
 	jQuery( document ).on( "mobileinit", function() {
 		jQuery.mobile.allowCrossDomainPages = true;
@@ -331,406 +301,102 @@ jQuery(document).ready(function(){
     if(window.XDomainRequest){contentType = "text/plain";}
 	jQuery.support.cors = true;
 	var job_id=gup('job_id');
-	jQuery('a.formlink1').attr('href','forms.html?job_id='+job_id+'&vform=addmissiletag');
-	jQuery('a.formlink2').attr('href','forms.html?job_id='+job_id+'&vform=addtransferresponse');
 	jQuery('.job-title').html('JOB#'+job_id);
-	jQuery('input[name="recid"]').val(job_id);
-	jQuery('input[name="email_job_id"]').val(job_id);
-	jQuery('input[name="pu_job_id"]').val(job_id);
-	jQuery('input[name="newtask_job_id"]').val(job_id);
 	var uid=localStorage.getItem('Staff_ID');
-	jQuery('input[name="add_by"]').val(uid);
-	
-	jQuery('#myModal20 .view_job_detail').attr('href','job.html?job_id='+job_id);
-	jQuery('#myModal20 .navigate_to_job').attr('href','navigate_job.html?job_id='+job_id+'&backurl=job.html');
-	
-	var gottoback=localStorage.getItem('gotopage');
-	jQuery('a.gottoback').attr('href',gottoback);
+	if(typeof uid=='undefined' || uid=='' || uid==null){
+		checkloggedin();
+	}
 	loadjob(job_id);
 	
-	url=siteurl+'/api/jobs/jobrelatedthings';
-	jQuery.ajax({  
-		type: 'POST',  
-		url: url,           
-		dataType: 'json',  
-		crossDomain: true,
-		data: {job_id:job_id}, 
-		beforeSend: function() {
-		},		
-		complete: function() {
-		}, 
-		crossDomain: true,  
-		success: function(res) { 
-			if(res['job_status']){
-				jQuery(res['job_status']).each(function(key){
-					jQuery('select[name="status"]').append('<option value="'+res['job_status'][key]+'">'+res['job_status'][key]+'</option>');
-				});
-			}
-			if(res['categories']){
-				jQuery(res['categories']).each(function(key){
-					jQuery('select[name="category_id"]').append('<option value="'+res['categories'][key]['ID']+'">'+res['categories'][key]['name']+'</option>');
-				});
-			}
-			if(res['job_times']){
-				for (var i in res['job_times']) {
-					jQuery('select[name="pu_time"]').append('<option value="'+i+'">'+res['job_times'][i]+'</option>');
-				}
-			}
-			if(res['job_durations']){
-				for (var i in res['job_durations']) {
-					jQuery('select[name="duration"]').append('<option value="'+res['job_durations'][i]+'">'+i+'</option>');
-				}
-			}
-			if(res['staffmembers']){
-				jQuery(res['staffmembers']).each(function(key){
-					jQuery('select[name="assigned_to"]').append('<option value="'+res['staffmembers'][key]['id']+'">'+res['staffmembers'][key]['fname']+' '+res['staffmembers'][key]['lname']+'</option>');
-				});
-			}
-		},  
-		error: function(response, d, a){
-		
-		jQuery('body .showmessage').remove();
-		var html='<div class="showmessage">Server Error.</div>';
-		jQuery('body').append(html);
-		setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
-		return false; 
-		}
-	});
-	jQuery("#editform").on('submit',(function(e) {
-		var url=siteurl+'/api/jobs/updaterecord';
+	jQuery('.savenejobform').click(function(){
 		var noerror=true;
-		var customer_id=jQuery('input[name="customer_id"]').val();
-		if(customer_id==''){
-			var customer_full_name=jQuery('input[name="customer_full_name"]').val();
-			if(jQuery.trim(customer_full_name)==''){
-				jQuery('input[name="customer_full_name"]').addClass('error');
-				noerror=false;
-			}
-		}
-		var contact_fname=jQuery('input[name="contact_fname"]').val();
-		if(jQuery.trim(contact_fname)==''){
-			jQuery('input[name="contact_fname"]').addClass('error');
-			noerror=false;
-		}
-		var contact_lname=jQuery('input[name="contact_lname"]').val();
-		/*if(jQuery.trim(contact_lname)==''){
-			jQuery('input[name="contact_lname"]').addClass('error');
-			noerror=false;
-		}*/
-		var contact_email=jQuery('input[name="contact_email"]').val();
-		if(jQuery.trim(contact_email)==''){
-			jQuery('input[name="contact_email"]').addClass('error');
-			noerror=false;
-		}
-		var address=jQuery('textarea[name="address"]').val();
-		if(jQuery.trim(address)==''){
-			jQuery('textarea[name="address"]').addClass('error');
-			noerror=false;
-		}
-		e.preventDefault();
-		if(noerror){
-			jQuery.ajax({
-				url: url,
-				type: "POST",
-				data:  new FormData(this),
-				contentType: false,
-				cache: false,
-				processData:false,
-				success: function(data)
-				{
-					if(data=='1'){
-						loadjob(job_id);
-						jQuery('body .showmessage').remove();
-						var html='<div class="showmessage">Save the job successfully</div>';
-						jQuery('body').append(html);
-						setTimeout(function(){jQuery('.showmessage').slideUp();},3000);
-					}
-					else{
-						jQuery('.errormsg').html(data);
-					}
-				},
-				error: function() 
-				{
-				} 	        
-		   });
-		}
-	}));
-	jQuery('.saverecords').click(function(){
-		jQuery('#editform').submit();
-	});
-	jQuery("#emailform").on('submit',(function(e) {
-		var url=siteurl+'/api/jobs/sendjobemail';
-		var email=jQuery('input[name="email_to"]').val();
-		if(jQuery.trim(email)!=''){
-			var chkemail=ValidateEmail(email);
-			if(!chkemail){
-				jQuery('input[name="email_to"]').addClass('error');
-				return false;
-			}
-		}
-		
-		e.preventDefault();
-		jQuery.ajax({
-        	url: url,
-			type: "POST",
-			data:  jQuery("#emailform").serialize(),
-			success: function(data)
-		    {
-				jQuery('#myModal21').modal('hide');
-				jQuery('#emailform')[0].reset();
-				
-				jQuery('body .showmessage').remove();
-				var html='<div class="showmessage">Email sent</div>';
-				jQuery('body').append(html);
-				setTimeout(function(){jQuery('.showmessage').slideUp();},3000);
-		    },
-		  	error: function() 
-	    	{
-	    	} 	        
-	   });
-	}));
-	jQuery('.sendnewemails').click(function(){
-		var emailto=jQuery('input[name="email_to"]').val();
-		if(jQuery.trim(emailto)==''){
-			jQuery('input[name="email_to"]').addClass('error');
-			return false;
-		}
-		var email_subject=jQuery('input[name="email_subject"]').val();
-		if(jQuery.trim(email_subject)==''){
-			jQuery('input[name="email_subject"]').addClass('error');
-			return false;
-		}
-		jQuery('#emailform').submit();
-	});
-	jQuery('#task_due_date, #pu_date, #pu_date2, #pu_date3, #pu_date4').datepicker({
-			showButtonPanel: true,
-			changeMonth: true,
-      		changeYear: true,
-			dateFormat: 'yy-mm-dd'
-		});
-	jQuery("#pu_jobform").on('submit',(function(e) {
-		var url=siteurl+'/api/jobs/savepurequest';
-		e.preventDefault();
-		var pu_date=jQuery('#pu_date').val();
-		if(jQuery.trim(pu_date)==''){
-			jQuery('#pu_date').addClass('error');
-			return false;
-		}
-		jQuery.ajax({
-        	url: url,
-			type: "POST",
-			data:  jQuery("#pu_jobform").serialize(),
-			success: function(data)
-		    {	
-				
-				var newjob=gup('newjob');
-				if(newjob=='1'){
-					window.location='job.html?job_id='+job_id;
-				}
-				else{
-					loadjob(job_id);
-				}
-				jQuery("#pu_jobform")[0].reset();
-				jQuery('#myModal2').modal('hide');
-				jQuery('body .showmessage').remove();
-				var html='<div class="showmessage">PU request save successfully</div>';
-				jQuery('body').append(html);
-				setTimeout(function(){jQuery('.showmessage').slideUp();},3000);
-				
-		    },
-		  	error: function() 
-	    	{
-	    	} 	        
-	   });
-	}));
-	  jQuery('.bookpurequest').click(function(){
-	  	jQuery("#pu_jobform").submit();
-	  });
-	  jQuery("#newtask_jobform").on('submit',(function(e) {
-		var url=siteurl+'/api/jobs/savenewtask';
-		e.preventDefault();
-		var task_detail=jQuery('textarea[name="task_detail"]').val();
-		if(jQuery.trim(task_detail)==''){
-			jQuery('textarea[name="task_detail"]').addClass('error');
-			return false;
-		}
-		jQuery.ajax({
-        	url: url,
-			type: "POST",
-			data:  jQuery("#newtask_jobform").serialize(),
-			success: function(data)
-		    {	
-				loadjob(job_id);
-				jQuery("#newtask_jobform")[0].reset();
-				jQuery('#myModal10').modal('hide');
-				
-				jQuery('body .showmessage').remove();
-				var html='<div class="showmessage">Task assigned successfully</div>';
-				jQuery('body').append(html);
-				setTimeout(function(){jQuery('.showmessage').slideUp();},3000);
-				
-		    },
-		  	error: function() 
-	    	{
-	    	} 	        
-	   });
-	}));
-	  jQuery('.savenewtasks').click(function(){
-	  	jQuery("#newtask_jobform").submit();
-	  });
-	  jQuery('#myModal11 input[name="due_date"]').datepicker({
-			showButtonPanel: true,
-			changeMonth: true,
-      		changeYear: true,
-			dateFormat: 'yy-mm-dd'
-		});
-	 jQuery('#myModal11 a.updaterecord').click(function(){
-		var noerror=true;
-		jQuery('#myModal11 input.required').each(function(){
+		jQuery('#jobform textarea.required').each(function(){
 			var v=jQuery(this).val();
 			if(jQuery.trim(v)==''){
-				noerror=false;
 				jQuery(this).addClass('error');
-			}
-			else{
-				jQuery(this).removeClass('error');
+				noerror=false;
 			}
 		});
-		if(noerror){
-			var task_detail=jQuery('#myModal11 textarea[name="task_detail"]').val();
-			var due_date=jQuery('#myModal11 input[name="due_date"]').val();
-			var assigned_to=jQuery('#myModal11 select[name="assigned_to"]').val();
-			var newtask_job_id=jQuery('#myModal11 input[name="job_id"]').val();
-			var task_id=jQuery('#myModal11 input[name="task_id"]').val();
-			var url=siteurl+'/api/jobs/updatetask';
-			jQuery.ajax({  
-				type: 'POST',  
-				url: url,           
-				crossDomain: true,
-				data: {task_detail:task_detail,due_date:due_date,assigned_to:assigned_to,newtask_job_id:newtask_job_id,task_id:task_id}, 
-				beforeSend: function() {
-					
-				},		
-				complete: function() {
-				}, 
-				crossDomain: true,  
-				success: function(res) { 
-					loadjob(newtask_job_id);
-					jQuery('#myModal11').modal('hide');
-					jQuery('body .showmessage').remove();
-					var html='<div class="showmessage">Task updated successfully.</div>';
-					jQuery('body').append(html);
-					setTimeout(function(){jQuery('.showmessage').slideUp();},3000);
-				},  
-				error: function(response, d, a){
-				
-				jQuery('body .showmessage').remove();
-				var html='<div class="showmessage">Server Error.</div>';
-				jQuery('body').append(html);
-				setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
-				return false; 
-				}
-			});
-		}
-	});
-	jQuery('#myModal221 a.updatepurequest').click(function(){
-		var noerror=true;
-		jQuery('#myModal221 input.required, #myModal221 select.required').each(function(){
+		jQuery('#jobform input.required').each(function(){
 			var v=jQuery(this).val();
 			if(jQuery.trim(v)==''){
-				noerror=false;
 				jQuery(this).addClass('error');
-			}
-			else{
-				jQuery(this).removeClass('error');
+				noerror=false;
 			}
 		});
-		if(noerror){
-		
-			var duration2=jQuery('#myModal221 select[name="duration"]').val();
-			var pu_date2=jQuery('#myModal221 input[name="pu_date2"]').val();
-			var assigned_to=jQuery('#myModal221 select[name="assigned_to"]').val();
-			var pu_time2=jQuery('#myModal221 select[name="pu_time"]').val();
-			var pu_id=jQuery('#myModal221 input[name="pu_id"]').val();
-			var url=siteurl+'/api/jobs/saveeditpurequest';
-			jQuery.ajax({  
-				type: 'POST',  
-				url: url,           
-				crossDomain: true,
-				data: {duration2:duration2,pu_date2:pu_date2,assigned_to2:assigned_to,pu_time2:pu_time2,pu_id:pu_id}, 
-				beforeSend: function() {
-					
-				},		
-				complete: function() {
-				}, 
-				crossDomain: true,  
-				success: function(res) { 
-					loadjob(job_id);
-					jQuery('#myModal221').modal('hide');
-					jQuery('body .showmessage').remove();
-					var html='<div class="showmessage">PU Request updated successfully.</div>';
-					jQuery('body').append(html);
-					setTimeout(function(){jQuery('.showmessage').slideUp();},3000);
-				},  
-				error: function(response, d, a){
-				
-				jQuery('body .showmessage').remove();
-				var html='<div class="showmessage">Server Error.</div>';
-				jQuery('body').append(html);
-				setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
-				return false; 
-				}
-			});
-		}
-	});
-	jQuery('#myModal102 a.savenote').click(function(){
-		var noerror=true;
-		jQuery('#myModal102 input.required, #myModal102 textarea.required').each(function(){
-			var v=jQuery(this).val();
-			if(jQuery.trim(v)==''){
-				noerror=false;
-				jQuery(this).addClass('error');
-			}
-			else{
-				jQuery(this).removeClass('error');
-			}
+		var keys=[];
+		var radiokeys=[];
+		var types=[];
+		var vs=[];
+		jQuery('#jobform textarea').each(function(){
+			var value=jQuery(this).val();
+			var key=jQuery(this).attr('name');
+			keys.push(key); 
+			vs.push(value);
+			types.push('textarea');
 		});
-		if(noerror){
+		jQuery('#jobform input[type="text"]').each(function(){
+			var value=jQuery(this).val();
+			var key=jQuery(this).attr('name');
+			keys.push(key); 
+			vs.push(value);
+			types.push('text');
+		});
+		jQuery('#jobform input[type="number"]').each(function(){
+			var value=jQuery(this).val();
+			var key=jQuery(this).attr('name');
+			keys.push(key); 
+			vs.push(value);
+			types.push('number');
+		});
+		var arr=[];
+		jQuery.each( $('#jobform input:radio'), function(){
+		  var myname= this.name;
+		  if( jQuery.inArray( myname, arr ) < 0 ){
+			arr.push(myname);
+		  }
+		});
+		for(k=0;k<arr.length;k++){
+			var key=arr[k];
+			var v=jQuery('input[name="'+key+'"]:checked').val();
+			types.push('radio');
+			keys.push(key); 
+			if(typeof v=='undefined'){v='';}
+			vs.push(v);
+		}
+		var arr=[];
+		jQuery.each( $('#jobform input:checkbox'), function(){
+		  var myname= this.name;
+		  if( jQuery.inArray( myname, arr ) < 0 ){
+		  	arr.push(myname);
+		  }
+		});
+		for(k=0;k<arr.length;k++){
+			var key=arr[k];
+			var v=jQuery('input[name="'+key+'"]:checked').val();
+			types.push('radio');
+			keys.push(key); 
+			if(typeof v=='undefined'){v='';}
+			vs.push(v);
+		}
 		
-			var note_detail=jQuery('#myModal102 input[name="note_detail"]').val();
-			var url=siteurl+'/api/jobs/addnotes';
-			jQuery.ajax({  
-				type: 'POST',  
-				url: url,           
-				crossDomain: true,
-				data: {note:note_detail,job_id:job_id,add_by:uid}, 
-				beforeSend: function() {
-					
-				},		
-				complete: function() {
-				}, 
-				crossDomain: true,  
-				success: function(res) { 
-					loadjob(job_id);
-					jQuery('#myModal102').modal('hide');
-					jQuery('body .showmessage').remove();
-					var html='<div class="showmessage">Note added successfully.</div>';
-					jQuery('body').append(html);
-					setTimeout(function(){jQuery('.showmessage').slideUp();},3000);
-				},  
-				error: function(response, d, a){
-				
-				jQuery('body .showmessage').remove();
-				var html='<div class="showmessage">Server Error.</div>';
-				jQuery('body').append(html);
-				setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
-				return false; 
+		var form_id=jQuery('#form_id').val();
+		var currentdatetime=getdatetime();
+		var currentdatetime=getdatetime();
+		if(noerror){
+			db.transaction(addnewnotes, errorDB, successDB);
+			function addnewnotes(tx){
+				for(i=0;i<keys.length;i++){
+					var qry="UPDATE job_form_values set field_value='"+vs[i]+"' WHERE form_id='"+form_id+"' AND field_key='"+keys[i]+"'";
+					tx.executeSql(qry);
 				}
-			});
+				var qry="UPDATE job_forms set udate='"+currentdatetime+"' WHERE id='"+form_id+"'";
+				tx.executeSql(qry);
+				window.location='';	
+			}
+			
 		}
 	});
-	
-	
 });
 
 </script>

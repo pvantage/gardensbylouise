@@ -53,14 +53,18 @@
 				 	
 					if(res['success'])
 					{
-						var let=localStorage.getItem('Staff_Lat');
-						var longi=localStorage.getItem('Staff_Long');
-						localStorage.clear();
-						if(typeof let!='undefined' && let!=null && let!=''){
-							localStorage.setItem('Staff_Lat',let);
-							localStorage.setItem('Staff_Long',longi);
+						db.transaction(logoutuser, errorDB, successDB);
+						function logoutuser(tx){
+							tx.executeSql("UPDATE userlogin set loggedin='0' WHERE loggedin='1'");
+							var let=localStorage.getItem('Staff_Lat');
+							var longi=localStorage.getItem('Staff_Long');
+							localStorage.clear();
+							if(typeof let!='undefined' && let!=null && let!=''){
+								localStorage.setItem('Staff_Lat',let);
+								localStorage.setItem('Staff_Long',longi);
+							}
+							window.location ='login.html';
 						}
-						window.location ='login.html';
 					
 					}
 					else

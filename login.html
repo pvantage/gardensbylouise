@@ -16,7 +16,7 @@
   <div class="row">
     <div class="col-md-12 full-height center">
       <div class="loginbox">
-        <div class="form-logo"> <img src="images/login-logo.png"/></div>
+        <div class="form-logo"> <img src="images/desk-logo.png"/></div>
         <form id="loginuser" action="" method="post">
           <div class="login-box"> <img src="images/em.png"/>
             <input type="email" id="email" name="email" required="" class="email required" placeholder="Email Address"/>
@@ -89,13 +89,40 @@ jQuery(document).ready(function(){
 				if(res['checklogin']['udetail'])
 				{
 					localStorage.setItem('Staff_ID', res['checklogin']['udetail']['userid']);
-					localStorage.setItem('Staff_email', res['checklogin']['udetail']['email']);
-					localStorage.setItem('Staff_phone', res['checklogin']['udetail']['phone']);
-					localStorage.setItem('Staff_fname', res['checklogin']['udetail']['fname']);
-					localStorage.setItem('Staff_lname', res['checklogin']['udetail']['lname']);
-					localStorage.setItem('Staff_photo', res['checklogin']['udetail']['photo']);
-					localStorage.setItem('Staff_user_type', res['checklogin']['udetail']['user_type']);
-					window.location ='my-schedule.html';
+					db.transaction(loginguser, errorDB, successDB);
+					function loginguser(tx){
+						var q="SELECT * FROM userlogin WHERE user_id=?";
+						var user_id=res['checklogin']['udetail']['userid'];
+						var fname=res['checklogin']['udetail']['fname'];
+						var lname=res['checklogin']['udetail']['lname'];
+						var user_type=res['checklogin']['udetail']['user_type'];
+						var cond=[user_id];
+						var cdate=getdatetime();
+						tx.executeSql(q, cond, function(tx, res){
+							if(parseInt(res.rows.length)>0){
+								tx.executeSql("UPDATE userlogin set lastlogin_time='"+cdate+"', loggedin='1', fname='"+fname+"', lname='"+lname+"', user_type='"+user_type+"', user_id='"+user_id+"' WHERE id='"+res.rows.item(0).id+"'");
+							}
+							else{
+								tx.executeSql('INSERT INTO userlogin (user_id, lastlogin_time, loggedin,fname,lname,user_type) VALUES ("'+user_id+'", "'+cdate+'", "1", "'+fname+'", "'+lname+'", "'+user_type+'")');
+								window.location ='loading.html';
+							}
+						});
+					}
+					db.transaction(showlistjobs, errorDB, successDB);
+					function showlistjobs(tx){
+						var q="SELECT * FROM job_daytimes WHERE start_date=? AND end_time=?";
+						var cond=[today,'00:00:00'];
+						tx.executeSql(q, cond, function(tx, res){
+							if(parseInt(res.rows.length)>0){
+								window.location ='startday.html?job_id='+res.rows.item(0).job_id;
+							}
+							else{
+								window.location ='loading.html';
+							}
+						});
+						
+					}
+					
 				
 				}else if(res['checklogin']['error']){				
 					jQuery('body .showmessage').remove();

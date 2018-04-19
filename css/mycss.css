@@ -39,3 +39,7 @@ ul.current {display:block;}
 .loadmore3, .loadmore4, .loadmore3:active, .loadmore4:active{width:100%; display:block; background:#29a03f; color:#FFFFFF; border:1px solid #FFFFFF; text-align:center; padding:2px;}
 .login-box{text-align:center;}
 .showmessage.forgotpwd{width:350px;}
+
+.popupformats {
+    overflow: auto !important;
+}

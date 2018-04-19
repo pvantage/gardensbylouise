@@ -23,22 +23,41 @@
 <script src="js/jquery-3.2.1.min.js" ></script>
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	<script type="text/javascript" src="js/config.js"></script>
+	<script type="text/javascript" src="js/database.js"></script>
 	<script type="text/javascript">
 	jQuery(document).ready(function(){
 		jQuery('.logobox img').css({'min-height':jQuery(window).height()+'px'});
 	});
+	db.transaction(checkloginuser, errorDB, successDB);
+	function checkloginuser(tx){
+		var q="SELECT * FROM userlogin WHERE loggedin=?";
+		var cond=[1];
+		tx.executeSql(q, cond, function(tx, res){
+			if(parseInt(res.rows.length)>0){
+				var user_id=res.rows.item(0).user_id;
+				localStorage.setItem('Staff_ID',user_id);
+				db.transaction(showlistjobs, errorDB, successDB);
+					function showlistjobs(tx){
+						var q="SELECT * FROM job_daytimes WHERE start_date=?";
+						var cond=[today];
+						tx.executeSql(q, cond, function(tx, res2){
+							if(parseInt(res2.rows.length)>0){
+								window.location ='job.html?job_id='+res2.rows.item(0).job_id;
+							}
+							else{
+								window.location ='startday.html';
+							}
+						});
+						
+					}
+			}
+			else{
+				window.location='login.html';
+			}
+			
+		});
+	}
 	
-	var uid=localStorage.getItem('Staff_ID');
-		
-	if(typeof uid!='undefine' && uid!='' && uid!=null){
-		checkloggedin(uid);
-	}
-	else
-	{
-		setTimeout(function(){
-			window.location='login.html';
-		},1000);
-	}
 		
 	</script>
 </body>
