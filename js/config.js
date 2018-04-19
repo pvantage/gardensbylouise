@@ -226,7 +226,7 @@ if(typeof uid!='undefine' && uid!='' && uid!=null){
 	var path = window.location.pathname;
 	var page = path.split("/").pop();
 	if(page=='my-schedule.html'){
-		getLocation();
+		//getLocation();
 	}
 }
 function ValidateEmail(inputText)  
