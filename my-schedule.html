@@ -99,90 +99,6 @@
   </div>
 </div>
 
-
-
-<div id="myModal5" class="modal fade bottom-popup" role="dialog">
-  <div class="modal-dialog"> 
-    
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="pop-cnt">
-          <div class="pop-btm-cnt">
-            <ul>
-              <li><a href="javascript:;" class="addnewjob">New Job</a></li>
-            </ul>
-          </div>
-          <div class="pop-btm-cnt pop-cancel">
-            <ul>
-              <li> <a data-dismiss="modal">Cancel</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="myModal6" class="modal fade popupformats" role="dialog">
-  <div class="modal-dialog"> 
-    
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="pop-head">
-          <div class="row">
-            <button type="button" class="close col-2 donbtn" data-dismiss="modal">Cancel</button>
-            <div class="col-7 pop-title job-title"></div>
-            <div class="col-3 pop-hd-right bkbtn"><a href="javascript:;" class="savejob">Save</a></div>
-          </div>
-        </div>
-        <div class="pop-cnt">
-          <div class="new-job">
-		  	<div class="errormsg"></div>
-		  	<form id="editform" name="editform" action="" method="post">
-			<input type="hidden" id="recid" name="recid" value="" />
-			<input type="hidden" id="customer_id" name="customer_id" value="" />
-			<input type="hidden" id="old_status" name="old_status" value="Unassigned" />
-			<input type="hidden" name="add_by" value="" />
-            <div class="form-box">
-              <label>CLIENT NAME</label>
-			  <div style="position:relative;">
-			  	<input type="text" name="customer_full_name" id="customer_full_name" placeholder="Enter Client Name" /><div class="suggestion_box"></div>
-			  </div>
-            </div>
-            <div class="form-box">
-              <label>ADDRESS</label>
-              <input type="text" name="address" id="address" placeholder="Enter Address">
-            </div>
-            <div class="form-box">
-              <label>CONTACT DETAILS</label>
-              <div class="multiinput">
-                <input type="text" placeholder="Contact First Name" id="contact_fname" name="contact_fname">
-				<input type="text" placeholder="Contact Last Name" id="contact_lname" name="contact_lname">
-                <input type="email" placeholder="Email" id="contact_email" name="contact_email">
-                <input type="number" placeholder="Phone" id="contact_phone" name="contact_phone">
-                <input type="number" placeholder="Mobile" id="contact_mobile" name="contact_mobile">
-              </div>
-            </div>
-            <div class="form-box">
-              <label>ITEMS FOR PICKUP</label>
-              <textarea placeholder="Enter Detail" rows="3" cols="40" name="description" id="description"></textarea>
-            </div>
-			</form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
 <script src="js/jquery-3.2.1.min.js" ></script> 
 
 <script src="js/jquery-ui.min.js" ></script>
@@ -286,7 +202,7 @@ jQuery(document).ready(function(){
 	});
 	var contentType ="application/x-www-form-urlencoded; charset=utf-8";
     if(window.XDomainRequest){contentType = "text/plain";}
-	var uid=localStorage.getItem('Staff_ID');
+	var uid=localStorage.getItem('StaffMem_ID');
 	if(typeof uid=='undefined' || uid=='' || uid==null){
 		checkloggedin();
 	}
@@ -300,7 +216,6 @@ jQuery(document).ready(function(){
 	});
 	
 	
-	localStorage.setItem('gotopage', 'my-schedule.html');
 	
 });
 

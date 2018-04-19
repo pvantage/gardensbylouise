@@ -72,9 +72,9 @@ function users_menus()
 	return menu;
 }
 
-var uid=localStorage.getItem('Staff_ID');
+var uid=localStorage.getItem('StaffMem_ID');
 function shownotificationpopup(){
-	var uid=localStorage.getItem('Staff_ID');
+	var uid=localStorage.getItem('StaffMem_ID');
 	var url=siteurl+'/api/jobs/notificationpopup';
 	jQuery.ajax({ 
 	 type: 'POST',  
@@ -128,7 +128,7 @@ function checkloggedin()
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)>0){
 				var user_id=res.rows.item(0).user_id;
-				localStorage.setItem('Staff_ID',user_id);
+				localStorage.setItem('StaffMem_ID',user_id);
 				window.location='';
 			}
 			else{
@@ -157,7 +157,7 @@ function showPosition(position) {
 	localStorage.setItem('Staff_Lat',position.coords.latitude);
 	localStorage.setItem('Staff_Long',position.coords.longitude);
 	codeLatLng(position.coords.latitude, position.coords.longitude);
-	var uid=localStorage.getItem('Staff_ID');
+	var uid=localStorage.getItem('StaffMem_ID');
 	
 	//alert(uid);
 	if(typeof uid!='undefine' && uid!='' && uid!=null && (position.coords.latitude!='' || position.coords.longitude!='')){
@@ -220,7 +220,7 @@ function showPosition(position) {
 		});		
 		
 	};*/
-var uid=localStorage.getItem('Staff_ID');
+var uid=localStorage.getItem('StaffMem_ID');
 		
 if(typeof uid!='undefine' && uid!='' && uid!=null){
 	var path = window.location.pathname;
@@ -259,7 +259,7 @@ document.addEventListener("online", checkfornewupdates, false);
 document.addEventListener("online", updategardenerdata, false);
 function updategardenerdata(){
 	
-	var uid=localStorage.getItem('Staff_ID');
+	var uid=localStorage.getItem('StaffMem_ID');
 	if(typeof uid!='undefine' && uid!='' && uid!=null){
 		db.transaction(checkupdateforjobs, errorDB, successDB);
 		function checkupdateforjobs(tx){
@@ -516,7 +516,7 @@ function updatejobdata1(res){
 }
 function checkfornewupdates(){
 	
-	var uid=localStorage.getItem('Staff_ID');
+	var uid=localStorage.getItem('StaffMem_ID');
 	if(typeof uid!='undefine' && uid!='' && uid!=null){
 			
 		var url=siteurl+'/api/jobs/myassignedjobs';

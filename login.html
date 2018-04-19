@@ -88,7 +88,7 @@ jQuery(document).ready(function(){
 			 success: function(res) { 
 				if(res['checklogin']['udetail'])
 				{
-					localStorage.setItem('Staff_ID', res['checklogin']['udetail']['userid']);
+					localStorage.setItem('StaffMem_ID', res['checklogin']['udetail']['userid']);
 					db.transaction(loginguser, errorDB, successDB);
 					function loginguser(tx){
 						var q="SELECT * FROM userlogin WHERE user_id=?";

@@ -302,7 +302,7 @@ jQuery(document).ready(function(){
 	jQuery.support.cors = true;
 	var job_id=gup('job_id');
 	jQuery('.job-title').html('JOB#'+job_id);
-	var uid=localStorage.getItem('Staff_ID');
+	var uid=localStorage.getItem('StaffMem_ID');
 	if(typeof uid=='undefined' || uid=='' || uid==null){
 		checkloggedin();
 	}
