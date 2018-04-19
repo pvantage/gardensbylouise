@@ -4,6 +4,134 @@ body {
 	font-size: 14px;
 }
 
+body .header-top {
+    padding-top: 0px;
+}
+
+body .timerbx {
+    padding: 8px 12px !important;
+    text-align: center;
+}
+ul.starttodayjob_times {
+    padding: 0;
+    list-style: none;
+}
+ul.starttodayjob_times label {
+    width: 58%;
+    text-align: left;
+}
+ul.starttodayjob_times li {
+    font-size: 23px;
+    font-weight: 600;
+}
+ul.starttodayjob_times .glck {
+    color: #ed2024;
+
+}
+.timerbx h1.myschle {
+    font-size: 28px;
+    font-weight: 900;
+}
+ul.starttodayjob_times li span {
+    font-weight: 900;
+    font-size: 24px;
+}
+
+.timerbx .str-job {
+    font-size: 26px;
+    width: 92%;
+    border-radius: 7px;
+    padding: 6px 0px;
+    border: 2px solid #0c8222;
+    float: none;
+    display: inline-block;
+}
+.nf-box-btn {
+    border: 2px solid #0c8222;
+    font-size: 24px;
+    color: #fff;
+    padding: 4px;
+
+}
+body .mysch-fix-hdr{ background:#231f20;     margin: 0;}
+.timerbx .startjob_status_text {
+    color: #ed2024;
+    font-size: 27px;
+    font-weight: 600;
+    padding: 10px 0px;
+    background: none;
+}
+.job-notes p {
+    font-size: 15px;
+    text-align: left;
+    font-weight: 500;
+    color: #000;
+}
+.timesheetpage .tab-pane {
+    padding: 10px;
+    float: left;
+}
+.timesheetpage .form-inline input {
+    width: 45%;
+    background: #eeeeee;
+    border: 1px solid #c8c8c8;
+    border-radius: 0;
+    font-size: 15px;
+    padding-left: 6px;
+    padding-right: 0;
+}
+.timesheetpage .form-inline span {
+    width: 9%;
+    text-align: center;
+}
+.timesheetpage button.btn.search_sheet_btn {
+    background: #28a03f;
+    color: #fff;
+    border-radius: 0px;
+    margin-top: 13px;
+    padding: 4px 20px;
+}
+.timesheetpage .row.align-items-center {
+    float: left;
+    width: 100%;
+	    padding: 5px 0px;
+}
+
+.timesheetpage .showsheetoverview table {
+    width: 100%;
+}
+.timesheetpage a.sheettoday {
+    font-size: 18px;
+    color: #28a03f;
+    text-decoration: underline;
+    font-weight: normal;
+}
+
+.timesheetpage .showsheetoverview table td {
+    color: #000;
+    font-size: 15px;
+    text-align: right;
+    font-weight: 900;
+    font-style: italic;
+}
+.timesheetpage .col-5.schedule-time {
+color: #00500f;
+    font-size: 14px;
+    padding-right: 0px;
+}
+.timesheetpage .showsheetoverview table td span {
+    color: #00500f;
+    font-weight: normal;
+}
+.timesheetpage .showsheetoverview table td a.sheettoday {
+    float: left;
+}
+.timesheetpage .schedule-hashtag {
+    color: #000;
+
+}
+
+
 
 .cal-allcnt {
     margin-top: 37px;
