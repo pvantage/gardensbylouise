@@ -536,7 +536,7 @@ function checkfornewupdates(){
 			error: function(response, d, a){
 			
 			jQuery('body .showmessage').remove();
-			var html='<div class="showmessage">Server Error.</div>';
+			var html='<div class="showmessage">Server Error1.</div>';
 			jQuery('body').append(html);
 			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
 			return false; 
@@ -560,7 +560,7 @@ function checkfornewupdates(){
 			error: function(response, d, a){
 			
 			jQuery('body .showmessage').remove();
-			var html='<div class="showmessage">Server Error.</div>';
+			var html='<div class="showmessage">Server Error2.</div>';
 			jQuery('body').append(html);
 			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
 			return false; 
@@ -596,7 +596,7 @@ function checkfornewupdates(){
 							error: function(response, d, a){
 							
 							jQuery('body .showmessage').remove();
-							var html='<div class="showmessage">Server Error.</div>';
+							var html='<div class="showmessage">Server Error3</div>';
 							jQuery('body').append(html);
 							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
 							return false; 
@@ -623,7 +623,7 @@ function checkfornewupdates(){
 			error: function(response, d, a){
 			
 			jQuery('body .showmessage').remove();
-			var html='<div class="showmessage">Server Error2.</div>';
+			var html='<div class="showmessage">Server Error4.</div>';
 			jQuery('body').append(html);
 			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
 			return false; 
