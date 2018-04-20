@@ -268,9 +268,10 @@ var counter2='';
 function gettimediff(time1,time2){
 	var date1 = new Date(time1);
 	var date2 = new Date(time2);
-	alert(time1+'='+time2);
-	
-	alert(date1+'='+date2);
+	var date3 = new Date();
+	var match1 = /(\d+)\/(\d+)\/(\d+)/.exec(time1)
+	var start_date = new Date(match1[3], match1[2], match1[1]);
+	alert(date1+'='+date2+'='+date3+'='+start_date);
 	var diff = date2.getTime() - date1.getTime();
 	alert(diff);
 	var msec = parseInt(diff);
