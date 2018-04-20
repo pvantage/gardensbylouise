@@ -255,16 +255,9 @@ function dateformat(date){
 	return yyyy+'-'+mm+'-'+dd;
 }
 
-//document.addEventListener("online", checkfornewupdates, false);
-//document.addEventListener("online", updategardenerdata, false);
-document.addEventListener("online", checkonline, false);
-function checkonline(){
-	alert('online');	
-}
-document.addEventListener("offline", checkoffline, false);
-function checkoffline(){
-	alert('offline');	
-}
+document.addEventListener("online", checkfornewupdates, false);
+document.addEventListener("online", updategardenerdata, false);
+
 
 function updategardenerdata(){
 	//var networkState = navigator.connection.type;
@@ -483,7 +476,7 @@ function updategardenerdata(){
 		}
 	}
 }
-updategardenerdata();
+//updategardenerdata();
 function updatejobdata5(res){
 	var form_id=res['form_id'];
 	if(form_id!='0'){
@@ -643,7 +636,7 @@ function checkfornewupdates(){
 		setTimeout(checkfornewupdates,30000);
 	}
 }
-checkfornewupdates();
+//checkfornewupdates();
 function Updatejob_timesheets(res){
      db.transaction(function(tx){
 		if(res['data'])
