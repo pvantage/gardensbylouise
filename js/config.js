@@ -473,7 +473,7 @@ function updategardenerdata(){
 		}
 	}
 }
-updategardenerdata();
+//updategardenerdata();
 function updatejobdata5(res){
 	var form_id=res['form_id'];
 	if(form_id!='0'){
@@ -714,7 +714,7 @@ function Updateremovejobdata(res){
 						 
 		},  errorDB, successDB);
 }
-checkfornewupdates();
+//checkfornewupdates();
 function errorDB(tx, err) {
 	alert("Error processing SQL: "+err);
 	alert("Error processing SQL: "+err.code);
