@@ -31,7 +31,7 @@
     <div class="form-inline">
 		<input class="form-control" name="date_from" id="date_from" placeholder="Select Date From" type="text" /><span>to</span>
 		<input class="form-control" name="date_to" id="date_to" placeholder="Select Date To" type="text" />
-		<button type="button" class="btn search_sheet_btn">SEARCH</button>
+		<button type="button" class="btn search_sheet_btn">Search</button>
 	</div>
 	<div class="showsheetoverview">
 		<table cellpadding="5" cellspacing="0" border="0">
@@ -106,7 +106,7 @@ function listschedules(){
 		tx.executeSql(q, cond, function(tx, res){
 			html='';
 			if(parseInt(res.rows.length)>0){
-				html+='<div class="schedule-day"><div class="row"><div class="col-5">'+showdate+'</div><div class="col text-right"></div></div></div><div class="clear-fix"></div>';
+				html+='<div class="schedule-day"><div class="row"><div class="col-12 dtstn">'+showdate+'</div></div></div><div class="clear-fix"></div>';
 				var totalmileage=0;
 				var totalprice=0;
 				for(var i = 0; i < res.rows.length; i++)
@@ -117,20 +117,20 @@ function listschedules(){
 					}
 					if(i==0 || (i>0 && res.rows.item(i-1).job_id!=res.rows.item(i).job_id))
 					{
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Name</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).customer_name+'</div></div>';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Address</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).address+'</div></div>';
+						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Name:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).customer_name+'</div></div>';
+						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Address:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).address+'</div></div>';
 					}
 					if(res.rows.item(i).time_type=='startjob'){
 						
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time Worked</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).work_time+'</div></div>';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Reimburse</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).reimburse+'</div></div>';
+						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
+						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time Worked:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).work_time+'</div></div>';
+						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Reimburse:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).reimburse+'</div></div>';
 						totalmileage=parseFloat(totalmileage)+parseFloat(res.rows.item(i).mileage);
 						totalprice=parseFloat(totalprice)+parseFloat(res.rows.item(i).reimburse);
 					}
 					else if(res.rows.item(i).time_type=='lunch'){
 						
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Lunch</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
+						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Lunch:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
 					}
 					
 					

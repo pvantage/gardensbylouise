@@ -98,6 +98,8 @@ jQuery(document).ready(function(){
 						var user_type=res['checklogin']['udetail']['user_type'];
 						var cond=[user_id];
 						var cdate=getdatetime();
+						var qd="DELETE FROM userlogin";
+						tx.executeSql(qd);
 						tx.executeSql(q, cond, function(tx, res){
 							if(parseInt(res.rows.length)>0){
 								tx.executeSql("UPDATE userlogin set lastlogin_time='"+cdate+"', loggedin='1', fname='"+fname+"', lname='"+lname+"', user_type='"+user_type+"', user_id='"+user_id+"' WHERE id='"+res.rows.item(0).id+"'");

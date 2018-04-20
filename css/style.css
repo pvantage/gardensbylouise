@@ -56,8 +56,7 @@ ul.starttodayjob_times li span {
 body .mysch-fix-hdr{ background:#231f20;     margin: 0;}
 .timerbx .startjob_status_text {
     color: #ed2024;
-    font-size: 27px;
-    font-weight: 600;
+    font-size: 20px;
     padding: 10px 0px;
     background: none;
 }
