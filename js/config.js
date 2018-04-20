@@ -258,7 +258,8 @@ function dateformat(date){
 document.addEventListener("online", checkfornewupdates, false);
 document.addEventListener("online", updategardenerdata, false);
 function updategardenerdata(){
-	
+	var networkState = navigator.connection.type;
+	alert('Connection type: ' + networkState);
 	var uid=localStorage.getItem('StaffMem_ID');
 	if(typeof uid!='undefine' && uid!='' && uid!=null){
 		db.transaction(checkupdateforjobs, errorDB, successDB);
