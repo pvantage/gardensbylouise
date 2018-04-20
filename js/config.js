@@ -21,7 +21,7 @@ function getcurrenttime(){
 	if(parseInt(h)<10){h='0'+h;}
 	var sec=d.getSeconds();
 	if(parseInt(sec)<10){sec='0'+sec;}
-	return parseInt(h)+':'+parseInt(mint)+':'+parseInt(sec);
+	return h+':'+mint+':'+sec;
 }
 var currenttime=getcurrenttime();
 function getdatetime(){

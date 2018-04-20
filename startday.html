@@ -598,7 +598,6 @@ jQuery(document).ready(function(){
 					tx.executeSql(q2, cond2, function(tx, res2){
 						if(parseInt(res2.rows.length)>0){
 							var uq="UPDATE job_times set end_time='"+currenttime+"' WHERE pu_date='"+today+"' AND assigned_to='"+uid+"' AND job_id='"+job_id+"' AND time_type='startjob' AND end_time='00:00:00'";
-							alert(uq);
 							tx.executeSql(uq);
 						}
 						
@@ -817,7 +816,6 @@ jQuery(document).ready(function(){
 				var qry="UPDATE jobs set status='Completed', real_end_time='"+endtime+"' WHERE job_id='"+job_id+"' AND  user_id='"+uid+"'";
 				tx.executeSql(qry);
 				var uq="UPDATE job_times set end_time='"+endtime+"' WHERE pu_date='"+today+"' AND assigned_to='"+uid+"' AND job_id='"+job_id+"' AND time_type='startjob' AND end_time='00:00:00'";
-				alert(uq);
 				tx.executeSql(uq);
 				tx.executeSql('INSERT INTO job_notifications (job_id, job_notification_id, title, message, add_by, cdate, nfrom, user_id) VALUES ("'+job_id+'", "0", "Form", "", "'+uid+'", "'+currentdatetime+'", "app", "'+uid+'")');
 				var q="SELECT * FROM userlogin WHERE user_id=?";
