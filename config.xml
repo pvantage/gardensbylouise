@@ -25,7 +25,7 @@
 	<plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
 	<plugin name="cordova.plugins.diagnostic" source="npm" />
 	<plugin name="cordova-plugin-dialogs" source="npm" />-->
-	<plugin name="cordova-plugin-network-information-with-connection-update" source="npm" />
+	<plugin name="cordova-plugin-network-information" source="npm" />
 	<platform name="android">
 	  <resource-file src="google-services.json" target="google-services.json" />
 	</platform>
