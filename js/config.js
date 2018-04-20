@@ -256,7 +256,7 @@ function dateformat(date){
 }
 
 document.addEventListener("online", checkfornewupdates, false);
-document.addEventListener("online", updategardenerdata, false);
+//document.addEventListener("online", updategardenerdata, false);
 function updategardenerdata(){
 	var networkState = navigator.connection.type;
 	alert('Connection type: ' + networkState);
@@ -474,7 +474,7 @@ function updategardenerdata(){
 		}
 	}
 }
-//updategardenerdata();
+updategardenerdata();
 function updatejobdata5(res){
 	var form_id=res['form_id'];
 	if(form_id!='0'){
