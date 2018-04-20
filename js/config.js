@@ -381,7 +381,40 @@ function updategardenerdata(){
 					}
 				}
 			});
-			
+			var q="SELECT * FROM job_times WHERE assigned_to=? AND site_job_time_id!=? AND end_time!=? AND updatedendtime=?";
+			var cond=[uid,'0','00:00:00','0'];
+			tx.executeSql(q, cond, function(tx, res){
+				if(parseInt(res.rows.length)>0){
+					for(var i = 0; i < res.rows.length; i++)
+					{
+						var id=res.rows.item(i).id;
+						var end_time=res.rows.item(i).end_time;
+						var site_job_time_id=res.rows.item(i).site_job_time_id;
+						var url=siteurl+'/api/jobs/updatejob_timeendtimes';
+						jQuery.ajax({  
+						 type: 'POST',  
+						 url: url,  
+						 dataType: 'json',
+						 data: {id:id, end_time:end_time,site_job_time_id:site_job_time_id},  
+						 crossDomain: true,  
+						 beforeSend: function() {
+										
+						 },		
+						 complete: function() {
+									
+						 },
+						 success: updatejobdata31,  
+						 error: function(response, d, a){
+							jQuery('body .showmessage').remove();
+							var html='<div class="showmessage">Server Error in update data3.</div>';
+							jQuery('body').append(html);
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+							
+						 } 
+					   });
+					}
+				}
+			});
 			var q="SELECT * FROM job_schedule WHERE user_id=? AND updateonsite=?";
 			var cond=[uid,'0'];
 			tx.executeSql(q, cond, function(tx, res){
@@ -495,9 +528,18 @@ function updatejobdata4(res){
 }
 function updatejobdata3(res){
 	var id=res['id'];
+	var site_job_time_id=res['site_job_time_id'];
+	if(id!='0' && site_job_time_id!='0'){
+		db.transaction(function(tx){
+			tx.executeSql("UPDATE job_times SET updateonsite='1', site_job_time_id='"+site_job_time_id+"' WHERE id='"+id+"'");
+		});
+	}
+}
+function updatejobdata31(res){
+	var id=res['id'];
 	if(id!='0'){
 		db.transaction(function(tx){
-			tx.executeSql("UPDATE job_times SET updateonsite='1' WHERE id='"+id+"'");
+			tx.executeSql("UPDATE job_times SET updatedendtime='1' WHERE id='"+id+"'");
 		});
 	}
 }
