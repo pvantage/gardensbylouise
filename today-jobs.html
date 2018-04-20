@@ -121,16 +121,16 @@ function listschedules(){
 				for(var iii = 0; iii < res.rows.length; iii++)
 				{
 					if(res.rows.item(iii).status=='Assigned'){
-						html+='<div class="schedule-detail assigned-status"> <a href="startday.html?job_id='+res.rows.item(iii).job_id+'"><span class="schedule-circle"></span>';
+						html+='<div class="schedule-detail assigned-status"> <a href="startday.html?job_id='+res.rows.item(iii).job_id+'"><span class="schedule-circle circle_assigned"></span>';
 					}
 					else if(res.rows.item(iii).status=='Unassigned'){
-						html+='<div class="schedule-detail assigned-status"> <a href="startday.html?job_id='+res.rows.item(iii).job_id+'"><span class="schedule-circle"></span>';
+						html+='<div class="schedule-detail assigned-status"> <a href="startday.html?job_id='+res.rows.item(iii).job_id+'"><span class="schedule-circle circle_assigned"></span>';
 					}
 					else if(res.rows.item(iii).status=='Being Processed'){
 						html+='<div class="schedule-detail processing-status"> <a href="startday.html?job_id='+res.rows.item(iii).job_id+'"><span class="schedule-circle"></span>';
 					}
 					else if(res.rows.item(iii).status=='Completed'){
-						html+='<div class="schedule-detail completed-status"> <a href="startday.html?job_id='+res.rows.item(iii).job_id+'"><span class="schedule-circle"></span>';
+						html+='<div class="schedule-detail completed-status"> <a href="startday.html?job_id='+res.rows.item(iii).job_id+'"><span class="schedule-circle circle_completed"></span>';
 					}
 					html+='<div class="row align-items-center"><div class="col-9 schedule-time">'+times[res.rows.item(iii).start_time]+'</div><div class="col-3 schedule-hashtag">#'+res.rows.item(iii).job_id+'</div></div><div class="schedule-address"><h3>'+res.rows.item(iii).contact_fname+' '+res.rows.item(iii).contact_lname+'</h3><div class="sch-adr">'+res.rows.item(iii).address+'</div><span class="grey-color">'+res.rows.item(iii).description+'</span></div></a> </div>';
 				}

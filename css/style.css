@@ -505,6 +505,12 @@ input.sch-srch {
 	left: 10px;
 	top: 10px;
 }
+.schedule-circle.circle_completed {
+background-color: #3cbc3c;
+}
+.schedule-circle.circle_assigned {
+background-color: #f79e34;
+}
 .schedule-circle {
 	width: 10px;
 	height: 10px;

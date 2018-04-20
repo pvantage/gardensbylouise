@@ -32,7 +32,7 @@
    
 	<div class="start_list">
 	<ul class="starttodayjob_times">
-		<li class="glck"><label>General Clock:</label><span class="general_clock_time" data-real-time=""></span></li>
+		<li><label>General Clock:</label><span class="general_clock_time" data-real-time=""></span></li>
 		<li><label>Job Clock:</label><span class="job_clock_time" data-real-time=""></span></li>
 	</ul>
 	<button class="str-job starttodayjob"></button>
@@ -135,7 +135,7 @@
 			<textarea name="notemsg" id="notemsg" rows="3" cols="50" class="required forminput"></textarea>
           </div>
           <div class="nf-box">
-           <button class="nf-box-btn savenewnote" type="button">Done</button>
+           <button class="nf-box-btn savenewnote" type="button">Save</button>
           </div>
           
 		  </form>
@@ -375,7 +375,17 @@ function loadjob(job_id){
 								var html='<button type="button" class="nf-box-btn" data-toggle="modal" data-target="#addnewnotes">Add Note</button><h2></h2>';
 								for(var i = 0; i < res2.rows.length; i++)
 								{
-									html+='<div class="job-notes"><p>'+res2.rows.item(i).add_by+' '+res2.rows.item(i).cdate+': '+res2.rows.item(i).message+'</p></div>';
+									var daytim=res2.rows.item(i).cdate;
+									var daytims=daytim.split(' ');
+									//alert(daytims);
+									var dts=daytims[0].split('-');
+									var tms=daytims[1].split(':');
+									var sd=dts[1]+'/'+dts[2]+'/'+dts[0];
+									var st=tms[0]+':'+tms[1]+' AM';
+									if(parseInt(tms[0])>11){
+										st=tms[0]+':'+tms[1]+' PM';
+									}
+									html+='<div class="job-notes"><p>'+res2.rows.item(i).add_by+', '+sd+', '+st+': '+res2.rows.item(i).message+'</p></div>';
 								}
 								jQuery('.previous_notes').html(html);
 							}
@@ -391,6 +401,8 @@ function loadjob(job_id){
 						}
 						clearInterval(counter2);
 						counter2=setInterval(jobtimer, 1000);
+						jQuery('.job_clock_time').parents('li').addClass('clock_active');
+						jQuery('.general_clock_time').parents('li').addClass('glck');
 						
 					}
 					
@@ -430,6 +442,7 @@ jQuery(document).ready(function(){
 	var generaltime=localStorage.getItem('general_'+today);
 	if(typeof generaltime!='undefined' && generaltime!='' && generaltime!=null){
 		if(generaltime!='00:00:00'){
+			jQuery('.general_clock_time').parents('li').addClass('glck');
 			jQuery('.starttodayjob').text('Change Timer State');
 			var startjob_status_text=localStorage.getItem('startjob_status_text');
 			jQuery('.startjob_status_text').html(startjob_status_text);
@@ -463,6 +476,9 @@ jQuery(document).ready(function(){
 		else{
 			jQuery('.starttodayjob').text('Change Timer State');
 			var startjob_status_text=localStorage.getItem('startjob_status_text');
+			if(startjob_status_text=='You are currently off the clock'){
+				jQuery('.startjob_status_text').addClass('offclock_st_color');
+			}
 			jQuery('.startjob_status_text').html(startjob_status_text);
 			jQuery('.general_clock_time').html('00:00:00');
 			jQuery('.job_clock_time').html('00:00:00');
@@ -476,8 +492,11 @@ jQuery(document).ready(function(){
 		jQuery('.startjob_status_text').html('You are currently off the clock');
 		jQuery('.general_clock_time').html('00:00:00');
 		jQuery('.job_clock_time').html('00:00:00');
+		
 	}
 	jQuery('.starttodayjob').click(function(){
+		jQuery('.startjob_status_text').removeClass('offclock_st_color');
+		jQuery('.general_clock_time').parents('li').addClass('glck');
 		if(!jQuery('.starttodayjob').hasClass('step2') && !jQuery('.starttodayjob').hasClass('step3')){
 			var generaltime=localStorage.getItem('general_'+today);
 			jQuery('#myModal1').modal();
@@ -502,6 +521,7 @@ jQuery(document).ready(function(){
 		}
 		else{
 			jQuery('#myModal2').modal('hide');
+			window.location='today-jobs.html';
 		}
 	});
 	jQuery('.step3_newxt_job').click(function(){
@@ -516,6 +536,7 @@ jQuery(document).ready(function(){
 		localStorage.setItem('stop_general_clock_'+today,'stop');
 		localStorage.setItem('stop_today_'+today,'stop');
 		jQuery('.startjob_status_text').html('You Are Currently Off the Clock');
+		jQuery('.job_clock_time').parents('li').removeClass('clock_active');
 		clearInterval(counter);
 		clearInterval(counter2);
 		var job_id=jQuery('#job_id').val();
@@ -578,6 +599,7 @@ jQuery(document).ready(function(){
 				localStorage.removeItem('stop_job_clock_'+today);
 				localStorage.removeItem('stop_general_clock_'+today);
 				localStorage.removeItem('clock_stop_for_'+today);
+				localStorage.setItem('startjob_status_text','Clocked In: No Active Job');
 				db.transaction(startlunch, errorDB, successDB);
 				function startlunch(tx){
 					var job_id=jQuery('#job_id').val();
@@ -588,12 +610,14 @@ jQuery(document).ready(function(){
 				
 			});
 		}
-		else{
+		jQuery('.job_clock_time').parents('li').removeClass('clock_active');
+		//else{
 			jQuery('#myModal2').modal('hide');
 			jQuery('#myModal3').modal('hide');
-		}
+		//}
 	});
 	jQuery('.stopforlunch').click(function(){
+		jQuery('.job_clock_time').parents('li').removeClass('clock_active');
 		localStorage.removeItem('stop_job_clock_'+today);
 		localStorage.removeItem('stop_general_clock_'+today);
 		localStorage.removeItem('clock_stop_for_'+today);

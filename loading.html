@@ -12,11 +12,12 @@
 <link rel="stylesheet" href="css/mycss.css" >
 </head>
 <body>
-<div class="container mysch-fix-hdr">
+<div class="container">
   <div class="header-top">
     <div class="row  align-items-center">
 	<img src="images/hdr-logo.png" alt="header-logo" />
 	</div>
+	<h1 class="welcomemsg" style="text-align:center;">Welcome</h1>
 	<div style="padding:50px 0px 100px 0px; text-align:center;">
 		<img src="images/ajax-loader.gif" alt="loading" />
 		<p>Please wait....</p>
@@ -56,6 +57,18 @@ jQuery(document).ready(function(){
 			
 		}
 	},4000);
+	db.transaction(checkloginuser, errorDB, successDB);
+	function checkloginuser(tx){
+		var q="SELECT * FROM userlogin WHERE loggedin=?";
+		var cond=[1];
+		tx.executeSql(q, cond, function(tx, res){
+			if(parseInt(res.rows.length)>0){
+				var fname=res.rows.item(0).fname;
+				var lname=res.rows.item(0).lname;
+				jQuery('.welcomemsg').html('Welcome '+fname+' '+lname);
+			}
+		});
+	}
 });
 
 </script>

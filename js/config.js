@@ -255,14 +255,23 @@ function dateformat(date){
 	return yyyy+'-'+mm+'-'+dd;
 }
 
-document.addEventListener("online", checkfornewupdates, false);
+//document.addEventListener("online", checkfornewupdates, false);
 //document.addEventListener("online", updategardenerdata, false);
+document.addEventListener("online", checkonline, false);
+function checkonline(){
+	alert('online');	
+}
+document.addEventListener("offline", checkoffline, false);
+function checkoffline(){
+	alert('offline');	
+}
+
 function updategardenerdata(){
 	//var networkState = navigator.connection.type;
 	//alert('Connection type: ' + networkState);
 	var uid=localStorage.getItem('StaffMem_ID');
 	if(typeof uid!='undefine' && uid!='' && uid!=null){
-		db.transaction(checkupdateforjobs, errorDB, successDB);
+		db.transaction(checkupdateforjobs, updateerrorDB, successDB);
 		function checkupdateforjobs(tx){
 			var q="SELECT * FROM jobs WHERE user_id=? AND status!=? AND updateonsite=?";
 			var cond=[uid,'Assigned','0'];
@@ -605,7 +614,7 @@ function checkfornewupdates(){
 						});
 				}
 			});
-		},  errorDB, successDB);
+		},  function(){alert('Error in job notes update');}, successDB);
 		
 		var url=siteurl+'/api/jobs/job_timesheets';
 		jQuery.ajax({  
@@ -655,7 +664,7 @@ function Updatejob_timesheets(res){
 			
 		}
 						 
-		},  errorDB, successDB);
+		},  function(){alert('Error in job timesheet update');}, successDB);
 }
 function Updatejobnotesdata(res){
      db.transaction(function(tx){
@@ -665,11 +674,13 @@ function Updatejobnotesdata(res){
 				if(typeof res['data'][index]!='undefined'){
 					var q="SELECT * FROM job_notifications WHERE job_notification_id=?";
 					tx.executeSql(q, [res['data'][index]['ID']], function(tx, rest){
-						if(parseInt(rest.rows.length)>0){
-							tx.executeSql("UPDATE job_notifications SET title='"+res['data'][index]['title']+"', message='"+res['data'][index]['message']+"', add_by='"+res['data'][index]['add_by']+"' WHERE job_notification_id='"+res['data'][index]['ID']+"'");	
-						}
-						else{
-							tx.executeSql('INSERT INTO job_notifications (job_id, job_notification_id, title, message, add_by, cdate, nfrom, user_id) VALUES ("'+res['data'][index]['job_id']+'", "'+res['data'][index]['ID']+'", "'+res['data'][index]['title']+'", "'+res['data'][index]['message']+'", "'+res['data'][index]['add_by']+'", "'+res['data'][index]['cdate']+'", "site", "'+res['data'][index]['user_id']+'")');	
+						if(res['data'][index]['title']!='Form' && res['data'][index]['nfrom']!='app'){
+							if(parseInt(rest.rows.length)>0){
+								tx.executeSql("UPDATE job_notifications SET title='"+res['data'][index]['title']+"', message='"+res['data'][index]['message']+"', add_by='"+res['data'][index]['add_by']+"' WHERE job_notification_id='"+res['data'][index]['ID']+"'");	
+							}
+							else{
+								tx.executeSql('INSERT INTO job_notifications (job_id, job_notification_id, title, message, add_by, cdate, nfrom, user_id) VALUES ("'+res['data'][index]['job_id']+'", "'+res['data'][index]['ID']+'", "'+res['data'][index]['title']+'", "'+res['data'][index]['message']+'", "'+res['data'][index]['add_by']+'", "'+res['data'][index]['cdate']+'", "site", "'+res['data'][index]['user_id']+'")');	
+							}
 						}
 					});
 				}
@@ -677,7 +688,7 @@ function Updatejobnotesdata(res){
 			
 		}
 						 
-		},  errorDB, successDB);
+		},  function(){alert('Error in job note update');}, successDB);
 }
 function Updatejobdata(res){
      db.transaction(function(tx){
@@ -699,7 +710,7 @@ function Updatejobdata(res){
 			
 		}
 						 
-		},  errorDB, successDB);
+		},  function(){alert('Error in job data update');}, successDB);
 }
 function Updateremovejobdata(res){
      db.transaction(function(tx){
@@ -714,12 +725,19 @@ function Updateremovejobdata(res){
 			
 		}
 						 
-		},  errorDB, successDB);
+		},  importerrorDB, successDB);
 }
 
 function errorDB(tx, err) {
 	alert("Error processing SQL: "+err);
-	alert("Error processing SQL: "+err.code);
+	alert("Error processing SQL: "+err.message);
+}
+function importerrorDB(tx, err) {
+	alert("Import Error processing SQL: "+err);
+	alert("Error processing SQL: "+err.message);
+}
+function updateerrorDB(tx, err) {
+	alert("Update Error processing SQL: "+err);
 	alert("Error processing SQL: "+err.message);
 }
 
