@@ -495,8 +495,7 @@ jQuery(document).ready(function(){
 		
 	}
 	jQuery('.starttodayjob').click(function(){
-		jQuery('.startjob_status_text').removeClass('offclock_st_color');
-		jQuery('.general_clock_time').parents('li').addClass('glck');
+		
 		if(!jQuery('.starttodayjob').hasClass('step2') && !jQuery('.starttodayjob').hasClass('step3')){
 			var generaltime=localStorage.getItem('general_'+today);
 			jQuery('#myModal1').modal();
@@ -632,6 +631,8 @@ jQuery(document).ready(function(){
 	});
 	
 	jQuery('.decline_job').click(function(){
+		jQuery('.startjob_status_text').removeClass('offclock_st_color');
+		jQuery('.general_clock_time').parents('li').addClass('glck');
 		localStorage.setItem('startjob_status_text','Clocked In: No Active Job');
 		jQuery('.startjob_status_text').html('Clocked In: No Active Job');
 		jQuery('.startjob_status_text').addClass('decline_job_status');
@@ -654,6 +655,8 @@ jQuery(document).ready(function(){
 		}
 	});
 	jQuery('.accept_job').click(function(){
+		jQuery('.startjob_status_text').removeClass('offclock_st_color');
+		jQuery('.general_clock_time').parents('li').addClass('glck');
 		localStorage.setItem('startjob_status_text','Clocked In: No Active Job');
 		jQuery('.startjob_status_text').html('Clocked In: No Active Job');
 		jQuery('.startjob_status_text').addClass('decline_job_status');
