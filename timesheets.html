@@ -136,8 +136,8 @@ function listschedules(){
 					
 				}
 				jQuery('.timesheet_list .schedule-wrap').append(html);
-				jQuery('.total_mileage').html('<span>Mileage: </span> '+totalmileage);
-				jQuery('.total_price').html('<span>Total Price: </span> $'+totalprice);
+				jQuery('.total_mileage').html('<span>Mileage: </span> '+totalmileage.toFixed(2));
+				jQuery('.total_price').html('<span>Total Price: </span> $'+totalprice.toFixed(2));
 			}
 		});
 		
