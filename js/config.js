@@ -258,8 +258,8 @@ function dateformat(date){
 document.addEventListener("online", checkfornewupdates, false);
 //document.addEventListener("online", updategardenerdata, false);
 function updategardenerdata(){
-	var networkState = navigator.connection.type;
-	alert('Connection type: ' + networkState);
+	//var networkState = navigator.connection.type;
+	//alert('Connection type: ' + networkState);
 	var uid=localStorage.getItem('StaffMem_ID');
 	if(typeof uid!='undefine' && uid!='' && uid!=null){
 		db.transaction(checkupdateforjobs, errorDB, successDB);
@@ -634,6 +634,7 @@ function checkfornewupdates(){
 		setTimeout(checkfornewupdates,30000);
 	}
 }
+checkfornewupdates();
 function Updatejob_timesheets(res){
      db.transaction(function(tx){
 		if(res['data'])
@@ -715,7 +716,7 @@ function Updateremovejobdata(res){
 						 
 		},  errorDB, successDB);
 }
-//checkfornewupdates();
+
 function errorDB(tx, err) {
 	alert("Error processing SQL: "+err);
 	alert("Error processing SQL: "+err.code);
