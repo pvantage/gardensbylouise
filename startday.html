@@ -266,11 +266,9 @@ var counter='';
 var timecount2=0;
 var counter2='';
 function gettimediff(time1,time2){
-	var date1 = new Date.parse(time1);
-	var date2 = new Date.parse(time2);
-	alert(date1+'='+date2);
+	var date1 = new Date(time1.replace(' ', 'T'));
+	var date2 = new Date(time2.replace(' ', 'T'));
 	var diff = date2.getTime() - date1.getTime();
-	alert(diff);
 	var msec = parseInt(diff);
 	var hh = Math.floor(msec / 1000 / 60 / 60);
 	msec -= hh * 1000 * 60 * 60;
@@ -453,19 +451,20 @@ jQuery(document).ready(function(){
 			if(startjob_status_text!='You are currently off the clock'){
 				jQuery('.startjob_status_text').removeClass('offclock_st_color');
 			}
-			var time2=getdatetime();
-			db.transaction(startdaytime2, errorDB, successDB);
+			
+			db.transaction(startdaytime2, function(){alert('test');}, successDB);
 			function startdaytime2(tx){
 				var q="SELECT * FROM job_daytimes WHERE start_date=?";
 				var cond=[today];
 				tx.executeSql(q, cond, function(tx, res){
 					if(parseInt(res.rows.length)>0){
 						var time1=res.rows.item(0).start_date+' '+res.rows.item(0).start_time;
+						var time2=getdatetime();
 						var wattime=gettimediff(time1,time2);
 						wattime=wattime.split(':');
 						
 						timecount=(parseInt(wattime[0])*60*60*1000)+(parseInt(wattime[1])*60*1000)+(parseInt(wattime[2])*1000);
-						alert(wattime+'='+timecount);
+						//alert(wattime+'='+timecount);
 						counter=setInterval(generaltimer, 1000);
 						var jobid=res.rows.item(0).job_id;
 						if(typeof jobid!='undefined' && jobid!='' && jobid!=null && (typeof job_id=='undefined' || jobid==null)){
