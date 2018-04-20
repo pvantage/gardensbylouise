@@ -266,12 +266,14 @@ var counter='';
 var timecount2=0;
 var counter2='';
 function gettimediff(time1,time2){
-	var date1 = new Date(time1.replace('-', '/'));
-	var date2 = new Date(time2.replace('-', '/'));
-	/*if (navigator.userAgent.match(/(iPhone|iPod|iPad)/) != null) {
+	time1=time1.replace('-', '/');
+	time2=time2.replace('-', '/');
+	var date1 = new Date(time1);
+	var date2 = new Date(time2);
+	if (navigator.userAgent.match(/(iPhone|iPod|iPad)/) != null) {
       var date1 = new Date(time1.replace(' ', 'T'));
 	  var date2 = new Date(time2.replace(' ', 'T'));;
-    }*/
+    }
 	alert(date1+'='+date2);
 	var diff = date2.getTime() - date1.getTime();
 	var msec = parseInt(diff);
