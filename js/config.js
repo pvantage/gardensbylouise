@@ -21,7 +21,7 @@ function getcurrenttime(){
 	if(parseInt(h)<10){h='0'+h;}
 	var sec=d.getSeconds();
 	if(parseInt(sec)<10){sec='0'+sec;}
-	return h+':'+mint+':'+sec;
+	return parseInt(h)+':'+parseInt(mint)+':'+parseInt(sec);
 }
 var currenttime=getcurrenttime();
 function getdatetime(){
@@ -65,7 +65,7 @@ function users_menus()
 	var menu='<ul>';
 	menu+='<li><a href="startday.html" class="startdaymenu"><img src="images/timesheet.png" alt="Timer" /><br>Timer </a></li>';
 	menu+='<li><a href="my-schedule.html" class="myschedulemenu"><img src="images/job.png" alt="Jobs" /><br>Jobs</a></li>';
-	menu+='<li><a href="timesheets.html" class="notificationmenu"><img src="images/timesheet.png" alt="Timesheets" /><br>Timesheets </a></li>';
+	menu+='<li><a href="timesheets.html" class="notificationmenu"><img src="images/tsheet.png" alt="Timesheets" /><br>Timesheets </a></li>';
 	menu+='<li><a href="logout.html" class="moremenu"><img src="images/logout.png" alt="Logout" /><br>Logout</a></li>';
 	menu+='</ul>';
 	
@@ -108,7 +108,7 @@ if(typeof uid!='undefined' && uid!='' && uid!=null){
 			jQuery('.bottom-nav-bar').html(menu);
 			var path = window.location.pathname;
 			var page = path.split("/").pop();
-			if(page=='timesheets.html'){jQuery('.bottom-nav-bar a.notificationmenu').addClass('active'); jQuery('.bottom-nav-bar a.notificationmenu img').attr('src','images/timesheet1.png');}
+			if(page=='timesheets.html'){jQuery('.bottom-nav-bar a.notificationmenu').addClass('active'); jQuery('.bottom-nav-bar a.notificationmenu img').attr('src','images/tsheet1.png');}
 			else if(page=='my-schedule.html'){jQuery('.bottom-nav-bar a.myschedulemenu').addClass('active'); jQuery('.bottom-nav-bar a.myschedulemenu img').attr('src','images/job1.png');}
 			else if(page=='startday.html' || page=='today-jobs.html'){jQuery('.bottom-nav-bar a.startdaymenu').addClass('active'); jQuery('.bottom-nav-bar a.startdaymenu img').attr('src','images/timesheet1.png');}
 			else if(page=='more.html' || page=='staff.html' || page=='client.html' || page=='task.html'){jQuery('.bottom-nav-bar a.moremenu').addClass('active');}
@@ -476,7 +476,7 @@ function updategardenerdata(){
 		}
 	}
 }
-//updategardenerdata();
+updategardenerdata();
 function updatejobdata5(res){
 	var form_id=res['form_id'];
 	if(form_id!='0'){
@@ -538,10 +538,10 @@ function checkfornewupdates(){
 			success: Updatejobdata,  
 			error: function(response, d, a){
 			
-			jQuery('body .showmessage').remove();
+			/*jQuery('body .showmessage').remove();
 			var html='<div class="showmessage">Server Error1.</div>';
 			jQuery('body').append(html);
-			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
 			return false; 
 			}
 		});
@@ -562,10 +562,10 @@ function checkfornewupdates(){
 			success: Updateremovejobdata,  
 			error: function(response, d, a){
 			
-			jQuery('body .showmessage').remove();
+			/*jQuery('body .showmessage').remove();
 			var html='<div class="showmessage">Server Error2.</div>';
 			jQuery('body').append(html);
-			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
 			return false; 
 			}
 		});
@@ -598,10 +598,10 @@ function checkfornewupdates(){
 							success: Updatejobnotesdata,  
 							error: function(response, d, a){
 							
-							jQuery('body .showmessage').remove();
+							/*jQuery('body .showmessage').remove();
 							var html='<div class="showmessage">Server Error3</div>';
 							jQuery('body').append(html);
-							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
 							return false; 
 							}
 						});
@@ -625,18 +625,18 @@ function checkfornewupdates(){
 			success: Updatejob_timesheets,  
 			error: function(response, d, a){
 			
-			jQuery('body .showmessage').remove();
+			/*jQuery('body .showmessage').remove();
 			var html='<div class="showmessage">Server Error4.</div>';
 			jQuery('body').append(html);
-			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
 			return false; 
 			}
 		});
 		
-		setTimeout(checkfornewupdates,30000);
+		setTimeout(checkfornewupdates,60000);
 	}
 }
-//checkfornewupdates();
+checkfornewupdates();
 function Updatejob_timesheets(res){
      db.transaction(function(tx){
 		if(res['data'])

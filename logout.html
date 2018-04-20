@@ -53,9 +53,11 @@
 				 	
 					if(res['success'])
 					{
+						var currenttime=getcurrenttime();
 						db.transaction(logoutuser, errorDB, successDB);
 						function logoutuser(tx){
 							tx.executeSql("UPDATE userlogin set loggedin='0' WHERE loggedin='1'");
+							tx.executeSql("UPDATE job_daytimes set end_time='"+currenttime+"' WHERE start_date='"+today+"' AND user_id='"+uid+"' AND end_time='00:00:00'");
 							var let=localStorage.getItem('Staff_Lat');
 							var longi=localStorage.getItem('Staff_Long');
 							localStorage.clear();

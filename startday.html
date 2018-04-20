@@ -450,6 +450,9 @@ jQuery(document).ready(function(){
 			jQuery('.general_clock_time').html(generaltime);
 			var job_timer=localStorage.getItem('job_'+today);
 			jQuery('.job_clock_time').html(job_timer);
+			if(startjob_status_text!='You are currently off the clock'){
+				jQuery('.startjob_status_text').removeClass('offclock_st_color');
+			}
 			db.transaction(startdaytime2, errorDB, successDB);
 			function startdaytime2(tx){
 				var q="SELECT * FROM job_daytimes WHERE start_date=?";
@@ -663,6 +666,7 @@ jQuery(document).ready(function(){
 		jQuery('.startjob_status_text').addClass('decline_job_status');
 		jQuery('#myModal1').modal('hide');
 		clearInterval(counter);
+		var currenttime=getcurrenttime();
 		counter=setInterval(generaltimer, 1000);
 		db.transaction(startdaytime, errorDB, successDB);
 		function startdaytime(tx){
