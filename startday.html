@@ -295,13 +295,13 @@ function generaltimer(){
 	if(playcounter)
 	{
 		timecount=parseInt(timecount)+1000;
-		
+		timecount=parseInt(timecount);
 		var hours = Math.floor((timecount % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 		var minutes = Math.floor((timecount % (1000 * 60 * 60)) / (1000 * 60));
 		var seconds = Math.floor((timecount % (1000 * 60)) / 1000);
-		if(parseInt(hours)<10){hours='0'+hours;}
-		if(parseInt(minutes)<10){minutes='0'+minutes;}
-		if(parseInt(seconds)<10){seconds='0'+seconds;}
+		if(parseInt(hours)<10){hours='0'+parseInt(hours);}
+		if(parseInt(minutes)<10){minutes='0'+parseInt(minutes);}
+		if(parseInt(seconds)<10){seconds='0'+parseInt(seconds);}
 		var waittime=hours+':'+minutes+':'+seconds;
 		jQuery('.general_clock_time').html(waittime);
 		localStorage.setItem('general_'+today,waittime);
@@ -320,12 +320,13 @@ function jobtimer(){
 	if(playcounter)
 	{
 		timecount2=parseInt(timecount2)+1000;
+		timecount2=parseInt(timecount2);
 		var hours = Math.floor((timecount2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 		var minutes = Math.floor((timecount2 % (1000 * 60 * 60)) / (1000 * 60));
 		var seconds = Math.floor((timecount2 % (1000 * 60)) / 1000);
-		if(parseInt(hours)<10){hours='0'+hours;}
-		if(parseInt(minutes)<10){minutes='0'+minutes;}
-		if(parseInt(seconds)<10){seconds='0'+seconds;}
+		if(parseInt(hours)<10){hours='0'+parseInt(hours);}
+		if(parseInt(minutes)<10){minutes='0'+parseInt(minutes);}
+		if(parseInt(seconds)<10){seconds='0'+parseInt(seconds);}
 		var waittime=hours+':'+minutes+':'+seconds;
 		jQuery('.job_clock_time').html(waittime);
 		localStorage.setItem('job_'+today,waittime);
