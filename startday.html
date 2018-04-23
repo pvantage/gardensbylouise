@@ -411,6 +411,15 @@ function loadjob(job_id){
 						counter2=setInterval(jobtimer, 1000);
 						jQuery('.job_clock_time').parents('li').addClass('clock_active');
 						jQuery('.general_clock_time').parents('li').addClass('glck');
+						var generaltime=localStorage.getItem('general_'+today);
+						if(typeof generaltime!='undefined' && generaltime!='' && generaltime!=null){
+							if(generaltime=='00:00:00'){
+								timecount=localStorage.getItem('timecount');
+								if(typeof timecount!='undefined' && timecount!='' && timecount!=null){
+									counter=setInterval(generaltimer, 1000);
+								}
+							}
+						}
 						
 					}
 					
@@ -425,6 +434,38 @@ function loadjob(job_id){
 	{
 		jQuery('.starttodayjob').addClass('step2');
 	}
+}
+function clockouttime(){
+	localStorage.setItem('startjob_status_text','You Are Currently Off the Clock');
+	localStorage.setItem('stop_job_clock_'+today,'stop');
+	localStorage.setItem('stop_general_clock_'+today,'stop');
+	localStorage.setItem('stop_today_'+today,'stop');
+	jQuery('.startjob_status_text').html('You Are Currently Off the Clock');
+	jQuery('.job_clock_time').parents('li').removeClass('clock_active');
+	clearInterval(counter);
+	clearInterval(counter2);
+	jQuery('#myModal1').modal('hide');
+	var currenttime=getcurrenttime();
+	db.transaction(startlunch, errorDB, successDB);
+	function startlunch(tx){
+		tx.executeSql("UPDATE job_daytimes set end_time='"+currenttime+"' AND status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'");
+		localStorage.removeItem('timecount');
+		localStorage.removeItem('timecount2');
+		window.location='';
+	}
+}
+function synjobs(){
+	localStorage.setItem('StaffMem_synjobs','done');
+	checkfornewupdates();
+	jQuery('#myModal1').modal('hide');
+	jQuery('body .showmessage').remove();
+		var html='<div class="showmessage">Synchronize data from server.</div>';
+		jQuery('body').append(html);
+		setTimeout(function(){
+			jQuery('.showmessage').slideUp();
+			localStorage.removeItem('StaffMem_synjobs');
+			window.location='';
+		},4000);
 }
 jQuery(document).ready(function(){
 	
@@ -460,6 +501,11 @@ jQuery(document).ready(function(){
 			if(startjob_status_text!='You are currently off the clock'){
 				jQuery('.startjob_status_text').removeClass('offclock_st_color');
 			}
+			if(startjob_status_text=='Clocked In: No Active Job'){
+				jQuery('#myModal1 .pop-btm-cnt:first ul li.clockoutmenu').remove();
+				jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li class="clockoutmenu"><a href="javascript:;" onclick="clockouttime();">Clock out for day</a></li>');
+			}
+			
 			
 			db.transaction(startdaytime2, function(){alert('test');}, successDB);
 			function startdaytime2(tx){
@@ -495,6 +541,8 @@ jQuery(document).ready(function(){
 			jQuery('.startjob_status_text').html(startjob_status_text);
 			jQuery('.general_clock_time').html('00:00:00');
 			jQuery('.job_clock_time').html('00:00:00');
+			
+			
 		}
 	}
 	else{
@@ -536,12 +584,14 @@ jQuery(document).ready(function(){
 			window.location='today-jobs.html';
 		}
 	});
+	
 	jQuery('.step3_newxt_job').click(function(){
 		localStorage.setItem('startjob_status_text','Clocked In: No Active Job');
 		jQuery('.startjob_status_text').html('Clocked In: No Active Job');
 		jQuery('.startjob_status_text').addClass('decline_job_status');
 		window.location='today-jobs.html';
 	});
+	
 	jQuery('.step2_stopclocks').click(function(){
 		localStorage.setItem('startjob_status_text','You Are Currently Off the Clock');
 		localStorage.setItem('stop_job_clock_'+today,'stop');
@@ -565,7 +615,9 @@ jQuery(document).ready(function(){
 		var currenttime=getcurrenttime();
 		db.transaction(startlunch, errorDB, successDB);
 		function startlunch(tx){
-			tx.executeSql("UPDATE job_daytimes set end_time='"+currenttime+"' WHERE start_date='"+today+"' AND user_id='"+uid+"'");
+			tx.executeSql("UPDATE job_daytimes set end_time='"+currenttime+"' AND status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'");
+			localStorage.removeItem('timecount');
+			localStorage.removeItem('timecount2');
 			if(redirect){
 				window.location='';
 			}
@@ -651,6 +703,8 @@ jQuery(document).ready(function(){
 		jQuery('.startjob_status_text').html('Clocked In: No Active Job');
 		jQuery('.startjob_status_text').addClass('decline_job_status');
 		jQuery('#myModal1').modal('hide');
+		jQuery('#myModal1 .pop-btm-cnt:first ul li.clockoutmenu').remove();
+		jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li class="clockoutmenu"><a href="javascript:;" onclick="clockouttime();">Clock out for day</a></li>');
 		clearInterval(counter);
 		counter=setInterval(generaltimer, 1000);
 		db.transaction(startdaytime, errorDB, successDB);
@@ -817,7 +871,6 @@ jQuery(document).ready(function(){
 				tx.executeSql(qry);
 				var uq="UPDATE job_times set end_time='"+endtime+"' WHERE pu_date='"+today+"' AND assigned_to='"+uid+"' AND job_id='"+job_id+"' AND time_type='startjob' AND end_time='00:00:00'";
 				tx.executeSql(uq);
-				tx.executeSql('INSERT INTO job_notifications (job_id, job_notification_id, title, message, add_by, cdate, nfrom, user_id) VALUES ("'+job_id+'", "0", "Form", "", "'+uid+'", "'+currentdatetime+'", "app", "'+uid+'")');
 				var q="SELECT * FROM userlogin WHERE user_id=?";
 				var cond=[uid];
 				tx.executeSql(q, cond, function(tx, res){
@@ -828,6 +881,7 @@ jQuery(document).ready(function(){
 						var add_by=fname+' '+lname;
 						tx.executeSql('INSERT INTO job_notifications (job_id, job_notification_id, title, message, add_by, cdate, nfrom, user_id) VALUES ("'+job_id+'", "0", "Form", "", "'+add_by+'", "'+currentdatetime+'", "app", "'+uid+'")');
 						localStorage.setItem('finish_job',job_id);
+						localStorage.removeItem('timecount2');
 						window.location='startday.html?jobdone=1';	
 					}
 				});
@@ -836,6 +890,7 @@ jQuery(document).ready(function(){
 			
 		}
 	});
+	
 	db.transaction(checkjobexusts, errorDB, successDB);
 	function checkjobexusts(tx){
 		var q="SELECT * FROM jobs WHERE job_date=? AND user_id=? AND status=?";
@@ -843,7 +898,7 @@ jQuery(document).ready(function(){
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)<=0){
 				jQuery('.nojobexist').hide();
-				jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li><a href="">Syn</a></li>');
+				jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li><a href="javascript:;" onclick="synjobs();">Syn</a></li>');
 			}
 		});
 	}

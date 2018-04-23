@@ -674,8 +674,10 @@ function checkfornewupdates(){
 			return false; 
 			}
 		});
-		
-		setTimeout(checkfornewupdates,60000);
+		var synjobs=localStorage.getItem('StaffMem_synjobs');
+		if(typeof synjobs!='undefined' || synjobs=='' || synjobs==null){
+			setTimeout(checkfornewupdates,60000);
+		}
 	}
 }
 //checkfornewupdates();
