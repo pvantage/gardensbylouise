@@ -509,7 +509,7 @@ function updategardenerdata(){
 		}
 	}
 }
-updategardenerdata();
+//updategardenerdata();
 function updatejobdata5(res){
 	var form_id=res['form_id'];
 	if(form_id!='0'){
@@ -678,7 +678,7 @@ function checkfornewupdates(){
 		setTimeout(checkfornewupdates,60000);
 	}
 }
-checkfornewupdates();
+//checkfornewupdates();
 function Updatejob_timesheets(res){
      db.transaction(function(tx){
 		if(res['data'])
