@@ -507,7 +507,7 @@ jQuery(document).ready(function(){
 			}
 			
 			
-			db.transaction(startdaytime2, function(){alert('test');}, successDB);
+			db.transaction(startdaytime2, function(){}, successDB);
 			function startdaytime2(tx){
 				var q="SELECT * FROM job_daytimes WHERE start_date=?";
 				var cond=[today];
