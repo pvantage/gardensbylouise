@@ -48,8 +48,8 @@ jQuery(document).ready(function(){
 	setTimeout(function(){
 		db.transaction(showlistjobs, errorDB, successDB);
 		function showlistjobs(tx){
-			var q="SELECT * FROM job_daytimes WHERE start_date=? AND status=?";
-			var cond=[today,'pending'];
+			var q="SELECT * FROM job_daytimes WHERE start_date=? AND status!=?";
+			var cond=[today,'complete'];
 			tx.executeSql(q, cond, function(tx, res){
 				if(parseInt(res.rows.length)>0){
 					var timecount2=localStorage.getItem('timecount2');

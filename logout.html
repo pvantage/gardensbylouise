@@ -58,23 +58,9 @@
 						function logoutuser(tx){
 							tx.executeSql("UPDATE userlogin set loggedin='0' WHERE loggedin='1'");
 							tx.executeSql("UPDATE job_daytimes set end_time='"+currenttime+"' WHERE start_date='"+today+"' AND user_id='"+uid+"' AND end_time='00:00:00' AND status='complete'");
-							var timecount=localStorage.getItem('timecount');
-							var timecount2=localStorage.getItem('timecount2');
-							var let=localStorage.getItem('Staff_Lat');
-							var longi=localStorage.getItem('Staff_Long');
-							localStorage.clear();
-							if(typeof timecount!='undefined' && timecount!='' && timecount!=null){
-								localStorage.setItem('timecount',timecount);
-							}
-							if(typeof timecount2!='undefined' && timecount2!='' && timecount2!=null){
-								localStorage.setItem('timecount2',timecount2);
-							}
-							if(typeof let!='undefined' && let!=null && let!=''){
-								localStorage.setItem('Staff_Lat',let);
-								localStorage.setItem('Staff_Long',longi);
-							}
-							localStorage.setItem('lastlogday',today);
 							
+							localStorage.removeItem('Staff_Long');
+							localStorage.removeItem('StaffMem_ID');
 							window.location ='login.html';
 						}
 					
@@ -92,15 +78,8 @@
 			   });
 			 }
 			 else{
-			 	var timecount=localStorage.getItem('timecount');
-				var timecount2=localStorage.getItem('timecount2');
-			 	localStorage.clear();
-				if(typeof timecount!='undefined' && timecount!='' && timecount!=null){
-					localStorage.setItem('timecount',timecount);
-				}
-				if(typeof timecount2!='undefined' && timecount2!='' && timecount2!=null){
-					localStorage.setItem('timecount2',timecount2);
-				}
+			 	localStorage.removeItem('Staff_Long');
+				localStorage.removeItem('StaffMem_ID');
 				window.location ='login.html';
 			 }
 	</script>

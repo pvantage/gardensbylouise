@@ -257,8 +257,11 @@ function dateformat(date){
 
 document.addEventListener("online", checkfornewupdates, false);
 document.addEventListener("online", updategardenerdata, false);
-
-
+function checkonlineoffline(){
+	document.addEventListener("online", checkfornewupdates, false);
+	document.addEventListener("online", updategardenerdata, false);
+}
+setInterval(checkonlineoffline,30000);
 function updategardenerdata(){
 	//var networkState = navigator.connection.type;
 	//alert('Connection type: ' + networkState);
@@ -674,10 +677,10 @@ function checkfornewupdates(){
 			return false; 
 			}
 		});
-		var synjobs=localStorage.getItem('StaffMem_synjobs');
+		/*var synjobs=localStorage.getItem('StaffMem_synjobs');
 		if(typeof synjobs!='undefined' || synjobs=='' || synjobs==null){
-			setTimeout(checkfornewupdates,60000);
-		}
+			setTimeout(checkfornewupdates,30000);
+		}*/
 	}
 }
 //checkfornewupdates();

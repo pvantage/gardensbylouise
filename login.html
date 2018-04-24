@@ -24,6 +24,9 @@
           <div class="login-box paswd"> <img src="images/pe.png"/>
             <input type="password" id="pwd" name="pwd" required="" class="required" placeholder="Password"/>
           </div>
+		  <div class="login-box paswd"> 
+            <label><input type="checkbox" id="remberme" name="remberme" /> Remeber Me</label>
+          </div>
           <div class="login-box">
             <button class="submit">Sign In</button>
           </div>
@@ -57,6 +60,29 @@ jQuery(document).ready(function(){
 	/*if(localStorage.getItem('UserRedirect')!=null){
 		window.location=localStorage.getItem('UserRedirect');
 	}*/
+	db.transaction(checkrembme, errorDB, successDB);
+	function checkrembme(tx){
+		var q="SELECT * FROM userlogin ORDER BY id DESC";
+		var cond=[];
+		tx.executeSql(q, cond, function(tx, res){
+			if(parseInt(res.rows.length)>0){
+				var rembe=res.rows.item(0).remberme;
+				var pwd3=res.rows.item(0).pwd;
+				var uname2=res.rows.item(0).uname;
+				if(rembe=='yes'){
+					jQuery('#email').val(uname2);
+					jQuery('#pwd').val(pwd3);
+					jQuery('#remberme').attr('checked',true);
+				}
+				else{
+					jQuery('#email').val('');
+					jQuery('#pwd').val('');
+				}
+			}
+			
+		});
+		
+	}
 	jQuery('#loginuser').submit( function(){	
 		var error=false;
 		jQuery('#loginuser input').each(function(){
@@ -67,6 +93,14 @@ jQuery(document).ready(function(){
 		
 		var email=jQuery('#email').val();
 		var pwd=jQuery('#pwd').val();
+		var remberme='no';
+		var uname='';
+		var	pwd2='';
+		if(jQuery('#remberme').is(':checked')){
+			remberme='yes';
+			uname=email;
+			pwd2=pwd;
+		}
 		var url=siteurl+'/api/login';
 		if(email=='' || pwd=='' || error)
 		{
@@ -74,6 +108,7 @@ jQuery(document).ready(function(){
 		}
 		else
 		{
+			
 			 jQuery.ajax({  
 			 type: 'POST',  
 			 url: url,           
@@ -98,14 +133,15 @@ jQuery(document).ready(function(){
 						var user_type=res['checklogin']['udetail']['user_type'];
 						var cond=[user_id];
 						var cdate=getdatetime();
+						
 						var qd="DELETE FROM userlogin";
 						tx.executeSql(qd);
 						tx.executeSql(q, cond, function(tx, res){
 							if(parseInt(res.rows.length)>0){
-								tx.executeSql("UPDATE userlogin set lastlogin_time='"+cdate+"', loggedin='1', fname='"+fname+"', lname='"+lname+"', user_type='"+user_type+"', user_id='"+user_id+"' WHERE id='"+res.rows.item(0).id+"'");
+								tx.executeSql("UPDATE userlogin set lastlogin_time='"+cdate+"', loggedin='1', fname='"+fname+"', lname='"+lname+"', user_type='"+user_type+"', user_id='"+user_id+"', remberme='"+remberme+"', uname='"+uname+"', pwd='"+pwd2+"' WHERE id='"+res.rows.item(0).id+"'");
 							}
 							else{
-								tx.executeSql('INSERT INTO userlogin (user_id, lastlogin_time, loggedin,fname,lname,user_type) VALUES ("'+user_id+'", "'+cdate+'", "1", "'+fname+'", "'+lname+'", "'+user_type+'")');
+								tx.executeSql('INSERT INTO userlogin (user_id, lastlogin_time, loggedin,fname,lname,user_type,remberme,uname,pwd) VALUES ("'+user_id+'", "'+cdate+'", "1", "'+fname+'", "'+lname+'", "'+user_type+'", "'+remberme+'", "'+uname+'", "'+pwd2+'")');
 								window.location ='loading.html';
 							}
 						});

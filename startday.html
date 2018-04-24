@@ -356,7 +356,7 @@ function loadjob(job_id){
 					{
 						if(res.rows.item(i).status=='Assigned'){
 							tx.executeSql("UPDATE jobs set status='Being Processed', real_date='"+today+"', real_start_time='"+currenttime+"' WHERE job_id='"+job_id+"' AND user_id='"+uid+"'");
-							tx.executeSql("UPDATE job_daytimes set job_id='"+job_id+"' WHERE start_date='"+today+"' AND user_id='"+uid+"'");
+							tx.executeSql("UPDATE job_daytimes set job_id='"+job_id+"', status='process' WHERE start_date='"+today+"' AND user_id='"+uid+"'");
 							tx.executeSql('INSERT INTO job_times (job_id, assigned_to, pu_date, start_time, time_type, cdate) VALUES ("'+job_id+'", "'+uid+'","'+today+'", "'+currenttime+'","startjob", "'+currentdatetime+'")');
 							
 							var q2="SELECT * FROM job_schedule WHERE job_date=? AND user_id=?";
@@ -411,7 +411,7 @@ function loadjob(job_id){
 						counter2=setInterval(jobtimer, 1000);
 						jQuery('.job_clock_time').parents('li').addClass('clock_active');
 						jQuery('.general_clock_time').parents('li').addClass('glck');
-						var generaltime=localStorage.getItem('general_'+today);
+						/*var generaltime=localStorage.getItem('general_'+today);
 						if(typeof generaltime!='undefined' && generaltime!='' && generaltime!=null){
 							if(generaltime=='00:00:00'){
 								timecount=localStorage.getItem('timecount');
@@ -419,7 +419,7 @@ function loadjob(job_id){
 									counter=setInterval(generaltimer, 1000);
 								}
 							}
-						}
+						}*/
 						
 					}
 					
@@ -523,7 +523,6 @@ jQuery(document).ready(function(){
 						counter=setInterval(generaltimer, 1000);
 						var jobid=res.rows.item(0).job_id;
 						if(typeof jobid!='undefined' && jobid!='' && jobid!=null && (typeof job_id=='undefined' || jobid==null)){
-							timecount2=localStorage.getItem('timecount2');
 							timecount2=0;
 							loadjob(jobid);
 						}
