@@ -1053,7 +1053,7 @@ jQuery(document).ready(function(){
 		});
 		for(k=0;k<arr.length;k++){
 			var key=arr[k];
-			var v=jQuery('input[name="'+key+'"]:checked').val();
+			var v=jQuery('#jobform input[name="'+key+'"]:checked').val();
 			types.push('radio');
 			keys.push(key); 
 			if(typeof v=='undefined'){v='';}
