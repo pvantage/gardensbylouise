@@ -59,11 +59,13 @@
           <div class="pop-btm-cnt">
             <ul>
               <li class="nojobexist"><a href="javascript:;" class="accept_job">Accept</a></li>
+			  <li> <a class="decline_job" href="javascript:;">Decline</a></li>
             </ul>
           </div>
           <div class="pop-btm-cnt pop-cancel">
             <ul>
-              <li> <a class="decline_job" href="javascript:;">Decline</a></li>
+              
+			  <li> <a href="javascript:;" data-dismiss="modal">Cancel</a></li>
             </ul>
           </div>
         </div>
@@ -80,7 +82,7 @@
           <div class="pop-btm-cnt">
             <ul>
               <li class="nojobexist"><a href="javascript:;" class="step2_newxt_job">Travel to next job</a></li>
-			  <li><a href="javascript:;" class="step2_stopclocks">Clock out for day</a></li>
+			  <li><a href="javascript:;" class="checkforclockout">Clock out for day</a></li>
 			  <li><a href="javascript:;" class="step2_stop_for_lunch">Clock out for lunch</a></li>
             </ul>
           </div>
@@ -103,13 +105,34 @@
           <div class="pop-btm-cnt">
             <ul>
               <li class="nojobexist"><a href="javascript:;" class="step3_newxt_job">Clock in to job</a></li>
-			  <li><a href="javascript:;" class="step2_stopclocks">Clock out for day</a></li>
+			  <li><a href="javascript:;" class="checkforclockout">Clock out for day</a></li>
 			  <li><a href="javascript:;" class="step2_stop_for_lunch">Clock out for lunch</a></li>
             </ul>
           </div>
           <div class="pop-btm-cnt pop-cancel">
             <ul>
               <li> <a href="javascript:;" data-dismiss="modal">Cancel</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="myModal4" class="modal fade bottom-popup" role="dialog">
+  <div class="modal-dialog"> 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="pop-cnt">
+          <div class="pop-btm-cnt">
+            <ul>
+			  <li><a href="javascript:;" class="step2_stopclocks">Yes</a></li>
+            </ul>
+          </div>
+          <div class="pop-btm-cnt pop-cancel">
+            <ul>
+              <li> <a href="javascript:;" data-dismiss="modal">No</a></li>
             </ul>
           </div>
         </div>
@@ -251,6 +274,114 @@
     </div>
   </div>
 </div>
+<div id="editjobform" class="modal fade popupformats taskpopup" role="dialog">
+  <div class="modal-dialog"> 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="pop-head">
+          <div class="row">
+            <a href="javascript:;" data-dismiss="modal">Cancel</a>
+            <div class="col-10 pop-title">Form</div>
+          </div>
+        </div>
+        <div class="new-forms-formats">
+			<form id="ejobform" name="ejobform" action="" method="post">
+			<input type="hidden" name="form_id" id="form_id" value="0">
+			  <div class="nf-box">
+			  	<label>Notes</label>
+				<textarea name="notemsg" rows="3" cols="50" class="forminput"></textarea>
+			  </div>
+			  <div class="nf-box">
+				<label>Bags of mulch used</label>
+				<input type="number" class="forminput" name="bags_of_mulch_used" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Bag size</label>
+				<input type="number" class="forminput" name="mulch_bag_size" min="0" value="0" />
+			  </div>
+			   <div class="nf-box">
+				<label>Bags of compost used</label>
+				<input type="number" class="forminput" name="bags_of_compost_used" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Bag size</label>
+				<input type="number" class="forminput" name="compost_bag_size" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Bags of Holly Tone used</label>
+				<input type="number" class="forminput" name="bags_of_holly_tone_used" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Bag size</label>
+				<input type="number" class="forminput" name="holly_tone_bag_size" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Are you leaving a wheelbarrow?</label>
+				<div class="form-radios">
+				  <label>
+					<input value="Yes" type="radio" name="leaving_a_wheelbarrow" />
+					Yes</label>
+				  <label>
+					<input value="No" type="radio" name="leaving_a_wheelbarrow" />
+					No</label>
+				</div>
+			  </div>
+			  <div class="nf-box">
+				<label>Bags of debris</label>
+				<input type="number" class="forminput" name="bags_of_debris" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>Any issues with bees, plants/bushes not doing well, poison ivy? Put details in Notes</label>
+				<div class="form-radios">
+				  <label>
+					<input value="Yes" type="radio" name="problem_with_bees_plants_bushes" />
+					Yes</label>
+				  <label>
+					<input value="No" type="radio" name="problem_with_bees_plants_bushes" />
+					No</label>
+				</div>
+			  </div>
+			  <div class="nf-box">
+				<label>Any messages from homeowner? Put details in Notes</label>
+				<div class="form-radios">
+				  <label>
+					<input value="Yes" type="radio" name="messages_from_homeowner" />
+					Yes</label>
+				  <label>
+					<input value="No" type="radio" name="messages_from_homeowner" />
+					No</label>
+				</div>
+			  </div>
+			  <div class="nf-box">
+				<label>If there is work still to be done, estimate how much is left in hours</label>
+				<input type="number" class="forminput" name="pending_task_time" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<label>If additional materials are needed, provide details in Notes</label>
+				<div class="form-radios">
+				  <label>
+					<input value="Yes" type="radio" name="additional_materials_are_needed" />
+					Yes</label>
+				  <label>
+					<input value="No" type="radio" name="additional_materials_are_needed" />
+					No</label>
+				</div>
+			  </div>
+			  <div class="nf-box">
+				<label>How much of your time was spent planting?</label>
+				<input type="number" class="forminput" name="time_spent_planting" min="0" value="0" />
+			  </div>
+			  <div class="nf-box">
+				<button class="nf-box-btn updatejobform" type="button">Done</button>
+			  </div>
+          
+		  </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="js/jquery-3.2.1.min.js" ></script> 
 
 <script src="js/jquery-ui.min.js" ></script>
@@ -261,6 +392,47 @@
 <script type="text/javascript" src="js/database.js"></script>
 <script type="text/javascript">
 
+function addeditform(){
+	var job_id=jQuery('#job_id').val();
+	db.transaction(checkprevfrom, updateerrorDB, successDB);
+	function checkprevfrom(tx){
+		var q="SELECT * FROM job_forms WHERE add_by=? AND form_title=? AND job_id=?";
+		var cond=[uid,'jobform',job_id];
+		tx.executeSql(q, cond, function(tx, res2){
+			if(parseInt(res2.rows.length)>0){
+				for(var i = 0; i < res2.rows.length; i++)
+				{
+					var form_id=res2.rows.item(i).id;
+					var q2="SELECT * FROM job_form_values WHERE job_id=? AND form_id=?";
+					var cond2=[job_id, form_id];
+					tx.executeSql(q2, cond2, function(tx, res3){
+						if(parseInt(res3.rows.length)>0){
+							jQuery('#form_id').val(form_id);
+							for(var j = 0; j < res3.rows.length; j++)
+							{
+								if(res3.rows.item(j).field_type=='textarea'){
+									jQuery('#ejobform textarea[name="'+res3.rows.item(j).field_key+'"]').val(res3.rows.item(j).field_value);
+								}
+								else if(res3.rows.item(j).field_type=='number' || res3.rows.item(j).field_type=='text'){
+									jQuery('#ejobform input[name="'+res3.rows.item(j).field_key+'"]').val(res3.rows.item(j).field_value);
+								}
+								else if(res3.rows.item(j).field_type=='radio' && res3.rows.item(j).field_value!=''){
+									jQuery('#ejobform input[name="'+res3.rows.item(j).field_key+'"][value="'+res3.rows.item(j).field_value+'"]').attr('checked',true);
+								}
+							}
+							jQuery('#editjobform').modal();
+						}
+					});
+				}
+				
+			}
+			else{
+				jQuery('#addjobform').modal();
+			}
+		});
+	}
+		
+}
 var timecount=0;
 var counter='';
 var timecount2=0;
@@ -375,7 +547,7 @@ function loadjob(job_id){
 							localStorage.removeItem('stop_general_clock_'+today);
 							localStorage.removeItem('finish_job');
 						}
-						jQuery('.previous_notes').html('<button type="button" class="nf-box-btn" data-toggle="modal" data-target="#addnewnotes">Add Note</button>');
+						jQuery('.previous_notes').html('<button type="button" class="nf-box-btn" data-toggle="modal" data-target="#addnewnotes">Add Note</button><div class="clearfix"></div><button type="button" class="nf-box-btn addformbtn" onclick="addeditform();">Form</button>');
 						var q="SELECT * FROM job_notifications WHERE job_id=? AND title=? ORDER BY cdate DESC";
 						var cond=[job_id,'Note'];
 						tx.executeSql(q, cond, function(tx, res2){
@@ -422,7 +594,7 @@ function loadjob(job_id){
 						}*/
 						
 					}
-					
+					//alert('test');
 					jQuery('.starttodayjob').addClass('step2');
 				}
 				jQuery('#job_id').val(job_id);
@@ -487,7 +659,13 @@ jQuery(document).ready(function(){
 		jQuery('.starttodayjob').addClass('step3');
 		setTimeout(function(){jQuery('.starttodayjob').removeClass('step2');},1500);
 	}
-	
+	var finish_today_job=localStorage.getItem('finish_today_job');
+	if(finish_today_job==today){
+		jQuery('#myModal1').remove();
+		jQuery('#myModal2').remove();
+		jQuery('#myModal3').remove();
+		jQuery('#myModal4').remove();
+	}
 	var generaltime=localStorage.getItem('general_'+today);
 	if(typeof generaltime!='undefined' && generaltime!='' && generaltime!=null){
 		if(generaltime!='00:00:00'){
@@ -505,7 +683,6 @@ jQuery(document).ready(function(){
 				jQuery('#myModal1 .pop-btm-cnt:first ul li.clockoutmenu').remove();
 				jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li class="clockoutmenu"><a href="javascript:;" onclick="clockouttime();">Clock out for day</a></li>');
 			}
-			
 			
 			db.transaction(startdaytime2, function(){}, successDB);
 			function startdaytime2(tx){
@@ -528,6 +705,7 @@ jQuery(document).ready(function(){
 						}
 					}
 				});
+				
 			}
 			
 		}
@@ -554,6 +732,11 @@ jQuery(document).ready(function(){
 		jQuery('.job_clock_time').html('00:00:00');
 		
 	}
+	jQuery('.checkforclockout').click(function(){
+		jQuery('#myModal2').modal('hide');
+		jQuery('#myModal3').modal('hide');
+		jQuery('#myModal4').modal();
+	});
 	jQuery('.starttodayjob').click(function(){
 		
 		if(!jQuery('.starttodayjob').hasClass('step2') && !jQuery('.starttodayjob').hasClass('step3')){
@@ -576,7 +759,19 @@ jQuery(document).ready(function(){
 		var job_id2=localStorage.getItem('finish_job');
 		if(job_id!=job_id2 && job_id!='' && job_id!='0'){
 			jQuery('#myModal2').modal('hide');
-			jQuery('#addjobform').modal();
+			//jQuery('#addjobform').modal();
+			var currentdatetime=getdatetime();
+			var endtime=getcurrenttime();
+			db.transaction(travelnewjob, errorDB, successDB);
+			function travelnewjob(tx){
+				var qry="UPDATE jobs set status='Completed', real_end_time='"+endtime+"' WHERE job_id='"+job_id+"' AND  user_id='"+uid+"'";
+				tx.executeSql(qry);
+				var uq="UPDATE job_times set end_time='"+endtime+"' WHERE pu_date='"+today+"' AND assigned_to='"+uid+"' AND job_id='"+job_id+"' AND time_type='startjob' AND end_time='00:00:00'";
+				tx.executeSql(uq);
+				localStorage.setItem('finish_job',job_id);
+				localStorage.removeItem('timecount2');
+				window.location='startday.html?jobdone=1';
+			}
 		}
 		else{
 			jQuery('#myModal2').modal('hide');
@@ -603,10 +798,24 @@ jQuery(document).ready(function(){
 		var job_id=jQuery('#job_id').val();
 		var redirect=true;
 		var job_id2=localStorage.getItem('finish_job');
+		localStorage.setItem('finish_today_job',today);
 		if(job_id!=job_id2 && job_id!='' && job_id!='undefined' && job_id!='0'){
 			jQuery('#myModal2').modal('hide');
-			jQuery('#addjobform').modal();
+			//jQuery('#addjobform').modal();
 			redirect=false;
+			var currentdatetime=getdatetime();
+			var endtime=getcurrenttime();
+			db.transaction(travelnewjob, errorDB, successDB);
+			function travelnewjob(tx){
+				var qry="UPDATE jobs set status='Completed', real_end_time='"+endtime+"' WHERE job_id='"+job_id+"' AND  user_id='"+uid+"'";
+				tx.executeSql(qry);
+				var uq="UPDATE job_times set end_time='"+endtime+"' WHERE pu_date='"+today+"' AND assigned_to='"+uid+"' AND job_id='"+job_id+"' AND time_type='startjob' AND end_time='00:00:00'";
+				tx.executeSql(uq);
+				tx.executeSql("UPDATE job_daytimes set end_time='"+endtime+"' AND status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'");
+				localStorage.removeItem('timecount');
+				localStorage.removeItem('timecount2');
+				window.location='startday.html';
+			}
 		}
 		else{
 			jQuery('#myModal2').modal('hide');
@@ -618,7 +827,7 @@ jQuery(document).ready(function(){
 			localStorage.removeItem('timecount');
 			localStorage.removeItem('timecount2');
 			if(redirect){
-				window.location='';
+				window.location='startday.html';
 			}
 		}
 	});
@@ -866,10 +1075,10 @@ jQuery(document).ready(function(){
 					}
 					
 				});
-				var qry="UPDATE jobs set status='Completed', real_end_time='"+endtime+"' WHERE job_id='"+job_id+"' AND  user_id='"+uid+"'";
+				/*var qry="UPDATE jobs set status='Completed', real_end_time='"+endtime+"' WHERE job_id='"+job_id+"' AND  user_id='"+uid+"'";
 				tx.executeSql(qry);
 				var uq="UPDATE job_times set end_time='"+endtime+"' WHERE pu_date='"+today+"' AND assigned_to='"+uid+"' AND job_id='"+job_id+"' AND time_type='startjob' AND end_time='00:00:00'";
-				tx.executeSql(uq);
+				tx.executeSql(uq);*/
 				var q="SELECT * FROM userlogin WHERE user_id=?";
 				var cond=[uid];
 				tx.executeSql(q, cond, function(tx, res){
@@ -879,9 +1088,10 @@ jQuery(document).ready(function(){
 						var lname=res.rows.item(0).lname;
 						var add_by=fname+' '+lname;
 						tx.executeSql('INSERT INTO job_notifications (job_id, job_notification_id, title, message, add_by, cdate, nfrom, user_id) VALUES ("'+job_id+'", "0", "Form", "", "'+add_by+'", "'+currentdatetime+'", "app", "'+uid+'")');
-						localStorage.setItem('finish_job',job_id);
+						/*localStorage.setItem('finish_job',job_id);
 						localStorage.removeItem('timecount2');
-						window.location='startday.html?jobdone=1';	
+						window.location='startday.html?jobdone=1';	*/
+						jQuery('#addjobform').modal('hide');
 					}
 				});
 				
@@ -889,7 +1099,95 @@ jQuery(document).ready(function(){
 			
 		}
 	});
-	
+	jQuery('.updatejobform').click(function(){
+		var noerror=true;
+		jQuery('#ejobform textarea.required').each(function(){
+			var v=jQuery(this).val();
+			if(jQuery.trim(v)==''){
+				jQuery(this).addClass('error');
+				noerror=false;
+			}
+		});
+		jQuery('#ejobform input.required').each(function(){
+			var v=jQuery(this).val();
+			if(jQuery.trim(v)==''){
+				jQuery(this).addClass('error');
+				noerror=false;
+			}
+		});
+		var keys=[];
+		var radiokeys=[];
+		var types=[];
+		var vs=[];
+		jQuery('#ejobform textarea').each(function(){
+			var value=jQuery(this).val();
+			var key=jQuery(this).attr('name');
+			keys.push(key); 
+			vs.push(value);
+			types.push('textarea');
+		});
+		jQuery('#ejobform input[type="text"]').each(function(){
+			var value=jQuery(this).val();
+			var key=jQuery(this).attr('name');
+			keys.push(key); 
+			vs.push(value);
+			types.push('text');
+		});
+		jQuery('#ejobform input[type="number"]').each(function(){
+			var value=jQuery(this).val();
+			var key=jQuery(this).attr('name');
+			keys.push(key); 
+			vs.push(value);
+			types.push('number');
+		});
+		var arr=[];
+		jQuery.each( $('#ejobform input:radio'), function(){
+		  var myname= this.name;
+		  if( jQuery.inArray( myname, arr ) < 0 ){
+			arr.push(myname);
+		  }
+		});
+		for(k=0;k<arr.length;k++){
+			var key=arr[k];
+			var v=jQuery('#ejobform input[name="'+key+'"]:checked').val();
+			types.push('radio');
+			keys.push(key); 
+			if(typeof v=='undefined'){v='';}
+			vs.push(v);
+		}
+		var arr=[];
+		jQuery.each( $('#ejobform input:checkbox'), function(){
+		  var myname= this.name;
+		  if( jQuery.inArray( myname, arr ) < 0 ){
+		  	arr.push(myname);
+		  }
+		});
+		for(k=0;k<arr.length;k++){
+			var key=arr[k];
+			var v=jQuery('input[name="'+key+'"]:checked').val();
+			types.push('radio');
+			keys.push(key); 
+			if(typeof v=='undefined'){v='';}
+			vs.push(v);
+		}
+		
+		var form_id=jQuery('#form_id').val();
+		var currentdatetime=getdatetime();
+		var currentdatetime=getdatetime();
+		if(noerror){
+			db.transaction(addnewnotes, errorDB, successDB);
+			function addnewnotes(tx){
+				for(i=0;i<keys.length;i++){
+					var qry="UPDATE job_form_values set field_value='"+vs[i]+"' WHERE form_id='"+form_id+"' AND field_key='"+keys[i]+"'";
+					tx.executeSql(qry);
+				}
+				var qry="UPDATE job_forms set udate='"+currentdatetime+"', updatenow='1' WHERE id='"+form_id+"'";
+				tx.executeSql(qry);
+				jQuery('#editjobform').modal('hide');
+			}
+			
+		}
+	});
 	db.transaction(checkjobexusts, errorDB, successDB);
 	function checkjobexusts(tx){
 		var q="SELECT * FROM jobs WHERE job_date=? AND user_id=? AND status=?";

@@ -262,6 +262,7 @@ function checkonlineoffline(){
 	document.addEventListener("online", updategardenerdata, false);
 }
 setInterval(checkonlineoffline,30000);
+
 function updategardenerdata(){
 	//var networkState = navigator.connection.type;
 	//alert('Connection type: ' + networkState);
@@ -480,7 +481,7 @@ function updategardenerdata(){
 									formdata.push(singlerow);
 								}
 								
-								var url=siteurl+'/api/jobs/updatejobforms';
+								var url=siteurl+'/api/jobs/addjobforms';
 								jQuery.ajax({  
 								 type: 'POST',  
 								 url: url,  
@@ -509,15 +510,76 @@ function updategardenerdata(){
 				}
 			});
 			
+			var q="SELECT * FROM job_forms WHERE add_by=? AND form_title=? AND updatenow=? AND updateonsite=?";
+			var cond=[uid,'jobform','1','1'];
+			tx.executeSql(q, cond, function(tx, res2){
+				if(parseInt(res2.rows.length)>0){
+					
+					for(var i = 0; i < res2.rows.length; i++)
+					{
+						var form_id=res2.rows.item(i).id;
+						var job_id=res2.rows.item(i).job_id;
+						var form_title=res2.rows.item(i).form_title;
+						var cdate=res2.rows.item(i).cdate;
+						var udate=res2.rows.item(i).udate;
+						var site_form_id=res2.rows.item(i).site_form_id;
+						var q2="SELECT * FROM job_form_values WHERE form_id=?";
+						var cond2=[form_id];
+						tx.executeSql(q2, cond2, function(tx, res3){
+							if(parseInt(res3.rows.length)>0){
+								
+								var formdata=[];
+								for(var j = 0; j < res3.rows.length; j++)
+								{
+									var singlerow={field_key:res3.rows.item(j).field_key, field_value:res3.rows.item(j).field_value, field_type:res3.rows.item(j).field_type};
+									formdata.push(singlerow);
+								}
+								
+								var url=siteurl+'/api/jobs/updatejobforms';
+								jQuery.ajax({  
+								 type: 'POST',  
+								 url: url,  
+								 dataType: 'json',
+								 data: {form_id:form_id, user_id:uid, job_id:job_id, form_title:form_title, cdate:cdate, udate:udate, formdata:formdata, site_form_id:site_form_id},  
+								 crossDomain: true,  
+								 beforeSend: function() {
+												
+								 },		
+								 complete: function() {
+											
+								 },
+								 success: updatejobdata6,  
+								 error: function(response, d, a){
+									jQuery('body .showmessage').remove();
+									var html='<div class="showmessage">Server Error in update data5.</div>';
+									jQuery('body').append(html);
+									setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+									
+								 } 
+							   });
+							}
+						});
+					}
+					
+				}
+			});
 		}
 	}
 }
 //updategardenerdata();
+function updatejobdata6(res){
+	var form_id=res['form_id'];
+	if(form_id!='0'){
+		db.transaction(function(tx){
+			tx.executeSql("UPDATE job_forms SET updatenow='0' WHERE id='"+form_id+"'");
+		});
+	}
+}
 function updatejobdata5(res){
 	var form_id=res['form_id'];
 	if(form_id!='0'){
 		db.transaction(function(tx){
-			tx.executeSql("UPDATE job_forms SET updateonsite='1' WHERE id='"+form_id+"'");
+			tx.executeSql("UPDATE job_forms SET updateonsite='1', site_form_id='"+res['fid']+"' WHERE id='"+form_id+"'");
 		});
 	}
 }
