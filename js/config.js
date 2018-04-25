@@ -827,7 +827,7 @@ function checkfornewupdates(){
 }
 //checkfornewupdates();
 function Updatejobexists(res){
-	db.transaction(function(tx){
+	/*db.transaction(function(tx){
 		if(typeof res['jobs']!='undefined')
 		{
 			jQuery(res['jobs']).each(function(index){
@@ -850,7 +850,7 @@ function Updatejobexists(res){
 			
 		}
 						 
-		},  function(){alert('Error in exist job update');}, successDB);
+		},  function(){alert('Error in exist job update');}, successDB);*/
 }
 function Updatejob_timesheets(res){
      db.transaction(function(tx){
