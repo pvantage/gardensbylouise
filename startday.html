@@ -608,7 +608,7 @@ function loadjob(job_id){
 	}
 }
 function clockouttime(){
-	localStorage.setItem('startjob_status_text','You Are Currently Off the Clock');
+	/*localStorage.setItem('startjob_status_text','You Are Currently Off the Clock');
 	localStorage.setItem('stop_job_clock_'+today,'stop');
 	localStorage.setItem('stop_general_clock_'+today,'stop');
 	localStorage.setItem('stop_today_'+today,'stop');
@@ -624,7 +624,11 @@ function clockouttime(){
 		localStorage.removeItem('timecount');
 		localStorage.removeItem('timecount2');
 		window.location='';
-	}
+	}*/
+	jQuery('#myModal1').modal('hide');
+	jQuery('#myModal2').modal('hide');
+	jQuery('#myModal3').modal('hide');
+	jQuery('#myModal4').modal();
 }
 function synjobs(){
 	localStorage.setItem('StaffMem_synjobs','done');
@@ -818,7 +822,7 @@ jQuery(document).ready(function(){
 			}
 		}
 		else{
-			jQuery('#myModal2').modal('hide');
+			jQuery('#myModal4').modal('hide');
 		}
 		var currenttime=getcurrenttime();
 		db.transaction(startlunch, errorDB, successDB);

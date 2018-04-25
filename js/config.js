@@ -716,6 +716,46 @@ function checkfornewupdates(){
 			});
 		},  function(){alert('Error in job notes update');}, successDB);
 		
+		db.transaction(function(tx){
+		
+			var q="SELECT * FROM jobs WHERE status!=?";
+			tx.executeSql(q, ['Assigned'], function(tx, rest){
+				var jobids='';
+			 	if(parseInt(rest.rows.length)>0){
+					for(var i = 0; i < rest.rows.length; i++)
+					{
+						if(i==0){jobids=rest.rows.item(i).job_id;}
+						else{jobids+=','+rest.rows.item(i).job_id;}
+					}
+				}
+				if(jQuery.trim(jobids)!=''){
+					var url=siteurl+'/api/jobs/jobformdata';
+						jQuery.ajax({  
+							type: 'POST',  
+							url: url,           
+							dataType: 'json',  
+							crossDomain: true,
+							data: {job_ids:jobids, add_by:uid}, 
+							beforeSend: function() {
+							
+							},		
+							complete: function() {
+							}, 
+							crossDomain: true,  
+							success: Updatejobformsdata,  
+							error: function(response, d, a){
+							
+							/*jQuery('body .showmessage').remove();
+							var html='<div class="showmessage">Server Error3</div>';
+							jQuery('body').append(html);
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
+							return false; 
+							}
+						});
+				}
+			});
+		},  function(){alert('Error in job form update');}, successDB);
+		
 		var url=siteurl+'/api/jobs/job_timesheets';
 		jQuery.ajax({  
 			type: 'POST',  
@@ -768,6 +808,35 @@ function Updatejob_timesheets(res){
 						 
 		},  function(){alert('Error in job timesheet update');}, successDB);
 }
+function Updatejobformsdata(res){
+	db.transaction(function(tx){
+		if(typeof res['data']!='undefined')
+		{
+			jQuery(res['data']).each(function(index){
+				if(typeof res['data'][index]!='undefined'){
+					var q="SELECT * FROM job_forms WHERE site_form_id=?";
+					tx.executeSql(q, [res['data'][index]['ID']], function(tx, rest){
+							if(parseInt(rest.rows.length)>0){
+								var fid=res.rows.item(0).id;
+								tx.executeSql("UPDATE job_forms SET udate='"+res['data'][index]['udate']+"' WHERE site_form_id='"+res['data'][index]['ID']+"' AND id='"+fid+"'");	
+								jQuery(res['data'][index]['formdata']).each(function(index2){
+									if(typeof res['data'][index]['formdata'][index2]!='undefined'){
+										//job_id integer, form_id integer, field_key text, field_type text, field_value
+										var field_key=res['data'][index]['formdata'][index2]['field_key'];
+										var field_value=res['data'][index]['formdata'][index2]['field_value'];
+										tx.executeSql("UPDATE job_form_values SET field_value='"+field_value+"' WHERE field_key='"+field_key+"' AND form_id='"+fid+"'");
+									}
+								});
+							}
+							
+					});
+				}
+			});
+			
+		}
+						 
+	},  function(){alert('Error in job form update');}, successDB);
+}
 function Updatejobnotesdata(res){
      db.transaction(function(tx){
 		if(res['data'])
@@ -790,7 +859,7 @@ function Updatejobnotesdata(res){
 			
 		}
 						 
-		},  function(){alert('Error in job note update');}, successDB);
+	},  function(){alert('Error in job note update');}, successDB);
 }
 function Updatejobdata(res){
      db.transaction(function(tx){
