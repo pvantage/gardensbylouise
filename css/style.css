@@ -728,12 +728,16 @@ body .donbtn {
     background: #29a03f;
     float: left;
     width: 92%;
-    color: #fff;
+    color: #ffffff;
     border: none;
     padding: 10px;
     border-radius: 3px;
     display: block;
+	font-size:20px;
 }
+.str-job.completed{color:#29a03f;background: none;}
+.str-job.assigned{color:#c7c7cd;background: none;}
+.str-job.process{color:#4289ff;background: none;}
 .cencelpureq h1 {
     font-size: 17px;
     margin-bottom: 5px;

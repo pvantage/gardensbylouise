@@ -718,6 +718,46 @@ function checkfornewupdates(){
 		
 		db.transaction(function(tx){
 		
+			var q="SELECT * FROM jobs WHERE user_id=?";
+			tx.executeSql(q, [uid], function(tx, rest){
+				var jobids='';
+			 	if(parseInt(rest.rows.length)>0){
+					for(var i = 0; i < rest.rows.length; i++)
+					{
+						if(i==0){jobids=rest.rows.item(i).job_id;}
+						else{jobids+=','+rest.rows.item(i).job_id;}
+					}
+				}
+				if(jQuery.trim(jobids)!=''){
+					var url=siteurl+'/api/jobs/checkforjobexists';
+						jQuery.ajax({  
+							type: 'POST',  
+							url: url,           
+							dataType: 'json',  
+							crossDomain: true,
+							data: {job_ids:jobids,uid:uid}, 
+							beforeSend: function() {
+							
+							},		
+							complete: function() {
+							}, 
+							crossDomain: true,  
+							success: Updatejobexists,  
+							error: function(response, d, a){
+							
+							/*jQuery('body .showmessage').remove();
+							var html='<div class="showmessage">Server Error3</div>';
+							jQuery('body').append(html);
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
+							return false; 
+							}
+						});
+				}
+			});
+		},  function(){alert('Error in exist jobs update');}, successDB);
+		
+		db.transaction(function(tx){
+		
 			var q="SELECT * FROM jobs WHERE status!=?";
 			tx.executeSql(q, ['Assigned'], function(tx, rest){
 				var jobids='';
@@ -786,6 +826,32 @@ function checkfornewupdates(){
 	}
 }
 //checkfornewupdates();
+function Updatejobexists(res){
+	db.transaction(function(tx){
+		if(typeof res['jobs']!='undefined')
+		{
+			jQuery(res['jobs']).each(function(index){
+				if(typeof res['jobs'][index]!='undefined'){
+					var q="SELECT * FROM jobs WHERE job_id=? AND user_id=?";
+					tx.executeSql(q, [res['jobs'][index],uid], function(tx, rest){
+						if(parseInt(rest.rows.length)>0){
+							tx.executeSql("DELETE FROM jobs WHERE job_id='"+res['jobs'][index]+"' AND user_id='"+uid+"'");	
+							tx.executeSql("DELETE FROM job_times WHERE job_id='"+res['jobs'][index]+"' AND assigned_to='"+uid+"'");
+							tx.executeSql("DELETE FROM job_daytimes WHERE job_id='"+res['jobs'][index]+"' AND user_id='"+uid+"'");
+							tx.executeSql("DELETE FROM job_schedule WHERE job_id='"+res['jobs'][index]+"' AND user_id='"+uid+"'");
+							tx.executeSql("DELETE FROM job_forms WHERE job_id='"+res['jobs'][index]+"' AND add_by='"+uid+"'");
+							tx.executeSql("DELETE FROM job_notifications WHERE job_id='"+res['jobs'][index]+"' AND user_id='"+uid+"'");
+							tx.executeSql("DELETE FROM job_timesheets WHERE job_id='"+res['jobs'][index]+"' AND user_id='"+uid+"'");
+						}
+						
+					});
+				}
+			});
+			
+		}
+						 
+		},  function(){alert('Error in exist job update');}, successDB);
+}
 function Updatejob_timesheets(res){
      db.transaction(function(tx){
 		if(res['data'])
@@ -863,17 +929,22 @@ function Updatejobnotesdata(res){
 }
 function Updatejobdata(res){
      db.transaction(function(tx){
-		if(res['data'])
+		if(typeof res['data']!='undefined')
 		{
 			jQuery(res['data']).each(function(index){
 				if(typeof res['data'][index]!='undefined'){
 					var q="SELECT * FROM jobs WHERE job_id=? AND user_id=?";
+					//alert(uid+'='+res['data'][index]['ID']);
 					tx.executeSql(q, [res['data'][index]['ID'],uid], function(tx, rest){
 						if(parseInt(rest.rows.length)>0){
-							tx.executeSql("UPDATE jobs SET address='"+res['data'][index]['address']+"', customer_id='"+res['data'][index]['customer_id']+"', description='"+res['data'][index]['description']+"', contact_fname='"+res['data'][index]['contact_fname']+"', contact_lname='"+res['data'][index]['contact_lname']+"', contact_email='"+res['data'][index]['contact_email']+"', contact_phone='"+res['data'][index]['contact_phone']+"', job_date='"+res['data'][index]['job_date']+"', start_time='"+res['data'][index]['start_time']+"', lati='"+res['data'][index]['lati']+"', longi='"+res['data'][index]['longi']+"' WHERE job_id='"+res['data'][index]['ID']+"' AND user_id='"+uid+"'");	
+							var qr="UPDATE jobs SET address='"+res['data'][index]['address']+"', customer_id='"+res['data'][index]['customer_id']+"', description='"+res['data'][index]['description']+"', contact_fname='"+res['data'][index]['contact_fname']+"', contact_lname='"+res['data'][index]['contact_lname']+"', contact_email='"+res['data'][index]['contact_email']+"', contact_phone='"+res['data'][index]['contact_phone']+"', job_date='"+res['data'][index]['job_date']+"', start_time='"+res['data'][index]['start_time']+"', lati='"+res['data'][index]['lati']+"', longi='"+res['data'][index]['longi']+"' WHERE job_id='"+res['data'][index]['ID']+"' AND user_id='"+uid+"'";
+							//alert(qr);
+							tx.executeSql(qr);	
 						}
 						else{
-							tx.executeSql('INSERT INTO jobs (job_id, customer_id, address, description, status, contact_fname, contact_lname, contact_email, contact_phone, job_date, start_time,user_id,lati, longi) VALUES ("'+res['data'][index]['ID']+'", "'+res['data'][index]['customer_id']+'", "'+res['data'][index]['address']+'", "'+res['data'][index]['description']+'", "'+res['data'][index]['status']+'", "'+res['data'][index]['contact_fname']+'", "'+res['data'][index]['contact_lname']+'", "'+res['data'][index]['contact_email']+'", "'+res['data'][index]['contact_phone']+'", "'+res['data'][index]['job_date']+'", "'+res['data'][index]['start_time']+'", "'+uid+'", "'+res['data'][index]['lati']+'", "'+res['data'][index]['longi']+'")');	
+							var qr='INSERT INTO jobs (job_id, customer_id, address, description, status, contact_fname, contact_lname, contact_email, contact_phone, job_date, start_time,user_id,lati, longi) VALUES ("'+res['data'][index]['ID']+'", "'+res['data'][index]['customer_id']+'", "'+res['data'][index]['address']+'", "'+res['data'][index]['description']+'", "'+res['data'][index]['status']+'", "'+res['data'][index]['contact_fname']+'", "'+res['data'][index]['contact_lname']+'", "'+res['data'][index]['contact_email']+'", "'+res['data'][index]['contact_phone']+'", "'+res['data'][index]['job_date']+'", "'+res['data'][index]['start_time']+'", "'+uid+'", "'+res['data'][index]['lati']+'", "'+res['data'][index]['longi']+'")';
+							
+							tx.executeSql(qr);	
 						}
 					});
 				}

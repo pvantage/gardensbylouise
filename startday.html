@@ -126,6 +126,7 @@
       <div class="modal-body">
         <div class="pop-cnt">
           <div class="pop-btm-cnt">
+		  	<p class="alertmsg"></p>
             <ul>
 			  <li><a href="javascript:;" class="step2_stopclocks">Yes</a></li>
             </ul>
@@ -547,12 +548,12 @@ function loadjob(job_id){
 							localStorage.removeItem('stop_general_clock_'+today);
 							localStorage.removeItem('finish_job');
 						}
-						jQuery('.previous_notes').html('<button type="button" class="nf-box-btn" data-toggle="modal" data-target="#addnewnotes">Add Note</button><div class="clearfix"></div><button type="button" class="nf-box-btn addformbtn" onclick="addeditform();">Form</button>');
+						jQuery('.previous_notes').html('<button type="button" class="nf-box-btn addformbtn" onclick="addeditform();">Form</button><div class="clearfix"></div><button type="button" class="nf-box-btn" data-toggle="modal" data-target="#addnewnotes">Add Note</button>');
 						var q="SELECT * FROM job_notifications WHERE job_id=? AND title=? ORDER BY cdate DESC";
 						var cond=[job_id,'Note'];
 						tx.executeSql(q, cond, function(tx, res2){
 							if(parseInt(res2.rows.length)>0){
-								var html='<button type="button" class="nf-box-btn" data-toggle="modal" data-target="#addnewnotes">Add Note</button><h2></h2>';
+								var html='<button type="button" class="nf-box-btn addformbtn" onclick="addeditform();">Form</button><div class="clearfix"></div><button type="button" class="nf-box-btn" data-toggle="modal" data-target="#addnewnotes">Add Note</button><h2></h2>';
 								for(var i = 0; i < res2.rows.length; i++)
 								{
 									var daytim=res2.rows.item(i).cdate;
@@ -595,6 +596,7 @@ function loadjob(job_id){
 						
 					}
 					//alert('test');
+					localStorage.setItem('job_status_'+today,'jobstart');
 					jQuery('.starttodayjob').addClass('step2');
 				}
 				jQuery('#job_id').val(job_id);
@@ -625,6 +627,7 @@ function clockouttime(){
 		localStorage.removeItem('timecount2');
 		window.location='';
 	}*/
+	jQuery('#myModal4 .alertmsg').html('Are you sure you want to close the day?');
 	jQuery('#myModal1').modal('hide');
 	jQuery('#myModal2').modal('hide');
 	jQuery('#myModal3').modal('hide');
@@ -673,6 +676,14 @@ jQuery(document).ready(function(){
 	var generaltime=localStorage.getItem('general_'+today);
 	if(typeof generaltime!='undefined' && generaltime!='' && generaltime!=null){
 		if(generaltime!='00:00:00'){
+			var job_status=localStorage.getItem('job_status_'+today);
+			if(job_status=='jobstart'){
+				jQuery('.starttodayjob').addClass('step2');
+			}
+			else if(job_status=='traveltonext'){
+				jQuery('.starttodayjob').removeClass('step2');
+				jQuery('.starttodayjob').addClass('step3');
+			}
 			jQuery('.general_clock_time').parents('li').addClass('glck');
 			jQuery('.starttodayjob').text('Change Timer State');
 			var startjob_status_text=localStorage.getItem('startjob_status_text');
@@ -706,6 +717,10 @@ jQuery(document).ready(function(){
 						if(typeof jobid!='undefined' && jobid!='' && jobid!=null && (typeof job_id=='undefined' || jobid==null)){
 							timecount2=0;
 							loadjob(jobid);
+							if(job_status=='traveltonext'){
+								jQuery('.starttodayjob').removeClass('step2');
+								jQuery('.starttodayjob').addClass('step3');
+							}
 						}
 					}
 				});
@@ -739,6 +754,7 @@ jQuery(document).ready(function(){
 	jQuery('.checkforclockout').click(function(){
 		jQuery('#myModal2').modal('hide');
 		jQuery('#myModal3').modal('hide');
+		jQuery('#myModal4 .alertmsg').html('Are you sure you want to close the job?');
 		jQuery('#myModal4').modal();
 	});
 	jQuery('.starttodayjob').click(function(){
@@ -757,6 +773,7 @@ jQuery(document).ready(function(){
 	jQuery('.step2_newxt_job').click(function(){
 		localStorage.setItem('startjob_status_text','Clocked In: No Active Job');
 		localStorage.setItem('stop_job_clock_'+today,'stop');
+		localStorage.setItem('job_status_'+today,'traveltonext');
 		jQuery('.startjob_status_text').html('Clocked In: No Active Job');
 		clearInterval(counter2);
 		var job_id=jQuery('#job_id').val();
@@ -791,6 +808,7 @@ jQuery(document).ready(function(){
 	});
 	
 	jQuery('.step2_stopclocks').click(function(){
+		localStorage.setItem('job_status_'+today,'stopforday');
 		localStorage.setItem('startjob_status_text','You Are Currently Off the Clock');
 		localStorage.setItem('stop_job_clock_'+today,'stop');
 		localStorage.setItem('stop_general_clock_'+today,'stop');
@@ -846,6 +864,7 @@ jQuery(document).ready(function(){
 	jQuery('.step2_stop_for_lunch').click(function(){
 		var stop_today=localStorage.getItem('stop_today_'+today);
 		if(stop_today!='stop'){
+			localStorage.setItem('job_status_'+today,'lunchbreak');
 			localStorage.setItem('startjob_status_text','Clocked Out To Lunch');
 			localStorage.setItem('stop_job_clock_'+today,'stop');
 			localStorage.setItem('stop_general_clock_'+today,'stop');
@@ -898,6 +917,7 @@ jQuery(document).ready(function(){
 		localStorage.removeItem('stop_job_clock_'+today);
 		localStorage.removeItem('stop_general_clock_'+today);
 		localStorage.removeItem('clock_stop_for_'+today);
+		localStorage.setItem('startjob_status_text','Clocked In: No Active Job');
 		db.transaction(startlunch, errorDB, successDB);
 		function startlunch(tx){
 			var job_id=jQuery('#job_id').val();

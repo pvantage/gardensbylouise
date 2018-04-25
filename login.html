@@ -18,6 +18,7 @@
       <div class="loginbox">
         <div class="form-logo"> <img src="images/desk-logo.png"/></div>
         <form id="loginuser" action="" method="post">
+			<input type="hidden" id="prevlogin" value="0">
           <div class="login-box"> <img src="images/em.png"/>
             <input type="email" id="email" name="email" required="" class="email required" placeholder="Email Address"/>
           </div>
@@ -66,6 +67,7 @@ jQuery(document).ready(function(){
 		var cond=[];
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)>0){
+				jQuery('#prevlogin').val(res.rows.item(0).user_id);
 				var rembe=res.rows.item(0).remberme;
 				var pwd3=res.rows.item(0).pwd;
 				var uname2=res.rows.item(0).uname;
@@ -123,6 +125,10 @@ jQuery(document).ready(function(){
 			 success: function(res) { 
 				if(res['checklogin']['udetail'])
 				{
+					var prevlogin=jQuery('#prevlogin').val();
+					if(prevlogin!='0' && prevlogin!=res['checklogin']['udetail']['userid']){
+						localStorage.clear();
+					}
 					localStorage.setItem('StaffMem_ID', res['checklogin']['udetail']['userid']);
 					db.transaction(loginguser, errorDB, successDB);
 					function loginguser(tx){

@@ -36,7 +36,7 @@
               <h3><span class="company_name"></span></h3>
               <div class="sch-adr"></div>
               <span class="grey-color"></span>
-			  <button class="str-job" style="display:none;">Start Job</button>
+			  <button class="str-job"></button>
             </div>
           </div>
 		  <form id="editform" name="editform" action="" method="post">
@@ -211,7 +211,7 @@ function loadjob(job_id){
 						jQuery('.showjobstatus').addClass('completed-status');
 					}
 					
-					jQuery('.str-job').hide();
+					//jQuery('.str-job').hide();
 					
 					var showstartbtn=false;
 					
@@ -265,20 +265,17 @@ function loadjob(job_id){
 						}
 					});
 					
-					if(res.rows.item(i).status=='Completed' || res.rows.item(i).status=='Unassigned'){
-						jQuery('.str-job').hide();
+					if(res.rows.item(i).status=='Completed'){
+						jQuery('.str-job').html('Completed');
+						jQuery('.str-job').addClass('completed');
 					}
-					else if(res.rows.item(i).status=='Being Processed' && showstartbtn){
-						jQuery('.str-job').show();
-						jQuery('.str-job').html('End Job');
-						jQuery('.str-job').addClass('endjob');
-						jQuery('.str-job').removeClass('start-job');
+					else if(res.rows.item(i).status=='Being Processed'){
+						jQuery('.str-job').html('Being Processed');
+						jQuery('.str-job').addClass('process');
 					}
-					else if(res.rows.item(i).status=='Assigned' && showstartbtn){
-						jQuery('.str-job').show();
-						jQuery('.str-job').html('Start Job');
-						jQuery('.str-job').addClass('start-job');
-						jQuery('.str-job').removeClass('endjob');
+					else if(res.rows.item(i).status=='Assigned'){
+						jQuery('.str-job').html('Being Processed');
+						jQuery('.str-job').addClass('process');
 					}
 					
 				}
