@@ -125,8 +125,9 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="pop-cnt">
+			<p class="alertmsg"></p>
           <div class="pop-btm-cnt">
-		  	<p class="alertmsg"></p>
+		  	
             <ul>
 			  <li><a href="javascript:;" class="step2_stopclocks">Yes</a></li>
             </ul>
@@ -148,7 +149,7 @@
       <div class="modal-body">
         <div class="pop-head">
           <div class="row">
-            <a href="javascript:;" data-dismiss="modal">Cancel</a>
+            <a href="javascript:;" data-dismiss="modal" class="close col-2 donbtn gottoback">Cancel</a>
             <div class="col-10 pop-title">Add Notes</div>
           </div>
         </div>
@@ -175,7 +176,7 @@
       <div class="modal-body">
         <div class="pop-head">
           <div class="row">
-            <a href="javascript:;" data-dismiss="modal">Cancel</a>
+            <a href="javascript:;" data-dismiss="modal" class="close col-2 donbtn gottoback">Cancel</a>
             <div class="col-10 pop-title">Form</div>
           </div>
         </div>
@@ -282,7 +283,7 @@
       <div class="modal-body">
         <div class="pop-head">
           <div class="row">
-            <a href="javascript:;" data-dismiss="modal">Cancel</a>
+            <a href="javascript:;" data-dismiss="modal" class="close col-2 donbtn gottoback">Cancel</a>
             <div class="col-10 pop-title">Form</div>
           </div>
         </div>
@@ -516,6 +517,10 @@ function jobtimer(){
 }
 function loadjob(job_id){
 	var job_id2=localStorage.getItem('finish_job');
+	var finish_today_job=localStorage.getItem('finish_today_job');
+	if(finish_today_job==today){
+		return false;
+	}
 	if(job_id!=job_id2){
 		var currentdatetime=getdatetime();
 		var currenttime=getcurrenttime();
@@ -672,6 +677,10 @@ jQuery(document).ready(function(){
 		jQuery('#myModal2').remove();
 		jQuery('#myModal3').remove();
 		jQuery('#myModal4').remove();
+		localStorage.setItem('startjob_status_text','Clocked Out For Day');
+		setTimeout(function(){
+			jQuery('.startjob_status_text').html('Clocked Out For Day');
+		},150);
 	}
 	var generaltime=localStorage.getItem('general_'+today);
 	if(typeof generaltime!='undefined' && generaltime!='' && generaltime!=null){
@@ -721,6 +730,7 @@ jQuery(document).ready(function(){
 								jQuery('.starttodayjob').removeClass('step2');
 								jQuery('.starttodayjob').addClass('step3');
 							}
+							
 						}
 					}
 				});

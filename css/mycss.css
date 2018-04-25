@@ -1,4 +1,14 @@
-.showmessage{width:286px; background:#FFFF66;color:#000000; height:40px; line-height:40px; font-size:16px; text-align:center; position:fixed; top:60%; left:50%; z-index:999999; border:1px solid #000000; margin-left:-143px; margin-top:-20px;}
+.showmessage{width:286px; background:#FFFF66;color:#000000; height:40px; line-height:40px; font-size:16px; text-align:center; position:fixed; top:60%; left:50%; z-index:999999; border:1px solid #000000; margin-left:-143px; margin-top:-20px; font-weight: 600;
+    box-shadow: 0px 2px 3px #000;
+}
+p.alertmsg {
+    color: red;
+    font-weight: 600;
+    background: #fff;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
 .showpopmessage {
     width: 100%;
     background: #FFFFFF;

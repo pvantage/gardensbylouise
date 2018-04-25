@@ -260,8 +260,10 @@ document.addEventListener("online", updategardenerdata, false);
 function checkonlineoffline(){
 	document.addEventListener("online", checkfornewupdates, false);
 	document.addEventListener("online", updategardenerdata, false);
+	//checkfornewupdates();
+	//updategardenerdata();
 }
-setInterval(checkonlineoffline,30000);
+setInterval(checkonlineoffline,15000);
 
 function updategardenerdata(){
 	//var networkState = navigator.connection.type;
@@ -534,7 +536,7 @@ function updategardenerdata(){
 									var singlerow={field_key:res3.rows.item(j).field_key, field_value:res3.rows.item(j).field_value, field_type:res3.rows.item(j).field_type};
 									formdata.push(singlerow);
 								}
-								
+								//alert(JSON.stringify(formdata));
 								var url=siteurl+'/api/jobs/updatejobforms';
 								jQuery.ajax({  
 								 type: 'POST',  
@@ -569,6 +571,7 @@ function updategardenerdata(){
 //updategardenerdata();
 function updatejobdata6(res){
 	var form_id=res['form_id'];
+	
 	if(form_id!='0'){
 		db.transaction(function(tx){
 			tx.executeSql("UPDATE job_forms SET updatenow='0' WHERE id='"+form_id+"'");
@@ -827,7 +830,7 @@ function checkfornewupdates(){
 }
 //checkfornewupdates();
 function Updatejobexists(res){
-	/*db.transaction(function(tx){
+	db.transaction(function(tx){
 		if(typeof res['jobs']!='undefined')
 		{
 			jQuery(res['jobs']).each(function(index){
@@ -850,7 +853,7 @@ function Updatejobexists(res){
 			
 		}
 						 
-		},  function(){alert('Error in exist job update');}, successDB);*/
+		},  function(){alert('Error in exist job update');}, successDB);
 }
 function Updatejob_timesheets(res){
      db.transaction(function(tx){
@@ -875,22 +878,30 @@ function Updatejob_timesheets(res){
 		},  function(){alert('Error in job timesheet update');}, successDB);
 }
 function Updatejobformsdata(res){
+	
 	db.transaction(function(tx){
 		if(typeof res['data']!='undefined')
 		{
+			
 			jQuery(res['data']).each(function(index){
 				if(typeof res['data'][index]!='undefined'){
-					var q="SELECT * FROM job_forms WHERE site_form_id=?";
-					tx.executeSql(q, [res['data'][index]['ID']], function(tx, rest){
+					var q="SELECT * FROM job_forms WHERE site_form_id=? AND job_id=?";
+					//alert(res['data'][index]['ID']);
+					//alert(JSON.stringify(res['data'][index]));
+					tx.executeSql(q, [res['data'][index]['ID'],res['data'][index]['job_id']], function(tx, rest){
 							if(parseInt(rest.rows.length)>0){
-								var fid=res.rows.item(0).id;
-								tx.executeSql("UPDATE job_forms SET udate='"+res['data'][index]['udate']+"' WHERE site_form_id='"+res['data'][index]['ID']+"' AND id='"+fid+"'");	
+								var fid=rest.rows.item(0).id;
+								var q="UPDATE job_forms SET udate='"+res['data'][index]['udate']+"' WHERE site_form_id='"+res['data'][index]['ID']+"' AND id='"+fid+"'";
+								//alert(q);
+								tx.executeSql(q);	
 								jQuery(res['data'][index]['formdata']).each(function(index2){
 									if(typeof res['data'][index]['formdata'][index2]!='undefined'){
 										//job_id integer, form_id integer, field_key text, field_type text, field_value
 										var field_key=res['data'][index]['formdata'][index2]['field_key'];
 										var field_value=res['data'][index]['formdata'][index2]['field_value'];
-										tx.executeSql("UPDATE job_form_values SET field_value='"+field_value+"' WHERE field_key='"+field_key+"' AND form_id='"+fid+"'");
+										var q="UPDATE job_form_values SET field_value='"+field_value+"' WHERE field_key='"+field_key+"' AND form_id='"+fid+"'";
+										//alert(q);
+										tx.executeSql(q);
 									}
 								});
 							}
