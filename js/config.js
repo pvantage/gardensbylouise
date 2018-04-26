@@ -189,7 +189,7 @@ function showPosition(position) {
     
 }
  function showError(error){
-	 alert('Message:' + error.message);
+	// alert('Message:' + error.message);
  }
  function getLocation() {
      navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -717,7 +717,9 @@ function checkfornewupdates(){
 						});
 				}
 			});
-		},  function(){alert('Error in job notes update');}, successDB);
+		},  function(){
+			//alert('Error in job notes update');
+			}, successDB);
 		
 		db.transaction(function(tx){
 		
@@ -756,7 +758,9 @@ function checkfornewupdates(){
 						});
 				}
 			});
-		},  function(){alert('Error in exist jobs update');}, successDB);
+		},  function(){
+			//alert('Error in exist jobs update');
+			}, successDB);
 		
 		db.transaction(function(tx){
 		
@@ -796,7 +800,9 @@ function checkfornewupdates(){
 						});
 				}
 			});
-		},  function(){alert('Error in job form update');}, successDB);
+		},  function(){
+			//alert('Error in job form update');
+			}, successDB);
 		
 		var url=siteurl+'/api/jobs/job_timesheets';
 		jQuery.ajax({  
@@ -854,7 +860,9 @@ function Updatejobexists(res){
 			
 		}
 						 
-		},  function(){alert('Error in exist job update');}, successDB);
+		},  function(){
+			//alert('Error in exist job update');
+			}, successDB);
 }
 function Updatejob_timesheets(res){
      db.transaction(function(tx){
@@ -876,7 +884,9 @@ function Updatejob_timesheets(res){
 			
 		}
 						 
-		},  function(){alert('Error in job timesheet update');}, successDB);
+		},  function(){
+			//alert('Error in job timesheet update');
+			}, successDB);
 }
 function Updatejobformsdata(res){
 	
@@ -913,7 +923,9 @@ function Updatejobformsdata(res){
 			
 		}
 						 
-	},  function(){alert('Error in job form update');}, successDB);
+	},  function(){
+		//alert('Error in job form update');
+		}, successDB);
 }
 function Updatejobnotesdata(res){
      db.transaction(function(tx){
@@ -937,7 +949,9 @@ function Updatejobnotesdata(res){
 			
 		}
 						 
-	},  function(){alert('Error in job note update');}, successDB);
+	},  function(){
+		//alert('Error in job note update');
+		}, successDB);
 }
 function Updatejobdata(res){
      db.transaction(function(tx){
@@ -964,7 +978,9 @@ function Updatejobdata(res){
 			
 		}
 						 
-		},  function(){alert('Error in job data update');}, successDB);
+		},  function(){
+			//alert('Error in job data update');
+			}, successDB);
 }
 function Updateremovejobdata(res){
      db.transaction(function(tx){
@@ -983,16 +999,16 @@ function Updateremovejobdata(res){
 }
 
 function errorDB(tx, err) {
-	alert("Error processing SQL: "+err);
-	alert("Error processing SQL: "+err.message);
+	//alert("Error processing SQL: "+err);
+	//alert("Error processing SQL: "+err.message);
 }
 function importerrorDB(tx, err) {
-	alert("Import Error processing SQL: "+err);
-	alert("Error processing SQL: "+err.message);
+	//alert("Import Error processing SQL: "+err);
+	//alert("Error processing SQL: "+err.message);
 }
 function updateerrorDB(tx, err) {
-	alert("Update Error processing SQL: "+err);
-	alert("Error processing SQL: "+err.message);
+	//alert("Update Error processing SQL: "+err);
+	//alert("Error processing SQL: "+err.message);
 }
 
 // Transaction success callback
