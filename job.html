@@ -274,8 +274,8 @@ function loadjob(job_id){
 						jQuery('.str-job').addClass('process');
 					}
 					else if(res.rows.item(i).status=='Assigned'){
-						jQuery('.str-job').html('Being Processed');
-						jQuery('.str-job').addClass('process');
+						jQuery('.str-job').html('Assigned');
+						jQuery('.str-job').addClass('assigned');
 					}
 					
 				}

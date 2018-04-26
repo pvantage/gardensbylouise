@@ -28,6 +28,9 @@ ul.starttodayjob_times .glck {
     color: #ed2024;
 
 }
+.myschdl .container.cntbox.tab-content .row {
+    margin: 0px !important;
+}
 .timerbx h1.myschle {
     font-size: 28px;
     font-weight: 900;
@@ -578,6 +581,7 @@ background-color: #f79e34;
 .schedule-time {
 	color: #000;
 	font-weight: 600;
+	    padding: 0;
 }
 .schedule-hashtag {
 	color: #acacac;
@@ -736,7 +740,7 @@ body .donbtn {
 	font-size:20px;
 }
 .str-job.completed{color:#29a03f;background: none;}
-.str-job.assigned{color:#c7c7cd;background: none;}
+.str-job.assigned{color:#f79e34;background: none;}
 .str-job.process{color:#4289ff;background: none;}
 .cencelpureq h1 {
     font-size: 17px;

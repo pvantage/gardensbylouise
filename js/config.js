@@ -260,8 +260,8 @@ document.addEventListener("online", updategardenerdata, false);
 function checkonlineoffline(){
 	document.addEventListener("online", checkfornewupdates, false);
 	document.addEventListener("online", updategardenerdata, false);
-	//checkfornewupdates();
-	//updategardenerdata();
+	checkfornewupdates();
+	updategardenerdata();
 }
 setInterval(checkonlineoffline,15000);
 
@@ -299,10 +299,10 @@ function updategardenerdata(){
 						 },
 						 success: updatejobdata1,  
 						 error: function(response, d, a){
-							jQuery('body .showmessage').remove();
+							/*jQuery('body .showmessage').remove();
 							var html='<div class="showmessage">Server Error in update data1.</div>';
 							jQuery('body').append(html);
-							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
 							
 						 } 
 					   });
@@ -338,10 +338,10 @@ function updategardenerdata(){
 						 },
 						 success: updatejobdata2,  
 						 error: function(response, d, a){
-							jQuery('body .showmessage').remove();
+							/*jQuery('body .showmessage').remove();
 							var html='<div class="showmessage">Server Error in update data2.</div>';
 							jQuery('body').append(html);
-							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
 							
 						 } 
 					   });
@@ -411,10 +411,10 @@ function updategardenerdata(){
 						 },
 						 success: updatejobdata31,  
 						 error: function(response, d, a){
-							jQuery('body .showmessage').remove();
+							/*jQuery('body .showmessage').remove();
 							var html='<div class="showmessage">Server Error in update data3.</div>';
 							jQuery('body').append(html);
-							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
 							
 						 } 
 					   });
@@ -448,10 +448,10 @@ function updategardenerdata(){
 						 },
 						 success: updatejobdata4,  
 						 error: function(response, d, a){
-							jQuery('body .showmessage').remove();
+							/*jQuery('body .showmessage').remove();
 							var html='<div class="showmessage">Server Error in update data4.</div>';
 							jQuery('body').append(html);
-							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
 							
 						 } 
 					   });
@@ -498,10 +498,10 @@ function updategardenerdata(){
 								 },
 								 success: updatejobdata5,  
 								 error: function(response, d, a){
-									jQuery('body .showmessage').remove();
+									/*jQuery('body .showmessage').remove();
 									var html='<div class="showmessage">Server Error in update data5.</div>';
 									jQuery('body').append(html);
-									setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+									setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
 									
 								 } 
 							   });
@@ -552,10 +552,10 @@ function updategardenerdata(){
 								 },
 								 success: updatejobdata6,  
 								 error: function(response, d, a){
-									jQuery('body .showmessage').remove();
+									/*jQuery('body .showmessage').remove();
 									var html='<div class="showmessage">Server Error in update data5.</div>';
 									jQuery('body').append(html);
-									setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
+									setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
 									
 								 } 
 							   });
@@ -740,7 +740,6 @@ function checkfornewupdates(){
 							crossDomain: true,
 							data: {job_ids:jobids,uid:uid}, 
 							beforeSend: function() {
-							
 							},		
 							complete: function() {
 							}, 
@@ -748,10 +747,10 @@ function checkfornewupdates(){
 							success: Updatejobexists,  
 							error: function(response, d, a){
 							
-							/*jQuery('body .showmessage').remove();
+							jQuery('body .showmessage').remove();
 							var html='<div class="showmessage">Server Error3</div>';
 							jQuery('body').append(html);
-							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);
 							return false; 
 							}
 						});
@@ -830,21 +829,23 @@ function checkfornewupdates(){
 }
 //checkfornewupdates();
 function Updatejobexists(res){
+	//alert(JSON.stringify(res));
 	db.transaction(function(tx){
 		if(typeof res['jobs']!='undefined')
 		{
 			jQuery(res['jobs']).each(function(index){
 				if(typeof res['jobs'][index]!='undefined'){
 					var q="SELECT * FROM jobs WHERE job_id=? AND user_id=?";
-					tx.executeSql(q, [res['jobs'][index],uid], function(tx, rest){
+					var job_id=res['jobs'][index]['job_id'];
+					tx.executeSql(q, [job_id,uid], function(tx, rest){
 						if(parseInt(rest.rows.length)>0){
-							tx.executeSql("DELETE FROM jobs WHERE job_id='"+res['jobs'][index]+"' AND user_id='"+uid+"'");	
-							tx.executeSql("DELETE FROM job_times WHERE job_id='"+res['jobs'][index]+"' AND assigned_to='"+uid+"'");
-							tx.executeSql("DELETE FROM job_daytimes WHERE job_id='"+res['jobs'][index]+"' AND user_id='"+uid+"'");
-							tx.executeSql("DELETE FROM job_schedule WHERE job_id='"+res['jobs'][index]+"' AND user_id='"+uid+"'");
-							tx.executeSql("DELETE FROM job_forms WHERE job_id='"+res['jobs'][index]+"' AND add_by='"+uid+"'");
-							tx.executeSql("DELETE FROM job_notifications WHERE job_id='"+res['jobs'][index]+"' AND user_id='"+uid+"'");
-							tx.executeSql("DELETE FROM job_timesheets WHERE job_id='"+res['jobs'][index]+"' AND user_id='"+uid+"'");
+							tx.executeSql("DELETE FROM jobs WHERE job_id='"+job_id+"' AND user_id='"+uid+"'");	
+							tx.executeSql("DELETE FROM job_times WHERE job_id='"+job_id+"' AND assigned_to='"+uid+"'");
+							tx.executeSql("DELETE FROM job_daytimes WHERE job_id='"+job_id+"' AND user_id='"+uid+"'");
+							tx.executeSql("DELETE FROM job_schedule WHERE job_id='"+job_id+"' AND user_id='"+uid+"'");
+							tx.executeSql("DELETE FROM job_forms WHERE job_id='"+job_id+"' AND add_by='"+uid+"'");
+							tx.executeSql("DELETE FROM job_notifications WHERE job_id='"+job_id+"' AND user_id='"+uid+"'");
+							tx.executeSql("DELETE FROM job_timesheets WHERE job_id='"+job_id+"' AND user_id='"+uid+"'");
 						}
 						
 					});

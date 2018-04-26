@@ -2,13 +2,16 @@
     box-shadow: 0px 2px 3px #000;
 }
 p.alertmsg {
-    color: red;
+      color: red;
     font-weight: 600;
     background: #fff;
-    width: 90%;
+    width: 94%;
     margin: 0 auto;
     margin-bottom: 10px;
+    font-size: 15px;
+    padding: 3px 0px;
 }
+
 .showpopmessage {
     width: 100%;
     background: #FFFFFF;
