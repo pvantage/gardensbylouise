@@ -602,6 +602,7 @@ function loadjob(job_id){
 					}
 					//alert('test');
 					localStorage.setItem('job_status_'+today,'jobstart');
+					jQuery('.starttodayjob').removeClass('step3');
 					jQuery('.starttodayjob').addClass('step2');
 				}
 				jQuery('#job_id').val(job_id);
@@ -611,6 +612,7 @@ function loadjob(job_id){
 	}
 	else if(job_id2!='undefined' && job_id2!=null && job_id2!='')
 	{
+		jQuery('.starttodayjob').removeClass('step3');
 		jQuery('.starttodayjob').addClass('step2');
 	}
 }
@@ -687,6 +689,7 @@ jQuery(document).ready(function(){
 		if(generaltime!='00:00:00'){
 			var job_status=localStorage.getItem('job_status_'+today);
 			if(job_status=='jobstart'){
+				jQuery('.starttodayjob').removeClass('step3');
 				jQuery('.starttodayjob').addClass('step2');
 			}
 			else if(job_status=='traveltonext'){
