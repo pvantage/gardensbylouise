@@ -80,28 +80,28 @@
 				<textarea name="notemsg" rows="3" cols="50" class="forminput"></textarea>
 			  </div>
 			  <div class="nf-box">
-				<label>Bags of mulch used</label>
-				<input type="number" class="forminput" name="bags_of_mulch_used" min="0" value="0" />
+				<label>Amount of mulch used (don't include mulch piles in this estimate.)</label>
+				<input type="text" class="forminput" name="bags_of_mulch_used" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Bag size</label>
-				<input type="number" class="forminput" name="mulch_bag_size" min="0" value="0" />
+				<label>Mulch Bag size</label>
+				<input type="text" class="forminput" name="mulch_bag_size" value="0" />
 			  </div>
 			   <div class="nf-box">
-				<label>Bags of compost used</label>
-				<input type="number" class="forminput" name="bags_of_compost_used" min="0" value="0" />
+				<label>Amount of compost used (don't include compost in this estimate.)</label>
+				<input type="text" class="forminput" name="bags_of_compost_used" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Bag size</label>
-				<input type="number" class="forminput" name="compost_bag_size" min="0" value="0" />
+				<label>Compost Bag size</label>
+				<input type="text" class="forminput" name="compost_bag_size" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Bags of Holly Tone used</label>
-				<input type="number" class="forminput" name="bags_of_holly_tone_used" min="0" value="0" />
+				<label>Amount of Holly Tone used (don't include Holly Tone in this estimate.)</label>
+				<input type="text" class="forminput" name="bags_of_holly_tone_used" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Bag size</label>
-				<input type="number" class="forminput" name="holly_tone_bag_size" min="0" value="0" />
+				<label>Holly Tone Bag size</label>
+				<input type="text" class="forminput" name="holly_tone_bag_size" value="0" />
 			  </div>
 			  <div class="nf-box">
 				<label>Are you leaving a wheelbarrow?</label>
@@ -116,7 +116,7 @@
 			  </div>
 			  <div class="nf-box">
 				<label>Bags of debris</label>
-				<input type="number" class="forminput" name="bags_of_debris" min="0" value="0" />
+				<input type="text" class="forminput" name="bags_of_debris" value="0" />
 			  </div>
 			  <div class="nf-box">
 				<label>Any issues with bees, plants/bushes not doing well, poison ivy? Put details in Notes</label>
@@ -142,10 +142,10 @@
 			  </div>
 			  <div class="nf-box">
 				<label>If there is work still to be done, estimate how much is left in hours</label>
-				<input type="number" class="forminput" name="pending_task_time" min="0" value="0" />
+				<input type="text" class="forminput" name="pending_task_time" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>If additional materials are needed, provide details in Notes</label>
+				<label>Are additional materials needed? Provide details in Notes</label>
 				<div class="form-radios">
 				  <label>
 					<input value="Yes" type="radio" name="additional_materials_are_needed" />
@@ -157,7 +157,7 @@
 			  </div>
 			  <div class="nf-box">
 				<label>How much of your time was spent planting?</label>
-				<input type="number" class="forminput" name="time_spent_planting" min="0" value="0" />
+				<input type="text" class="forminput" name="time_spent_planting" value="0" />
 			  </div>
 			  <div class="nf-box">
 				<button class="nf-box-btn savenejobform" type="button">Done</button>
@@ -177,7 +177,7 @@
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript">
-var formfields={'bags_of_mulch_used':'Bags of mulch used', 'notemsg':'Notes', 'mulch_bag_size':'Bag size', 'bags_of_compost_used':'Bags of compost used', 'compost_bag_size':'Bag size', 'bags_of_holly_tone_used':'Bags of Holly Tone used', 'holly_tone_bag_size':'Bag size', 'leaving_a_wheelbarrow':'Are you leaving a wheelbarrow?', 'bags_of_debris':'Bags of debris', 'problem_with_bees_plants_bushes':'Any issues with bees, plants/bushes not doing well, poison ivy? Put details in Notes', 'messages_from_homeowner':'Any messages from homeowner? Put details in Notes', 'pending_task_time':'If there is work still to be done, estimate how much is left in hours', 'additional_materials_are_needed':'If additional materials are needed, provide details in Notes', 'time_spent_planting':'How much of your time was spent planting?'};
+var formfields={'bags_of_mulch_used':'Amount of mulch used (don\'\t include mulch piles in this estimate.)', 'notemsg':'Notes', 'mulch_bag_size':'Mulch Bag size', 'bags_of_compost_used':'Amount of compost used (don\'\t include compost in this estimate.)', 'compost_bag_size':'Compost Bag size', 'bags_of_holly_tone_used':'Amount of Holly Tone used (don\'\t include Holly Tone in this estimate.)', 'holly_tone_bag_size':'Holly Tone Bag size', 'leaving_a_wheelbarrow':'Are you leaving a wheelbarrow?', 'bags_of_debris':'Bags of debris', 'problem_with_bees_plants_bushes':'Any issues with bees, plants/bushes not doing well, poison ivy? Put details in Notes', 'messages_from_homeowner':'Any messages from homeowner? Put details in Notes', 'pending_task_time':'If there is work still to be done, estimate how much is left in hours', 'additional_materials_are_needed':'Are additional materials needed? Provide details in Notes', 'time_spent_planting':'How much of your time was spent planting, in hours?'};
 function showform(){
 	jQuery('#addjobform').modal();
 }

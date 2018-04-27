@@ -63,6 +63,7 @@ body .mysch-fix-hdr{ background:#231f20;     margin: 0;}
     padding: 10px 0px;
     background: none;
 }
+.timerbx .startjob_status_text.daycompleted{color:#000000;}
 .job-notes p {
     font-size: 15px;
     text-align: left;
