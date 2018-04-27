@@ -149,9 +149,9 @@ body h1.myschle {
 .timesheetpage .row.align-items-center {
     float: left;
     width: 100%;
-	    padding: 5px 0px;
+	padding: 5px 0px 5px 15px;
 }
-
+.schedule-day .row{padding-left:15px;}
 .timesheetpage .showsheetoverview table {
     width: 100%;
 }
