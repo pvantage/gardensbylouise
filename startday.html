@@ -703,6 +703,14 @@ jQuery(document).ready(function(){
 			else if(job_status=='startgeneraltime'){
 				jQuery('.decline_job').parent('li').remove();
 			}
+			else if(job_status=='lunchbreak'){
+				jQuery('.starttodayjob').removeClass('step3');
+				jQuery('.starttodayjob').addClass('step2');
+				setTimeout(function(){
+					jQuery('.starttodayjob').removeClass('step3');
+					jQuery('.starttodayjob').addClass('step2');
+				},2000);
+			}
 			jQuery('.general_clock_time').parents('li').addClass('glck');
 			jQuery('.starttodayjob').text('Change Timer State');
 			var startjob_status_text=localStorage.getItem('startjob_status_text');
@@ -1245,9 +1253,35 @@ jQuery(document).ready(function(){
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)<=0){
 				jQuery('.nojobexist').hide();
-				jQuery('#myModal2 .nojobexist a').text('Complete the job');
-				jQuery('#myModal2 .nojobexist').show();
-				jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li><a href="javascript:;" onclick="synjobs();">Syn</a></li>');
+				var job_status=localStorage.getItem('job_status_'+today);
+				if(job_status!='lunchbreak')
+				{
+					jQuery('#myModal2 .nojobexist a').text('Complete the job');
+					jQuery('#myModal2 .nojobexist').show();
+					
+					jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li><a href="javascript:;" onclick="synjobs();">Syn</a></li>');
+				}
+				else{
+					jQuery('.starttodayjob').removeClass('step3');
+					jQuery('.starttodayjob').addClass('step2');
+					setTimeout(function(){
+						jQuery('.starttodayjob').removeClass('step3');
+						jQuery('.starttodayjob').addClass('step2');
+					},2000);
+				}
+			}
+			else{
+				var job_status=localStorage.getItem('job_status_'+today);
+				if(job_status=='lunchbreak')
+				{
+					jQuery('.starttodayjob').removeClass('step2');
+					jQuery('.starttodayjob').addClass('step3');
+					setTimeout(function(){
+						jQuery('.starttodayjob').removeClass('step2');
+						jQuery('.starttodayjob').addClass('step3');
+					},2000);
+				}
+				
 			}
 		});
 	}
