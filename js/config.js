@@ -963,12 +963,12 @@ function Updatejobdata(res){
 					//alert(uid+'='+res['data'][index]['ID']);
 					tx.executeSql(q, [res['data'][index]['ID'],uid], function(tx, rest){
 						if(parseInt(rest.rows.length)>0){
-							var qr="UPDATE jobs SET address='"+res['data'][index]['address']+"', customer_id='"+res['data'][index]['customer_id']+"', description='"+res['data'][index]['description']+"', contact_fname='"+res['data'][index]['contact_fname']+"', contact_lname='"+res['data'][index]['contact_lname']+"', contact_email='"+res['data'][index]['contact_email']+"', contact_phone='"+res['data'][index]['contact_phone']+"', job_date='"+res['data'][index]['job_date']+"', start_time='"+res['data'][index]['start_time']+"', lati='"+res['data'][index]['lati']+"', longi='"+res['data'][index]['longi']+"' WHERE job_id='"+res['data'][index]['ID']+"' AND user_id='"+uid+"'";
+							var qr="UPDATE jobs SET address='"+res['data'][index]['address']+"', customer_id='"+res['data'][index]['customer_id']+"', description='"+res['data'][index]['description']+"', contact_fname='"+res['data'][index]['contact_fname']+"', contact_lname='"+res['data'][index]['contact_lname']+"', contact_email='"+res['data'][index]['contact_email']+"', contact_phone='"+res['data'][index]['contact_phone']+"', job_date='"+res['data'][index]['job_date']+"', start_time='"+res['data'][index]['start_time']+"', lati='"+res['data'][index]['lati']+"', longi='"+res['data'][index]['longi']+"', listtype='"+res['data'][index]['listtype']+"' WHERE job_id='"+res['data'][index]['ID']+"'";
 							//alert(qr);
 							tx.executeSql(qr);	
 						}
 						else{
-							var qr='INSERT INTO jobs (job_id, customer_id, address, description, status, contact_fname, contact_lname, contact_email, contact_phone, job_date, start_time,user_id,lati, longi) VALUES ("'+res['data'][index]['ID']+'", "'+res['data'][index]['customer_id']+'", "'+res['data'][index]['address']+'", "'+res['data'][index]['description']+'", "'+res['data'][index]['status']+'", "'+res['data'][index]['contact_fname']+'", "'+res['data'][index]['contact_lname']+'", "'+res['data'][index]['contact_email']+'", "'+res['data'][index]['contact_phone']+'", "'+res['data'][index]['job_date']+'", "'+res['data'][index]['start_time']+'", "'+uid+'", "'+res['data'][index]['lati']+'", "'+res['data'][index]['longi']+'")';
+							var qr='INSERT INTO jobs (job_id, customer_id, address, description, status, contact_fname, contact_lname, contact_email, contact_phone, job_date, start_time,user_id,lati, longi, listtype, add_by) VALUES ("'+res['data'][index]['ID']+'", "'+res['data'][index]['customer_id']+'", "'+res['data'][index]['address']+'", "'+res['data'][index]['description']+'", "'+res['data'][index]['status']+'", "'+res['data'][index]['contact_fname']+'", "'+res['data'][index]['contact_lname']+'", "'+res['data'][index]['contact_email']+'", "'+res['data'][index]['contact_phone']+'", "'+res['data'][index]['job_date']+'", "'+res['data'][index]['start_time']+'", "'+uid+'", "'+res['data'][index]['lati']+'", "'+res['data'][index]['longi']+'", "'+res['data'][index]['listtype']+'", "'+res['data'][index]['add_by']+'")';
 							
 							tx.executeSql(qr);	
 						}
@@ -982,6 +982,35 @@ function Updatejobdata(res){
 			//alert('Error in job data update');
 			}, successDB);
 }
+/*function Updatejobdata(res){
+     db.transaction(function(tx){
+		if(typeof res['data']!='undefined')
+		{
+			jQuery(res['data']).each(function(index){
+				if(typeof res['data'][index]!='undefined'){
+					var q="SELECT * FROM jobs WHERE job_id=? AND user_id=?";
+					//alert(uid+'='+res['data'][index]['ID']);
+					tx.executeSql(q, [res['data'][index]['ID'],uid], function(tx, rest){
+						if(parseInt(rest.rows.length)>0){
+							var qr="UPDATE jobs SET address='"+res['data'][index]['address']+"', customer_id='"+res['data'][index]['customer_id']+"', description='"+res['data'][index]['description']+"', contact_fname='"+res['data'][index]['contact_fname']+"', contact_lname='"+res['data'][index]['contact_lname']+"', contact_email='"+res['data'][index]['contact_email']+"', contact_phone='"+res['data'][index]['contact_phone']+"', job_date='"+res['data'][index]['job_date']+"', start_time='"+res['data'][index]['start_time']+"', lati='"+res['data'][index]['lati']+"', longi='"+res['data'][index]['longi']+"', listtype='"+res['data'][index]['listtype']+"' WHERE job_id='"+res['data'][index]['ID']+"' AND user_id='"+uid+"'";
+							//alert(qr);
+							tx.executeSql(qr);	
+						}
+						else{
+							var qr='INSERT INTO jobs (job_id, customer_id, address, description, status, contact_fname, contact_lname, contact_email, contact_phone, job_date, start_time,user_id,lati, longi, listtype, add_by) VALUES ("'+res['data'][index]['ID']+'", "'+res['data'][index]['customer_id']+'", "'+res['data'][index]['address']+'", "'+res['data'][index]['description']+'", "'+res['data'][index]['status']+'", "'+res['data'][index]['contact_fname']+'", "'+res['data'][index]['contact_lname']+'", "'+res['data'][index]['contact_email']+'", "'+res['data'][index]['contact_phone']+'", "'+res['data'][index]['job_date']+'", "'+res['data'][index]['start_time']+'", "'+uid+'", "'+res['data'][index]['lati']+'", "'+res['data'][index]['longi']+'", "'+res['data'][index]['listtype']+'", "'+res['data'][index]['add_by']+'")';
+							
+							tx.executeSql(qr);	
+						}
+					});
+				}
+			});
+			
+		}
+						 
+		},  function(){
+			//alert('Error in job data update');
+			}, successDB);
+}*/
 function Updateremovejobdata(res){
      db.transaction(function(tx){
 		if(res['data'])

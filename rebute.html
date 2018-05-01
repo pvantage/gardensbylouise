@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gardens By Louise LLC</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/fonts-styles.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/jquery-ui.css">
+<link rel="stylesheet" href="css/mycss.css">
+</head>
+<body class="light-grey-bg after-login schlbody">
+<!----- Header Top ----->
+<div class="container">
+  <div class="header-top">
+    <div class="row  align-items-center">
+	<img src="images/hdr-logo.png" alt="header-logo" />
+	</div>
+	<h1 class="welcomemsg" style="text-align:center;">Rebute</h1>
+	<div style="padding:50px 0px 100px 0px; text-align:center;">
+		<img src="images/ajax-loader.gif" alt="loading" />
+		<p>Please wait....</p>
+	</div>
+</div>
+</div>
+<!----- Bottom Nav Bar ----->
+
+<script src="js/jquery-3.2.1.min.js" ></script> 
+
+<script src="js/jquery-ui.min.js" ></script>
+<script src="js/popper.min.js" ></script> 
+<script src="js/bootstrap.min.js" ></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript">
+rebute=true;
+</script>
+<script type="text/javascript" src="js/database.js"></script>
+<script type="text/javascript">
+//localStorage.clear();
+updategardenerdata();
+checkfornewupdates();
+jQuery(document).ready(function(){
+	setTimeout(function(){
+		window.location='index.html';
+	},5000);
+});
+
+</script>
+</body>
+</html>

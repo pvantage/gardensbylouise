@@ -58,7 +58,7 @@
         <div class="pop-cnt">
           <div class="pop-btm-cnt">
             <ul>
-              <li class="nojobexist"><a href="javascript:;" class="accept_job">Accept</a></li>
+              <li class="nojobexist"><a href="javascript:;" class="accept_job">Pick the job you want to clock into</a></li>
 			  <li> <a class="decline_job" href="javascript:;">Decline</a></li>
             </ul>
           </div>
@@ -191,7 +191,7 @@
 				<input type="text" class="forminput" name="bags_of_mulch_used" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Mulch Bag size</label>
+				<label>Mulch Bag size (Please include units,  e.g. cups, pounds, teaspoons)</label>
 				<input type="text" class="forminput" name="mulch_bag_size" value="0" />
 			  </div>
 			   <div class="nf-box">
@@ -199,7 +199,7 @@
 				<input type="text" class="forminput" name="bags_of_compost_used" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Compost Bag size</label>
+				<label>Compost Bag size (Please include units,  e.g. cups, pounds, teaspoons)</label>
 				<input type="text" class="forminput" name="compost_bag_size" value="0" />
 			  </div>
 			  <div class="nf-box">
@@ -207,7 +207,7 @@
 				<input type="text" class="forminput" name="bags_of_holly_tone_used" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Holly Tone Bag size</label>
+				<label>Holly Tone Bag size (Please include units,  e.g. cups, pounds, teaspoons)</label>
 				<input type="text" class="forminput" name="holly_tone_bag_size" value="0" />
 			  </div>
 			  <div class="nf-box">
@@ -299,7 +299,7 @@
 				<input type="text" class="forminput" name="bags_of_mulch_used" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Mulch Bag size</label>
+				<label>Mulch Bag size (Please include units,  e.g. cups, pounds, teaspoons)</label>
 				<input type="text" class="forminput" name="mulch_bag_size" value="0" />
 			  </div>
 			   <div class="nf-box">
@@ -307,7 +307,7 @@
 				<input type="text" class="forminput" name="bags_of_compost_used" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Compost Bag size</label>
+				<label>Compost Bag size (Please include units,  e.g. cups, pounds, teaspoons)</label>
 				<input type="text" class="forminput" name="compost_bag_size" value="0" />
 			  </div>
 			  <div class="nf-box">
@@ -315,7 +315,7 @@
 				<input type="text" class="forminput" name="bags_of_holly_tone_used" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Holly Tone Bag size</label>
+				<label>Holly Tone Bag size (Please include units,  e.g. cups, pounds, teaspoons)</label>
 				<input type="text" class="forminput" name="holly_tone_bag_size" value="0" />
 			  </div>
 			  <div class="nf-box">
@@ -384,8 +384,7 @@
     </div>
   </div>
 </div>
-<script src="js/jquery-3.2.1.min.js" ></script> 
-
+<script src="js/jquery-3.2.1.min.js" ></script>
 <script src="js/jquery-ui.min.js" ></script>
 <script src="js/popper.min.js" ></script> 
 <script src="js/bootstrap.min.js" ></script>
@@ -517,7 +516,9 @@ function jobtimer(){
 }
 function loadjob(job_id){
 	var job_id2=localStorage.getItem('finish_job');
+	
 	var finish_today_job=localStorage.getItem('finish_today_job');
+	//alert(job_id);
 	if(finish_today_job==today){
 		return false;
 	}
@@ -666,6 +667,9 @@ jQuery(document).ready(function(){
 	}
 	jQuery.support.cors = true;
 	var job_id=gup('job_id');
+	if(job_id!='' && job_id!='undefined' && job_id!=null){
+		localStorage.removeItem('finish_today_job');
+	}
 	loadjob(job_id);
 	
 	var jobdone=gup('jobdone');
@@ -675,14 +679,16 @@ jQuery(document).ready(function(){
 	}
 	var finish_today_job=localStorage.getItem('finish_today_job');
 	if(finish_today_job==today){
-		jQuery('#myModal1').remove();
-		jQuery('#myModal2').remove();
-		jQuery('#myModal3').remove();
-		jQuery('#myModal4').remove();
+		//jQuery('#myModal1').remove();
+		//jQuery('#myModal2').remove();
+		//jQuery('#myModal3').remove();
+		//jQuery('#myModal4').remove();
 		jQuery('.starttodayjob_times li').removeClass('glck');
 		localStorage.setItem('startjob_status_text','Clocked Out For Day');
 		jQuery('.startjob_status_text').addClass('daycompleted');
 		setTimeout(function(){
+			jQuery('.starttodayjob').removeClass('step2');
+			jQuery('.starttodayjob').addClass('step3');
 			jQuery('.startjob_status_text').html('Clocked Out For Day');
 			jQuery('.starttodayjob_times li').removeClass('glck');
 			jQuery('.startjob_status_text').addClass('daycompleted');
@@ -887,22 +893,22 @@ jQuery(document).ready(function(){
 	if(typeof clock_stop_for!='undefined' && clock_stop_for!='' && clock_stop_for!=null){
 		if(clock_stop_for=='lunch'){
 			jQuery('.starttodayjob').addClass('stopforlunch');
-			jQuery('.startjob_status_text').html('Clocked Out To Lunch');
-			setTimeout(function(){jQuery('.startjob_status_text').html('Clocked Out To Lunch');},1000);
+			jQuery('.startjob_status_text').html('Clocked out for lunch or break');
+			setTimeout(function(){jQuery('.startjob_status_text').html('Clocked out for lunch or break');},1000);
 		}
 	}
 	jQuery('.step2_stop_for_lunch').click(function(){
 		var stop_today=localStorage.getItem('stop_today_'+today);
 		if(stop_today!='stop'){
 			localStorage.setItem('job_status_'+today,'lunchbreak');
-			localStorage.setItem('startjob_status_text','Clocked Out To Lunch');
+			localStorage.setItem('startjob_status_text','Clocked out for lunch or break');
 			localStorage.setItem('stop_job_clock_'+today,'stop');
 			localStorage.setItem('stop_general_clock_'+today,'stop');
 			localStorage.setItem('clock_stop_for_'+today,'lunch');
 			var currentdatetime=getdatetime();
 			var currenttime=getcurrenttime();
 			localStorage.setItem('stop_lunch_'+today,currentdatetime);
-			jQuery('.startjob_status_text').html('Clocked Out To Lunch');
+			jQuery('.startjob_status_text').html('Clocked out for lunch or break');
 			db.transaction(startlunch, errorDB, successDB);
 			function startlunch(tx){
 				var job_id=jQuery('#job_id').val();
@@ -1259,7 +1265,11 @@ jQuery(document).ready(function(){
 					jQuery('#myModal2 .nojobexist a').text('Complete the job');
 					jQuery('#myModal2 .nojobexist').show();
 					
-					jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li><a href="javascript:;" onclick="synjobs();">Syn</a></li>');
+					//jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li><a href="javascript:;" onclick="synjobs();">Syn</a></li>');
+					var generaltime=localStorage.getItem('general_'+today);
+					if(typeof generaltime=='undefined' || generaltime=='' || generaltime==null || generaltime=='00:00:00'){
+						jQuery('.previous_notes').html('<button type="button" class="nf-box-btn addformbtn" onclick="synjobs();">Synchronize</button>');
+					}
 				}
 				else{
 					jQuery('.starttodayjob').removeClass('step3');

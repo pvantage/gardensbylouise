@@ -130,6 +130,7 @@ jQuery(document).ready(function(){
 						localStorage.clear();
 					}
 					localStorage.setItem('StaffMem_ID', res['checklogin']['udetail']['userid']);
+					localStorage.setItem('StaffMem_user_type', res['checklogin']['udetail']['user_type']);
 					db.transaction(loginguser, errorDB, successDB);
 					function loginguser(tx){
 						var q="SELECT * FROM userlogin WHERE user_id=?";
