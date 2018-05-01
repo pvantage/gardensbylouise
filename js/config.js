@@ -260,8 +260,8 @@ document.addEventListener("online", updategardenerdata, false);
 function checkonlineoffline(){
 	document.addEventListener("online", checkfornewupdates, false);
 	document.addEventListener("online", updategardenerdata, false);
-	checkfornewupdates();
-	updategardenerdata();
+	//checkfornewupdates();
+	//updategardenerdata();
 }
 setInterval(checkonlineoffline,15000);
 
