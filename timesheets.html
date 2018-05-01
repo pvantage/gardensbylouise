@@ -71,6 +71,7 @@ function showdates(date){
 function listschedules(){
 	db.transaction(showlistjobs, errorDB, successDB);
 	function showlistjobs(tx){
+		var StaffMem_user_type=localStorage.getItem('StaffMem_user_type');
 		jQuery('.timesheet_list').html('');
 		var date_from=jQuery('#date_from').val();
 		var date_to=jQuery('#date_to').val();

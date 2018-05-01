@@ -38,7 +38,9 @@
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)>0){
 				var user_id=res.rows.item(0).user_id;
+				var user_type=res.rows.item(0).user_type;
 				localStorage.setItem('StaffMem_ID',user_id);
+				localStorage.setItem('StaffMem_user_type', user_type);
 				db.transaction(showlistjobs, errorDB, successDB);
 					function showlistjobs(tx){
 						var q="SELECT * FROM job_daytimes WHERE start_date=? AND end_time=?";
