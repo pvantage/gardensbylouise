@@ -195,7 +195,7 @@
 				<input type="text" class="forminput" name="mulch_bag_size" value="0" />
 			  </div>
 			   <div class="nf-box">
-				<label>Amount of compost used (don't include compost in this estimate.)</label>
+				<label>Amount of compost used (don't include compost piles in this estimate.)</label>
 				<input type="text" class="forminput" name="bags_of_compost_used" value="0" />
 			  </div>
 			  <div class="nf-box">
@@ -203,7 +203,7 @@
 				<input type="text" class="forminput" name="compost_bag_size" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Amount of Holly Tone used (don't include Holly Tone in this estimate.)</label>
+				<label>Amount of Holly Tone used (Holly tone doesn't come in piles, so we don't need the parentheses for that item.)</label>
 				<input type="text" class="forminput" name="bags_of_holly_tone_used" value="0" />
 			  </div>
 			  <div class="nf-box">
@@ -303,7 +303,7 @@
 				<input type="text" class="forminput" name="mulch_bag_size" value="0" />
 			  </div>
 			   <div class="nf-box">
-				<label>Amount of compost used (don't include compost in this estimate.)</label>
+				<label>Amount of compost used (don't include compost piles in this estimate.)</label>
 				<input type="text" class="forminput" name="bags_of_compost_used" value="0" />
 			  </div>
 			  <div class="nf-box">
@@ -311,7 +311,7 @@
 				<input type="text" class="forminput" name="compost_bag_size" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Amount of Holly Tone used (don't include Holly Tone in this estimate.)</label>
+				<label>Amount of Holly Tone used (Holly tone doesn't come in piles, so we don't need the parentheses for that item.)</label>
 				<input type="text" class="forminput" name="bags_of_holly_tone_used" value="0" />
 			  </div>
 			  <div class="nf-box">
@@ -1269,10 +1269,10 @@ jQuery(document).ready(function(){
 					jQuery('#myModal2 .nojobexist').show();
 					
 					//jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li><a href="javascript:;" onclick="synjobs();">Syn</a></li>');
-					var generaltime=localStorage.getItem('general_'+today);
-					if(typeof generaltime=='undefined' || generaltime=='' || generaltime==null || generaltime=='00:00:00'){
+					//var generaltime=localStorage.getItem('general_'+today);
+					//if(typeof generaltime=='undefined' || generaltime=='' || generaltime==null || generaltime=='00:00:00'){
 						jQuery('.previous_notes').html('<button type="button" class="nf-box-btn addformbtn" onclick="synjobs();">Synchronize</button>');
-					}
+					//}
 				}
 				else{
 					jQuery('.starttodayjob').removeClass('step3');
