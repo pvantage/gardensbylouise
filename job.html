@@ -41,11 +41,14 @@
           </div>
 		  <form id="editform" name="editform" action="" method="post">
           <div class="Edit-job-bottom">
-            <div class="pop-edit-item">
+            <div class="pop-edit-item jobdetails">
               <h1>Job Detail:</h1>
               <div class="pickup-msg">
-                <textarea class="whitebase" placeholder="Collect CPU" name="description" id="job_description"></textarea>
+                <textarea class="whitebase" placeholder="Job Detail" name="description" id="job_description" readonly="readonly"></textarea>
               </div>
+            </div>
+			<div class="jobassignedto">
+              
             </div>			
 			<div class="pop-edit-item p-pic-req">
               <h1>Notes</h1>
@@ -184,8 +187,8 @@ function showform(){
 function loadjob(job_id){
 	db.transaction(showlistjobs, errorDB, successDB);
 	function showlistjobs(tx){
-		var q="SELECT * FROM jobs WHERE job_id=? AND user_id=?";
-		var cond=[job_id,uid];
+		var q="SELECT * FROM jobs WHERE job_id=?";
+		var cond=[job_id];
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)>0){
 				for(var i = 0; i < res.rows.length; i++)
@@ -193,6 +196,9 @@ function loadjob(job_id){
 					var mobile=res.rows.item(i).contact_phone;
 					jQuery('#myModal20 .callclientto').attr('href','tel:'+mobile);
 					jQuery('#job_description').val(res.rows.item(i).description);
+					if(jQuery.trim(res.rows.item(i).description)==''){
+						jQuery('.jobdetails').remove();
+					}
 					jQuery('#job_address').val(res.rows.item(i).address);
 					jQuery('.company_name').html(res.rows.item(i).contact_fname+' '+res.rows.item(i).contact_lname);
 					jQuery('.sch-adr').html(res.rows.item(i).address);
@@ -228,7 +234,21 @@ function loadjob(job_id){
 							jQuery('.notelists').html(html);
 						}
 					});
-					
+					jQuery('.jobassignedto').html('');
+					var q="SELECT * FROM job_assigned WHERE job_id=?";
+					var cond=[job_id];
+					tx.executeSql(q, cond, function(tx, res2){
+						if(parseInt(res2.rows.length)>0){
+							var html='<h1>Staff Member</h1><div class="pop-multibox jobassignedtolist" style="padding-top:10px;"></div>';
+							jQuery('.jobassignedto').html(html);
+							html='';
+							for(var i = 0; i < res2.rows.length; i++)
+							{
+								html+='<div class="pickup-msg"><span  class="left-block">'+res2.rows.item(i).staffname+' </span></div>';
+							}
+							jQuery('.jobassignedtolist').html(html);
+						}
+					});
 					jQuery('.formvalues').html('');
 					var q="SELECT * FROM job_forms WHERE job_id=? AND add_by=? AND form_title=?";
 					var cond=[job_id, uid,'jobform'];
@@ -394,6 +414,11 @@ jQuery(document).ready(function(){
 			
 		}
 	});
+	var gotopage = localStorage.getItem('gotopage');
+	
+	if(gotopage!='undefined' && gotopage!='' && gotopage!=null){
+		jQuery('.modal-body a.gottoback').attr('href',gotopage);
+	}
 });
 
 </script>

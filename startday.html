@@ -828,7 +828,19 @@ jQuery(document).ready(function(){
 				tx.executeSql(uq);
 				localStorage.setItem('finish_job',job_id);
 				localStorage.removeItem('timecount2');
-				window.location='startday.html?jobdone=1';
+				var q="SELECT * FROM job_schedule WHERE job_id=? AND user_id=? AND job_date=?";
+				var cond=[job_id,uid,today];
+				tx.executeSql(q, cond, function(tx, res){
+					if(parseInt(res.rows.length)>0){
+						var cdate=res.rows.item(0).cdate;
+						var tms=cdate.split(' ');
+						var qr='INSERT INTO job_totaltime (job_id, staff_id, job_date, start_time, end_time, cdate) VALUES ("'+job_id+'", "'+uid+'", "'+today+'", "'+tms[1]+'", "'+endtime+'", "'+currentdatetime+'")';
+						tx.executeSql(qr);
+						window.location='startday.html?jobdone=1';
+					}
+				});
+				
+				
 			}
 		}
 		else{
@@ -872,10 +884,22 @@ jQuery(document).ready(function(){
 				tx.executeSql(qry);
 				var uq="UPDATE job_times set end_time='"+endtime+"' WHERE pu_date='"+today+"' AND assigned_to='"+uid+"' AND job_id='"+job_id+"' AND time_type='startjob' AND end_time='00:00:00'";
 				tx.executeSql(uq);
-				tx.executeSql("UPDATE job_daytimes set end_time='"+endtime+"' AND status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'");
+				var qr="UPDATE job_daytimes set end_time='"+endtime+"', status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'";
+				tx.executeSql(qr);
 				localStorage.removeItem('timecount');
 				localStorage.removeItem('timecount2');
-				window.location='startday.html';
+				var q="SELECT * FROM job_schedule WHERE job_id=? AND user_id=? AND job_date=?";
+				var cond=[job_id,uid,today];
+				tx.executeSql(q, cond, function(tx, res){
+					if(parseInt(res.rows.length)>0){
+						var cdate=res.rows.item(0).cdate;
+						var tms=cdate.split(' ');
+						var qr='INSERT INTO job_totaltime (job_id, staff_id, job_date, start_time, end_time, cdate) VALUES ("'+job_id+'", "'+uid+'", "'+today+'", "'+tms[1]+'", "'+endtime+'", "'+currentdatetime+'")';
+						tx.executeSql(qr);
+						window.location='startday.html';
+					}
+				});
+				//window.location='startday.html';
 			}
 		}
 		else{
@@ -884,7 +908,8 @@ jQuery(document).ready(function(){
 		var currenttime=getcurrenttime();
 		db.transaction(startlunch, errorDB, successDB);
 		function startlunch(tx){
-			tx.executeSql("UPDATE job_daytimes set end_time='"+currenttime+"' AND status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'");
+			var qr="UPDATE job_daytimes set end_time='"+currenttime+"', status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'";
+			tx.executeSql(qr);
 			localStorage.removeItem('timecount');
 			localStorage.removeItem('timecount2');
 			if(redirect){

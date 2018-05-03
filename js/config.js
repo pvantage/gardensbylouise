@@ -59,12 +59,20 @@ function gup2(sParam,url) {
        return decodeURI(results[1]) || 0;
     }
 }
-
+var user_type=localStorage.getItem('StaffMem_user_type');
 function users_menus()
 {
 	var menu='<ul>';
 	menu+='<li><a href="startday.html" class="startdaymenu"><img src="images/timesheet.png" alt="Timer" /><br>Timer </a></li>';
-	menu+='<li><a href="my-schedule.html" class="myschedulemenu"><img src="images/job.png" alt="Jobs" /><br>Jobs</a></li>';
+	if(user_type=='manager' || user_type=='superadmin'){
+		menu+='<li><a href="admin-schedule.html" class="myschedulemenu"><img src="images/job.png" alt="Jobs" /><br>Jobs</a></li>';
+	}
+	else if(user_type=='salesrep'){
+		menu+='<li><a href="sales-schedule.html" class="myschedulemenu"><img src="images/job.png" alt="Jobs" /><br>Jobs</a></li>';
+	}
+	else{
+		menu+='<li><a href="my-schedule.html" class="myschedulemenu"><img src="images/job.png" alt="Jobs" /><br>Jobs</a></li>';
+	}
 	menu+='<li><a href="timesheets.html" class="notificationmenu"><img src="images/tsheet.png" alt="Timesheets" /><br>Timesheets </a></li>';
 	menu+='<li><a href="logout.html" class="moremenu"><img src="images/logout.png" alt="Logout" /><br>Logout</a></li>';
 	menu+='</ul>';
@@ -109,7 +117,7 @@ if(typeof uid!='undefined' && uid!='' && uid!=null){
 			var path = window.location.pathname;
 			var page = path.split("/").pop();
 			if(page=='timesheets.html'){jQuery('.bottom-nav-bar a.notificationmenu').addClass('active'); jQuery('.bottom-nav-bar a.notificationmenu img').attr('src','images/tsheet1.png');}
-			else if(page=='my-schedule.html'){jQuery('.bottom-nav-bar a.myschedulemenu').addClass('active'); jQuery('.bottom-nav-bar a.myschedulemenu img').attr('src','images/job1.png');}
+			else if(page=='my-schedule.html' || page=='admin-schedule.html' || page=='sales-schedule.html'){jQuery('.bottom-nav-bar a.myschedulemenu').addClass('active'); jQuery('.bottom-nav-bar a.myschedulemenu img').attr('src','images/job1.png');}
 			else if(page=='startday.html' || page=='today-jobs.html'){jQuery('.bottom-nav-bar a.startdaymenu').addClass('active'); jQuery('.bottom-nav-bar a.startdaymenu img').attr('src','images/timesheet1.png');}
 			else if(page=='more.html' || page=='staff.html' || page=='client.html' || page=='task.html'){jQuery('.bottom-nav-bar a.moremenu').addClass('active');}
 			
@@ -565,10 +573,113 @@ function updategardenerdata(){
 					
 				}
 			});
+			
+			var q="SELECT * FROM job_totaltime WHERE staff_id=? AND updateonsite=?";
+			var cond=[uid,'0'];
+			tx.executeSql(q, cond, function(tx, res2){
+				if(parseInt(res2.rows.length)>0){
+					
+					for(var i = 0; i < res2.rows.length; i++)
+					{
+						var time_id=res2.rows.item(i).id;
+						var job_id=res2.rows.item(i).job_id;
+						var staff_id=res2.rows.item(i).staff_id;
+						var job_date=res2.rows.item(i).job_date;
+						var start_time=res2.rows.item(i).start_time;
+						var end_time=res2.rows.item(i).end_time;
+						var cdate=res2.rows.item(i).cdate;
+						
+						var url=siteurl+'/api/jobs/updatejobtotaltime';
+						jQuery.ajax({  
+						 type: 'POST',  
+						 url: url,  
+						 dataType: 'json',
+						 data: {time_id:time_id, staff_id:staff_id, job_id:job_id, job_date:job_date, start_time:start_time, end_time:end_time, cdate:cdate},  
+						 crossDomain: true,  
+						 beforeSend: function() {
+										
+						 },		
+						 complete: function() {
+									
+						 },
+						 success: updatejobdata7,  
+						 error: function(response, d, a){
+							/*jQuery('body .showmessage').remove();
+							var html='<div class="showmessage">Server Error in update data5.</div>';
+							jQuery('body').append(html);
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
+							
+						 } 
+					   });
+							
+					}
+					
+				}
+			});
+			
+			var q="SELECT * FROM job_daytimes WHERE user_id=? AND updateonsite=? AND status=?";
+			var cond=[uid,'0','complete'];
+			tx.executeSql(q, cond, function(tx, res2){
+				if(parseInt(res2.rows.length)>0){
+					
+					for(var i = 0; i < res2.rows.length; i++)
+					{
+						var id=res2.rows.item(i).id;
+						var start_date=res2.rows.item(i).start_date;
+						var user_id=res2.rows.item(i).user_id;
+						var start_time=res2.rows.item(i).start_time;
+						var end_time=res2.rows.item(i).end_time;
+						
+						var url=siteurl+'/api/jobs/updatejobdaytimes';
+						jQuery.ajax({  
+						 type: 'POST',  
+						 url: url,  
+						 dataType: 'json',
+						 data: {id:id, start_date:start_date, user_id:user_id, start_time:start_time, end_time:end_time},  
+						 crossDomain: true,  
+						 beforeSend: function() {
+										
+						 },		
+						 complete: function() {
+									
+						 },
+						 success: updatejobdata8,  
+						 error: function(response, d, a){
+							/*jQuery('body .showmessage').remove();
+							var html='<div class="showmessage">Server Error in update data5.</div>';
+							jQuery('body').append(html);
+							setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
+							
+						 } 
+					   });
+							
+					}
+					
+				}
+			});
 		}
 	}
 }
 //updategardenerdata();
+function updatejobdata8(res){
+	var id=res['id'];
+	var site_id=res['site_id'];
+	if(id!='0'){
+		db.transaction(function(tx){
+			tx.executeSql("UPDATE job_daytimes SET updateonsite='"+site_id+"' WHERE id='"+id+"'");
+		});
+	}
+}
+function updatejobdata7(res){
+	var time_id=res['time_id'];
+	var site_id=res['site_id'];
+	var total_time=res['total_time'];
+	if(time_id!='0'){
+		db.transaction(function(tx){
+			tx.executeSql("UPDATE job_totaltime SET updateonsite='"+site_id+"', total_time='"+total_time+"' WHERE id='"+time_id+"'");
+		});
+	}
+}
 function updatejobdata6(res){
 	var form_id=res['form_id'];
 	
@@ -632,7 +743,7 @@ function checkfornewupdates(){
 	var uid=localStorage.getItem('StaffMem_ID');
 	if(typeof uid!='undefine' && uid!='' && uid!=null){
 			
-		var url=siteurl+'/api/jobs/myassignedjobs';
+		var url=siteurl+'/api/jobs/assignedusers';
 		jQuery.ajax({  
 			type: 'POST',  
 			url: url,           
@@ -827,11 +938,58 @@ function checkfornewupdates(){
 			return false; 
 			}
 		});
+		
+		var url=siteurl+'/api/jobs/job_totaltime';
+		jQuery.ajax({  
+			type: 'POST',  
+			url: url,           
+			dataType: 'json',  
+			crossDomain: true,
+			data: {user_id:uid}, 
+			beforeSend: function() {
+			
+			},		
+			complete: function() {
+			}, 
+			crossDomain: true,  
+			success: Updatejob_totaltime,  
+			error: function(response, d, a){
+			
+			/*jQuery('body .showmessage').remove();
+			var html='<div class="showmessage">Server Error4.</div>';
+			jQuery('body').append(html);
+			setTimeout(function(){jQuery('.showmessage').slideUp();},1000);*/
+			return false; 
+			}
+		});
 		/*var synjobs=localStorage.getItem('StaffMem_synjobs');
 		if(typeof synjobs!='undefined' || synjobs=='' || synjobs==null){
 			setTimeout(checkfornewupdates,30000);
 		}*/
 	}
+}
+function Updatejob_totaltime(res){
+	db.transaction(function(tx){
+		if(typeof res['data']!='undefined')
+		{
+			jQuery(res['data']).each(function(index){
+				if(typeof res['data'][index]!='undefined'){
+					var q="SELECT * FROM job_totaltime WHERE updateonsite=?";
+					var id=res['data'][index]['ID'];
+					tx.executeSql(q, [id], function(tx, rest){
+						if(parseInt(rest.rows.length)>0){
+							tx.executeSql("UPDATE job_totaltime SET total_time='"+res['data'][index]['total_time']+"' WHERE updateonsite='"+id+"'");
+						}
+						
+					});
+				}
+			});
+			
+		}
+						 
+		},  function(){
+			//alert('Error in exist job update');
+			}, successDB);
 }
 //checkfornewupdates();
 function Updatejobexists(res){
@@ -852,6 +1010,7 @@ function Updatejobexists(res){
 							tx.executeSql("DELETE FROM job_forms WHERE job_id='"+job_id+"' AND add_by='"+uid+"'");
 							tx.executeSql("DELETE FROM job_notifications WHERE job_id='"+job_id+"' AND user_id='"+uid+"'");
 							tx.executeSql("DELETE FROM job_timesheets WHERE job_id='"+job_id+"' AND user_id='"+uid+"'");
+							tx.executeSql("DELETE FROM job_totaltime WHERE job_id='"+job_id+"' AND staff_id='"+uid+"'");
 						}
 						
 					});
@@ -957,20 +1116,38 @@ function Updatejobdata(res){
      db.transaction(function(tx){
 		if(typeof res['data']!='undefined')
 		{
+			//alert(JSON.stringify(res['data']));
 			jQuery(res['data']).each(function(index){
 				if(typeof res['data'][index]!='undefined'){
-					var q="SELECT * FROM jobs WHERE job_id=? AND user_id=?";
+					var q="SELECT * FROM jobs WHERE job_id=?";
 					//alert(uid+'='+res['data'][index]['ID']);
-					tx.executeSql(q, [res['data'][index]['ID'],uid], function(tx, rest){
+					var jobassigned=res['data'][index]['jobassigned'];
+					//alert(JSON.stringify(res['data'][index]['jobassigned']))
+					tx.executeSql(q, [res['data'][index]['ID']], function(tx, rest){
+						var for_u=0;
+						var assignedto=0;
+						
 						if(parseInt(rest.rows.length)>0){
-							var qr="UPDATE jobs SET address='"+res['data'][index]['address']+"', customer_id='"+res['data'][index]['customer_id']+"', description='"+res['data'][index]['description']+"', contact_fname='"+res['data'][index]['contact_fname']+"', contact_lname='"+res['data'][index]['contact_lname']+"', contact_email='"+res['data'][index]['contact_email']+"', contact_phone='"+res['data'][index]['contact_phone']+"', job_date='"+res['data'][index]['job_date']+"', start_time='"+res['data'][index]['start_time']+"', lati='"+res['data'][index]['lati']+"', longi='"+res['data'][index]['longi']+"', listtype='"+res['data'][index]['listtype']+"' WHERE job_id='"+res['data'][index]['ID']+"'";
+							var qr="UPDATE jobs SET address='"+res['data'][index]['address']+"', customer_id='"+res['data'][index]['customer_id']+"', description='"+res['data'][index]['description']+"', contact_fname='"+res['data'][index]['contact_fname']+"', contact_lname='"+res['data'][index]['contact_lname']+"', contact_email='"+res['data'][index]['contact_email']+"', contact_phone='"+res['data'][index]['contact_phone']+"', job_date='"+res['data'][index]['job_date']+"', start_time='"+res['data'][index]['start_time']+"', lati='"+res['data'][index]['lati']+"', longi='"+res['data'][index]['longi']+"', listtype='"+res['data'][index]['listtype']+"', for_u='"+for_u+"', jobstatus='"+res['data'][index]['status']+"', sales_person_id='"+res['data'][index]['sales_person_id']+"' WHERE job_id='"+res['data'][index]['ID']+"'";
 							//alert(qr);
 							tx.executeSql(qr);	
 						}
 						else{
-							var qr='INSERT INTO jobs (job_id, customer_id, address, description, status, contact_fname, contact_lname, contact_email, contact_phone, job_date, start_time,user_id,lati, longi, listtype, add_by) VALUES ("'+res['data'][index]['ID']+'", "'+res['data'][index]['customer_id']+'", "'+res['data'][index]['address']+'", "'+res['data'][index]['description']+'", "'+res['data'][index]['status']+'", "'+res['data'][index]['contact_fname']+'", "'+res['data'][index]['contact_lname']+'", "'+res['data'][index]['contact_email']+'", "'+res['data'][index]['contact_phone']+'", "'+res['data'][index]['job_date']+'", "'+res['data'][index]['start_time']+'", "'+uid+'", "'+res['data'][index]['lati']+'", "'+res['data'][index]['longi']+'", "'+res['data'][index]['listtype']+'", "'+res['data'][index]['add_by']+'")';
-							
+							var qr='INSERT INTO jobs (job_id, customer_id, address, description, status, contact_fname, contact_lname, contact_email, contact_phone, job_date, start_time,user_id,lati, longi, listtype, add_by, for_u, jobstatus, sales_person_id) VALUES ("'+res['data'][index]['ID']+'", "'+res['data'][index]['customer_id']+'", "'+res['data'][index]['address']+'", "'+res['data'][index]['description']+'", "'+res['data'][index]['status']+'", "'+res['data'][index]['contact_fname']+'", "'+res['data'][index]['contact_lname']+'", "'+res['data'][index]['contact_email']+'", "'+res['data'][index]['contact_phone']+'", "'+res['data'][index]['job_date']+'", "'+res['data'][index]['start_time']+'", "'+assignedto+'", "'+res['data'][index]['lati']+'", "'+res['data'][index]['longi']+'", "'+res['data'][index]['listtype']+'", "'+res['data'][index]['add_by']+'", "'+for_u+'", "'+res['data'][index]['status']+'", "'+res['data'][index]['sales_person_id']+'")';
 							tx.executeSql(qr);	
+						}
+						var q="DELETE FROM job_assigned WHERE job_id='"+res['data'][index]['ID']+"'";
+						tx.executeSql(q);
+						if(typeof jobassigned!='undefined'){
+							jQuery(jobassigned).each(function(index2){
+								if(uid==jobassigned[index2]['assigned_to'])
+								{
+									var qr="UPDATE jobs SET for_u='1', user_id='"+uid+"' WHERE job_id='"+res['data'][index]['ID']+"'";
+									tx.executeSql(qr);
+								}
+								var qr='INSERT INTO job_assigned (job_id, assigned_to, pu_date, start_time, end_time, staffname) VALUES ("'+jobassigned[index2]['job_id']+'", "'+jobassigned[index2]['assigned_to']+'", "'+jobassigned[index2]['pu_date']+'", "'+jobassigned[index2]['start_time']+'", "'+jobassigned[index2]['end_time']+'", "'+jobassigned[index2]['staffname']+'")';
+								tx.executeSql(qr);
+							});
 						}
 					});
 				}

@@ -70,3 +70,5 @@ hr.sheet_border{border:none;border-bottom:6px solid #eeeeee; float:left; padding
 .login-box.remb-box{text-align:left;}
 .login-box input[type="checkbox"]{margin:0px; width:30px; padding:0px;}
 .addformbtn{margin-bottom:5px;}
+.tab-pane{display:none !important;}
+.tab-pane.active{display:block !important;}
