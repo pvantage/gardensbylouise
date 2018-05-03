@@ -1289,16 +1289,14 @@ jQuery(document).ready(function(){
 			if(parseInt(res.rows.length)<=0){
 				jQuery('.nojobexist').hide();
 				var job_status=localStorage.getItem('job_status_'+today);
-				if(job_status!='lunchbreak' && job_status!='jobstart')
+				if(job_status!='lunchbreak')
 				{
 					jQuery('#myModal2 .nojobexist a').text('Complete the job');
 					jQuery('#myModal2 .nojobexist').show();
-					
-					//jQuery('#myModal1 .pop-btm-cnt:first ul').append('<li><a href="javascript:;" onclick="synjobs();">Syn</a></li>');
-					//var generaltime=localStorage.getItem('general_'+today);
-					//if(typeof generaltime=='undefined' || generaltime=='' || generaltime==null || generaltime=='00:00:00'){
-						jQuery('.previous_notes').html('<button type="button" class="nf-box-btn addformbtn" onclick="synjobs();">Synchronize</button>');
-					//}
+				}
+				if(job_status!='lunchbreak' && job_status!='jobstart')
+				{
+					jQuery('.previous_notes').html('<button type="button" class="nf-box-btn addformbtn" onclick="synjobs();">Synchronize</button>');
 				}
 				else{
 					jQuery('.starttodayjob').removeClass('step3');
