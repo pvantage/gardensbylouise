@@ -484,14 +484,14 @@ input.sch-srch {
 	position: absolute;
 }
 .top-header-links ul {
-	margin: 0px;
+	margin: 0px auto;
 	padding: 0px;
 	display: table;
 	table-layout: fixed;
 	text-align: center;
 	border: 1px solid #29a03f;
 	border-radius: 5px;
-	width: 100%;
+	width: 92%;
 	overflow: hidden;
 }
 .top-header-links ul li {
@@ -745,6 +745,7 @@ body .donbtn {
 	font-size:20px;
 }
 .str-job.completed{color:#29a03f;background: none;}
+.str-job.unassigned{color:#e74c3c;background: none;}
 .str-job.assigned{color:#f79e34;background: none;}
 .str-job.process{color:#4289ff;background: none;}
 .cencelpureq h1 {

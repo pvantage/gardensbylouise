@@ -556,6 +556,7 @@ function loadjob(job_id){
 							localStorage.removeItem('stop_job_clock_'+today);
 							localStorage.removeItem('stop_general_clock_'+today);
 							localStorage.removeItem('finish_job');
+							localStorage.removeItem('stop_today_'+today);
 						}
 						jQuery('.previous_notes').html('<button type="button" class="nf-box-btn addformbtn" onclick="addeditform();">Form</button><div class="clearfix"></div><button type="button" class="nf-box-btn" data-toggle="modal" data-target="#addnewnotes">Add Note</button>');
 						var q="SELECT * FROM job_notifications WHERE job_id=? AND title=? ORDER BY cdate DESC";

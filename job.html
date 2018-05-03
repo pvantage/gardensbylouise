@@ -297,6 +297,10 @@ function loadjob(job_id){
 						jQuery('.str-job').html('Assigned');
 						jQuery('.str-job').addClass('assigned');
 					}
+					else if(res.rows.item(i).status=='Unassigned'){
+						jQuery('.str-job').html('Unassigned');
+						jQuery('.str-job').addClass('unassigned');
+					}
 					
 				}
 				
