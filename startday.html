@@ -1310,7 +1310,7 @@ jQuery(document).ready(function(){
 				}
 			}
 			else{
-				//jQuery('.decline_job').text('Decline');
+				//jQuery('.decline_job').parent('li').hide();
 				var job_status=localStorage.getItem('job_status_'+today);
 				if(job_status=='lunchbreak')
 				{
