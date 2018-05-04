@@ -118,11 +118,11 @@ function listschedules(){
 		html+='</div>';
 		jQuery('.job_list').append(html);*/
 		
-		var q="SELECT * FROM jobs WHERE job_date!=? AND job_date<? AND (add_by=? OR sales_person_id=?)";
-		var cond=[today,today,uid,uid];
+		var q="SELECT * FROM jobs WHERE job_date!=? AND job_date<? AND (add_by=? OR sales_person_id=? OR user_id=?)";
+		var cond=[today,today,uid,uid,uid];
 		if(jQuery.trim(searchtext)!=''){
 			var q="SELECT * FROM jobs WHERE job_date!=? AND job_date<? AND (add_by=? OR sales_person_id=?) AND ( contact_fname LIKE ? OR contact_lname LIKE ? OR address LIKE ? OR description LIKE ? )";
-			var cond=[today,today,uid,uid,'%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%'];
+			var cond=[today,today,uid,uid,uid,'%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%'];
 		}
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)>0){
@@ -147,11 +147,11 @@ function listschedules(){
 			}
 		});
 		
-		var q="SELECT * FROM jobs WHERE job_date=? AND (add_by=? OR sales_person_id=?)";
-		var cond=[today,uid,uid];
+		var q="SELECT * FROM jobs WHERE job_date=? AND (add_by=? OR sales_person_id=? OR user_id=?)";
+		var cond=[today,uid,uid,uid];
 		if(jQuery.trim(searchtext)!=''){
-			var q="SELECT * FROM jobs WHERE job_date=? AND (add_by=? OR sales_person_id=?) AND ( contact_fname LIKE ? OR contact_lname LIKE ? OR address LIKE ? OR description LIKE ? )";
-			var cond=[today,uid,uid,'%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%'];
+			var q="SELECT * FROM jobs WHERE job_date=? AND (add_by=? OR sales_person_id=? OR user_id=?) AND ( contact_fname LIKE ? OR contact_lname LIKE ? OR address LIKE ? OR description LIKE ? )";
+			var cond=[today,uid,uid,uid,'%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%'];
 		}
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)>0){
@@ -175,11 +175,11 @@ function listschedules(){
 				jQuery('#todaylist .schedule-wrap').html(html);
 			}
 		});
-		var q="SELECT * FROM jobs WHERE job_date>? AND (add_by=? OR sales_person_id=?)";
-		var cond=[today,uid,uid];
+		var q="SELECT * FROM jobs WHERE job_date>? AND (add_by=? OR sales_person_id=? OR user_id=?)";
+		var cond=[today,uid,uid,uid];
 		if(jQuery.trim(searchtext)!=''){
-			var q="SELECT * FROM jobs WHERE job_date>? AND (add_by=? OR sales_person_id=?) AND ( contact_fname LIKE ? OR contact_lname LIKE ? OR address LIKE ? OR description LIKE ? )";
-			var cond=[today,uid,uid,'%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%'];
+			var q="SELECT * FROM jobs WHERE job_date>? AND (add_by=? OR sales_person_id=? OR user_id=?) AND ( contact_fname LIKE ? OR contact_lname LIKE ? OR address LIKE ? OR description LIKE ? )";
+			var cond=[today,uid,uid,uid,'%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%'];
 		}
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)>0){

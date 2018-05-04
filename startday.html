@@ -59,7 +59,7 @@
           <div class="pop-btm-cnt">
             <ul>
               <li class="nojobexist"><a href="javascript:;" class="accept_job">Pick the job you want to clock into</a></li>
-			  <li> <a class="decline_job" href="javascript:;">Decline</a></li>
+			  <li> <a class="decline_job" href="javascript:;">Clock into general</a></li>
             </ul>
           </div>
           <div class="pop-btm-cnt pop-cancel">
@@ -203,7 +203,7 @@
 				<input type="text" class="forminput" name="compost_bag_size" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Amount of Holly Tone used (Holly tone doesn't come in piles, so we don't need the parentheses for that item.)</label>
+				<label>Amount of Holly Tone used </label>
 				<input type="text" class="forminput" name="bags_of_holly_tone_used" value="0" />
 			  </div>
 			  <div class="nf-box">
@@ -311,7 +311,7 @@
 				<input type="text" class="forminput" name="compost_bag_size" value="0" />
 			  </div>
 			  <div class="nf-box">
-				<label>Amount of Holly Tone used (Holly tone doesn't come in piles, so we don't need the parentheses for that item.)</label>
+				<label>Amount of Holly Tone used </label>
 				<input type="text" class="forminput" name="bags_of_holly_tone_used" value="0" />
 			  </div>
 			  <div class="nf-box">
@@ -1288,6 +1288,8 @@ jQuery(document).ready(function(){
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)<=0){
 				jQuery('.nojobexist').hide();
+				
+				//jQuery('.decline_job').text('Pick the job you want to clock into');
 				var job_status=localStorage.getItem('job_status_'+today);
 				if(job_status!='lunchbreak')
 				{
@@ -1308,6 +1310,7 @@ jQuery(document).ready(function(){
 				}
 			}
 			else{
+				//jQuery('.decline_job').text('Decline');
 				var job_status=localStorage.getItem('job_status_'+today);
 				if(job_status=='lunchbreak')
 				{
