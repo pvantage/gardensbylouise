@@ -204,16 +204,16 @@ function loadjob(job_id){
 					jQuery('.sch-adr').html(res.rows.item(i).address);
 					jQuery('.grey-color').html('<a href="tel:'+mobile+'">'+mobile+'</a>');
 					
-					if(res.rows.item(i).status=='Unassigned'){
+					if(res.rows.item(i).jobstatus=='Unassigned'){
 						jQuery('.showjobstatus').addClass('unassigned-status');
 					}
-					else if(res.rows.item(i).status=='Assigned'){
+					else if(res.rows.item(i).jobstatus=='Assigned'){
 						jQuery('.showjobstatus').addClass('assigned-status');
 					}
-					else if(res.rows.item(i).status=='Being Processed'){
+					else if(res.rows.item(i).jobstatus=='Being Processed'){
 						jQuery('.showjobstatus').addClass('processing-status');
 					}
-					else if(res.rows.item(i).status=='Completed'){
+					else if(res.rows.item(i).jobstatus=='Completed'){
 						jQuery('.showjobstatus').addClass('completed-status');
 					}
 					
@@ -285,19 +285,19 @@ function loadjob(job_id){
 						}
 					});
 					
-					if(res.rows.item(i).status=='Completed'){
+					if(res.rows.item(i).jobstatus=='Completed'){
 						jQuery('.str-job').html('Completed');
 						jQuery('.str-job').addClass('completed');
 					}
-					else if(res.rows.item(i).status=='Being Processed'){
+					else if(res.rows.item(i).jobstatus=='Being Processed'){
 						jQuery('.str-job').html('Being Processed');
 						jQuery('.str-job').addClass('process');
 					}
-					else if(res.rows.item(i).status=='Assigned'){
+					else if(res.rows.item(i).jobstatus=='Assigned'){
 						jQuery('.str-job').html('Assigned');
 						jQuery('.str-job').addClass('assigned');
 					}
-					else if(res.rows.item(i).status=='Unassigned'){
+					else if(res.rows.item(i).jobstatus=='Unassigned'){
 						jQuery('.str-job').html('Unassigned');
 						jQuery('.str-job').addClass('unassigned');
 					}
