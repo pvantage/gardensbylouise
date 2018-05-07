@@ -3,7 +3,9 @@
 .pop-head {
     padding-top: 27px !important;
 }
-
+.col-10.pop-title {
+    padding-right: 37px;
+}
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;
