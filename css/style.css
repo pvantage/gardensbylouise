@@ -1,8 +1,9 @@
  @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
  
- .pop-head {
-    padding-top: 23px;
+.pop-head {
+    padding-top: 27px !important;
 }
+
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;

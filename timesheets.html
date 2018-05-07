@@ -126,7 +126,7 @@ function listschedules(){
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time Worked:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).work_time+'</div></div>';
 						if(StaffMem_user_type!='gardener'){
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Wages Earned:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).reimburse+'</div></div>';}
+						//html+='<div class="row align-items-center"><div class="col-5 schedule-time">Wages Earned:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).reimburse+'</div></div>';}
 						totalmileage=parseFloat(totalmileage)+parseFloat(res.rows.item(i).mileage);
 						totalprice=parseFloat(totalprice)+parseFloat(res.rows.item(i).reimburse);
 					}
@@ -140,7 +140,7 @@ function listschedules(){
 				jQuery('.timesheet_list .schedule-wrap').append(html);
 				jQuery('.total_mileage').html('<span>Mileage: </span> '+totalmileage.toFixed(2));
 				if(StaffMem_user_type!='gardener'){
-					jQuery('.total_price').html('<span>Total Wages Earned: </span> $'+totalprice.toFixed(2));
+					//jQuery('.total_price').html('<span>Total Wages Earned: </span> $'+totalprice.toFixed(2));
 				}
 			}
 		});
