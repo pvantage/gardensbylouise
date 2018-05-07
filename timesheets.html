@@ -126,7 +126,8 @@ function listschedules(){
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time Worked:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).work_time+'</div></div>';
 						if(StaffMem_user_type!='gardener'){
-						//html+='<div class="row align-items-center"><div class="col-5 schedule-time">Wages Earned:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).reimburse+'</div></div>';}
+						//html+='<div class="row align-items-center"><div class="col-5 schedule-time">Wages Earned:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).reimburse+'</div></div>';
+						}
 						totalmileage=parseFloat(totalmileage)+parseFloat(res.rows.item(i).mileage);
 						totalprice=parseFloat(totalprice)+parseFloat(res.rows.item(i).reimburse);
 					}
