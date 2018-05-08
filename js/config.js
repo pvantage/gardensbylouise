@@ -1032,10 +1032,10 @@ function Updatejob_timesheets(res){
 					var q="SELECT * FROM job_timesheets WHERE job_time_id=? AND user_id=?";
 					tx.executeSql(q, [res['data'][index]['ID'],uid], function(tx, rest){
 						if(parseInt(rest.rows.length)>0){
-							tx.executeSql("UPDATE job_timesheets SET address='"+res['data'][index]['address']+"', mileage='"+res['data'][index]['mileage']+"', reimburse='"+res['data'][index]['reimburse']+"' WHERE job_time_id='"+res['data'][index]['ID']+"' AND user_id='"+uid+"'");	
+							tx.executeSql("UPDATE job_timesheets SET address='"+res['data'][index]['address']+"',from_address='"+res['data'][index]['address_from']+"', mileage='"+res['data'][index]['mileage']+"', reimburse='"+res['data'][index]['reimburse']+"' WHERE job_time_id='"+res['data'][index]['ID']+"' AND user_id='"+uid+"'");	
 						}
 						else{
-							tx.executeSql('INSERT INTO job_timesheets (job_id, customer_id, user_id, job_date, address, customer_name, time_type, start_time, end_time, work_time, mileage, reimburse, job_time_id) VALUES ("'+res['data'][index]['job_id']+'", "'+res['data'][index]['customer_id']+'", "'+res['data'][index]['assigned_to']+'", "'+res['data'][index]['pu_date']+'", "'+res['data'][index]['address']+'", "'+res['data'][index]['full_name']+'", "'+res['data'][index]['time_type']+'", "'+res['data'][index]['start_time']+'", "'+res['data'][index]['end_time']+'", "'+res['data'][index]['work_time']+'", "'+res['data'][index]['mileage']+'", "'+res['data'][index]['reimburse']+'", "'+res['data'][index]['ID']+'")');	
+							tx.executeSql('INSERT INTO job_timesheets (job_id, customer_id, user_id, job_date, address, customer_name, time_type, start_time, end_time, work_time, mileage, reimburse, job_time_id, from_address) VALUES ("'+res['data'][index]['job_id']+'", "'+res['data'][index]['customer_id']+'", "'+res['data'][index]['assigned_to']+'", "'+res['data'][index]['pu_date']+'", "'+res['data'][index]['address']+'", "'+res['data'][index]['full_name']+'", "'+res['data'][index]['time_type']+'", "'+res['data'][index]['start_time']+'", "'+res['data'][index]['end_time']+'", "'+res['data'][index]['work_time']+'", "'+res['data'][index]['mileage']+'", "'+res['data'][index]['reimburse']+'", "'+res['data'][index]['ID']+'", "'+res['data'][index]['address_from']+'")');	
 						}
 					});
 				}

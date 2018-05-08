@@ -120,6 +120,8 @@ function listschedules(){
 					{
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Name:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).customer_name+'</div></div>';
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Address:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).address+'</div></div>';
+						html+='<div class="row align-items-center"><div class="col-5 schedule-time">From Address:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).from_address+'</div></div>';
+						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Mileage:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).mileage+'</div></div>';
 					}
 					if(res.rows.item(i).time_type=='startjob'){
 						
