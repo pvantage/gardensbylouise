@@ -438,6 +438,7 @@ function updategardenerdata(){
 						var job_id=res.rows.item(i).job_id;
 						var id=res.rows.item(i).id;
 						var startfrom=res.rows.item(i).startfrom;
+						var endto=res.rows.item(i).endto;
 						var job_date=res.rows.item(i).job_date;
 						var last_job_id=res.rows.item(i).last_job_id;
 						var cdate=res.rows.item(i).cdate;
@@ -446,7 +447,7 @@ function updategardenerdata(){
 						 type: 'POST',  
 						 url: url,  
 						 dataType: 'json',
-						 data: {id:id, user_id:uid, job_id:job_id, startfrom:startfrom, job_date:job_date, last_job_id:last_job_id, cdate:cdate},  
+						 data: {id:id, user_id:uid, job_id:job_id, startfrom:startfrom, endto:endto, job_date:job_date, last_job_id:last_job_id, cdate:cdate},  
 						 crossDomain: true,  
 						 beforeSend: function() {
 										

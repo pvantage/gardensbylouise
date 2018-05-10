@@ -529,6 +529,7 @@ function loadjob(job_id){
 		var currentdatetime=getdatetime();
 		var currenttime=getcurrenttime();
 		db.transaction(showlistjobs, errorDB, successDB);
+		var job_status=localStorage.getItem('job_status_'+today);
 		function showlistjobs(tx){
 			var q="SELECT * FROM jobs WHERE job_id=? AND user_id=?";
 			var cond=[job_id,uid];
@@ -546,11 +547,17 @@ function loadjob(job_id){
 							tx.executeSql(q2, cond2, function(tx, res2){
 								if(parseInt(res2.rows.length)>0){
 									var last_job_id=res2.rows.item(parseInt(res2.rows.length)-1).job_id;
-									tx.executeSql('INSERT INTO job_schedule (job_id, startfrom, job_date, last_job_id, user_id, cdate) VALUES ("'+job_id+'", "job","'+today+'", "'+last_job_id+'", "'+uid+'", "'+currentdatetime+'")');
+									if(job_status=='stopforday')
+									{
+										tx.executeSql('INSERT INTO job_schedule (job_id, startfrom, endto, job_date, last_job_id, user_id, cdate) VALUES ("'+job_id+'", "office", "job","'+today+'", "0", "'+uid+'", "'+currentdatetime+'")');
+									}
+									else{
+										tx.executeSql('INSERT INTO job_schedule (job_id, startfrom, endto, job_date, last_job_id, user_id, cdate) VALUES ("'+job_id+'", "job", "job","'+today+'", "'+last_job_id+'", "'+uid+'", "'+currentdatetime+'")');
+									}
 								}
 								else{
 									
-									tx.executeSql('INSERT INTO job_schedule (job_id, startfrom, job_date, last_job_id, user_id, cdate) VALUES ("'+job_id+'", "office","'+today+'", "0", "'+uid+'", "'+currentdatetime+'")');
+									tx.executeSql('INSERT INTO job_schedule (job_id, startfrom, endto, job_date, last_job_id, user_id, cdate) VALUES ("'+job_id+'", "office", "job","'+today+'", "0", "'+uid+'", "'+currentdatetime+'")');
 								}
 							});
 							localStorage.removeItem('stop_job_clock_'+today);
@@ -698,6 +705,7 @@ jQuery(document).ready(function(){
 			jQuery('.startjob_status_text').addClass('daycompleted');
 		},150);
 	}
+	
 	var generaltime=localStorage.getItem('general_'+today);
 	if(typeof generaltime!='undefined' && generaltime!='' && generaltime!=null){
 		if(generaltime!='00:00:00'){
@@ -794,6 +802,7 @@ jQuery(document).ready(function(){
 		jQuery('#myModal3').modal('hide');
 		jQuery('#myModal4 .alertmsg').html('Are you sure you want to close the job?');
 		jQuery('#myModal4').modal();
+		
 	});
 	jQuery('.starttodayjob').click(function(){
 		
@@ -889,14 +898,20 @@ jQuery(document).ready(function(){
 				tx.executeSql(qr);
 				localStorage.removeItem('timecount');
 				localStorage.removeItem('timecount2');
+				
 				var q="SELECT * FROM job_schedule WHERE job_id=? AND user_id=? AND job_date=?";
 				var cond=[job_id,uid,today];
 				tx.executeSql(q, cond, function(tx, res){
 					if(parseInt(res.rows.length)>0){
 						var cdate=res.rows.item(0).cdate;
+						var sid=res.rows.item(0).id;
+						var last_job_id=res.rows.item(0).job_id;
 						var tms=cdate.split(' ');
 						var qr='INSERT INTO job_totaltime (job_id, staff_id, job_date, start_time, end_time, cdate) VALUES ("'+job_id+'", "'+uid+'", "'+today+'", "'+tms[1]+'", "'+endtime+'", "'+currentdatetime+'")';
 						tx.executeSql(qr);
+						tx.executeSql('INSERT INTO job_schedule (job_id, startfrom, endto, job_date, last_job_id, user_id, cdate) VALUES ("'+job_id+'", "job", "office","'+today+'", "'+last_job_id+'", "'+uid+'", "'+currentdatetime+'")');
+						
+						tx.executeSql('INSERT INTO job_times (job_id, assigned_to, pu_date, start_time, end_time, time_type, cdate) VALUES ("'+job_id+'", "'+uid+'","'+today+'", "'+tms[1]+'", "'+endtime+'","startjob", "'+currentdatetime+'")');
 						window.location='startday.html';
 					}
 				});
@@ -906,16 +921,38 @@ jQuery(document).ready(function(){
 		else{
 			jQuery('#myModal4').modal('hide');
 		}
+		
 		var currenttime=getcurrenttime();
+		var currentdatetime=getdatetime();
 		db.transaction(startlunch, errorDB, successDB);
 		function startlunch(tx){
-			var qr="UPDATE job_daytimes set end_time='"+currenttime+"', status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'";
-			tx.executeSql(qr);
-			localStorage.removeItem('timecount');
-			localStorage.removeItem('timecount2');
-			if(redirect){
-				window.location='startday.html';
-			}
+			var q="SELECT * FROM job_schedule WHERE user_id=? AND job_date=? ORDER BY id DESC";
+			var cond=[uid,today];
+			tx.executeSql(q, cond, function(tx, res){
+				if(parseInt(res.rows.length)>0){
+					var sid=res.rows.item(0).id;
+					var job_id=res.rows.item(0).job_id;
+					var last_job_id=res.rows.item(0).job_id;
+					var cdate=res.rows.item(0).cdate;
+					var tms=cdate.split(' ');
+					tx.executeSql('INSERT INTO job_schedule (job_id, startfrom, endto, job_date, last_job_id, user_id, cdate) VALUES ("'+job_id+'", "job", "office","'+today+'", "'+last_job_id+'", "'+uid+'", "'+currentdatetime+'")');
+					
+					tx.executeSql('INSERT INTO job_times (job_id, assigned_to, pu_date, start_time, end_time, time_type, cdate) VALUES ("'+job_id+'", "'+uid+'","'+today+'", "'+tms[1]+'", "'+currenttime+'","startjob", "'+currentdatetime+'")');
+					if(redirect){
+						window.location='startday.html';
+					}
+				}
+				else{
+					var qr="UPDATE job_daytimes set end_time='"+currenttime+"', status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'";
+					tx.executeSql(qr);
+					localStorage.removeItem('timecount');
+					localStorage.removeItem('timecount2');
+					if(redirect){
+						window.location='startday.html';
+					}
+				}
+			});
+			
 		}
 	});
 	var clock_stop_for=localStorage.getItem('clock_stop_for_'+today);

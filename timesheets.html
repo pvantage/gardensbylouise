@@ -112,21 +112,24 @@ function listschedules(){
 				var totalprice=0;
 				for(var i = 0; i < res.rows.length; i++)
 				{
-					if(i>0 && res.rows.item(i-1).job_id!=res.rows.item(i).job_id)
+					if(i>0 && res.rows.item(i-1).address!=res.rows.item(i).address)
 					{
 						html+='<hr class="sheet_border" />';
 					}
-					if(i==0 || (i>0 && res.rows.item(i-1).job_id!=res.rows.item(i).job_id))
+					if(i==0 || (i>0 && res.rows.item(i-1).address!=res.rows.item(i).address))
 					{
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Name:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).customer_name+'</div></div>';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Address:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).address+'</div></div>';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">From Address:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).from_address+'</div></div>';
+						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address From:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).from_address+'</div></div>';
+						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address To:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).address+'</div></div>';
+						
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Mileage:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).mileage+'</div></div>';
 					}
 					if(res.rows.item(i).time_type=='startjob'){
-						
+						if(i==0 || (i>0 && res.rows.item(i-1).job_id!=res.rows.item(i).job_id))
+						{
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time Worked:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).work_time+'</div></div>';
+						}
 						if(StaffMem_user_type!='gardener'){
 						//html+='<div class="row align-items-center"><div class="col-5 schedule-time">Wages Earned:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).reimburse+'</div></div>';
 						}
