@@ -12,7 +12,18 @@ if(parseInt(m)<10){m='0'+m;}
 var d1=d.getDate();
 if(parseInt(d1)<10){d1='0'+d1;}
 var today=d.getFullYear()+'-'+m+'-'+d1;
-
+function addasecondintime(){
+	d = new Date(); // just for example, can be any other time
+	myTimeSpan = 1000; // 1 second in milliseconds
+	d.setTime(d.getTime() + myTimeSpan);	
+	var mint=d.getMinutes();
+	if(parseInt(mint)<10){mint='0'+mint;}
+	var h=d.getHours();
+	if(parseInt(h)<10){h='0'+h;}
+	var sec=d.getSeconds();
+	if(parseInt(sec)<10){sec='0'+sec;}
+	return h+':'+mint+':'+sec;
+}
 function getcurrenttime(){
 	var d = new Date();
 	var mint=d.getMinutes();
@@ -357,7 +368,7 @@ function updategardenerdata(){
 				}
 			});
 			
-			var q="SELECT * FROM job_times WHERE assigned_to=? AND updateonsite=?";
+			var q="SELECT * FROM job_times WHERE assigned_to=? AND updateonsite=? ORDER BY id ASC";
 			var cond=[uid,'0'];
 			tx.executeSql(q, cond, function(tx, res){
 				if(parseInt(res.rows.length)>0){

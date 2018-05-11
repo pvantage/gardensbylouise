@@ -888,6 +888,7 @@ jQuery(document).ready(function(){
 			redirect=false;
 			var currentdatetime=getdatetime();
 			var endtime=getcurrenttime();
+			var endtime2=addasecondintime();
 			db.transaction(travelnewjob, errorDB, successDB);
 			function travelnewjob(tx){
 				var qry="UPDATE jobs set status='Completed', real_end_time='"+endtime+"' WHERE job_id='"+job_id+"' AND  user_id='"+uid+"'";
@@ -998,11 +999,14 @@ jQuery(document).ready(function(){
 				localStorage.removeItem('stop_general_clock_'+today);
 				localStorage.removeItem('clock_stop_for_'+today);
 				localStorage.setItem('startjob_status_text','Clocked In: No Active Job');
+				var currenttime=getcurrenttime();
+				var currentdatetime=getdatetime();
+				var currenttime2=addasecondintime();
 				db.transaction(startlunch, errorDB, successDB);
 				function startlunch(tx){
 					var job_id=jQuery('#job_id').val();
 					tx.executeSql("UPDATE job_times set end_time='"+currenttime+"' WHERE pu_date='"+today+"' AND assigned_to='"+uid+"' AND job_id='"+job_id+"' AND time_type='lunch' AND end_time='00:00:00'");
-					tx.executeSql('INSERT INTO job_times (job_id, assigned_to, pu_date, start_time, time_type, cdate) VALUES ("'+job_id+'", "'+uid+'","'+today+'", "'+currenttime+'","startjob", "'+currentdatetime+'")');
+					tx.executeSql('INSERT INTO job_times (job_id, assigned_to, pu_date, start_time, time_type, cdate) VALUES ("'+job_id+'", "'+uid+'","'+today+'", "'+currenttime2+'","startjob", "'+currentdatetime+'")');
 					window.location='';
 				}
 				
@@ -1020,11 +1024,14 @@ jQuery(document).ready(function(){
 		localStorage.removeItem('stop_general_clock_'+today);
 		localStorage.removeItem('clock_stop_for_'+today);
 		localStorage.setItem('startjob_status_text','Clocked In: No Active Job');
+		var currenttime=getcurrenttime();
+		var currentdatetime=getdatetime();
+		var currenttime2=addasecondintime();
 		db.transaction(startlunch, errorDB, successDB);
 		function startlunch(tx){
 			var job_id=jQuery('#job_id').val();
 			tx.executeSql("UPDATE job_times set end_time='"+currenttime+"' WHERE pu_date='"+today+"' AND assigned_to='"+uid+"' AND job_id='"+job_id+"' AND time_type='lunch' AND end_time='00:00:00'");
-			tx.executeSql('INSERT INTO job_times (job_id, assigned_to, pu_date, start_time, time_type, cdate) VALUES ("'+job_id+'", "'+uid+'","'+today+'", "'+currenttime+'","startjob", "'+currentdatetime+'")');
+			tx.executeSql('INSERT INTO job_times (job_id, assigned_to, pu_date, start_time, time_type, cdate) VALUES ("'+job_id+'", "'+uid+'","'+today+'", "'+currenttime2+'","startjob", "'+currentdatetime+'")');
 			window.location='';
 		}
 		
