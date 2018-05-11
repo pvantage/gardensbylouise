@@ -395,7 +395,7 @@ function updategardenerdata(){
 					}
 				}
 			});
-			var q="SELECT * FROM job_times WHERE assigned_to=? AND site_job_time_id!=? AND end_time!=? AND updatedendtime=?";
+			var q="SELECT * FROM job_times WHERE assigned_to=? AND site_job_time_id!=? AND end_time!=? AND updatedendtime=? ORDER BY id ASC";
 			var cond=[uid,'0','00:00:00','0'];
 			tx.executeSql(q, cond, function(tx, res){
 				if(parseInt(res.rows.length)>0){
@@ -429,7 +429,7 @@ function updategardenerdata(){
 					}
 				}
 			});
-			var q="SELECT * FROM job_schedule WHERE user_id=? AND updateonsite=?";
+			var q="SELECT * FROM job_schedule WHERE user_id=? AND updateonsite=? ORDER BY id ASC";
 			var cond=[uid,'0'];
 			tx.executeSql(q, cond, function(tx, res){
 				if(parseInt(res.rows.length)>0){
