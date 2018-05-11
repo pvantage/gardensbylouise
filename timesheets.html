@@ -125,7 +125,7 @@ function listschedules(){
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Mileage:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).mileage+'</div></div>';
 					}
 					if(res.rows.item(i).time_type=='startjob'){
-						if(i==0 || (i>0 && res.rows.item(i-1).job_id!=res.rows.item(i).job_id))
+						if(res.rows.item(i).lastone=='0')
 						{
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
 						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time Worked:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).work_time+'</div></div>';

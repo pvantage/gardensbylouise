@@ -33,7 +33,7 @@
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS job_form_values (id integer primary key autoincrement, job_id integer, form_id integer, field_key text, field_type text, field_value text)');
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS job_notifications (id integer primary key autoincrement, job_id integer, job_notification_id integer, title text, message text, add_by text, cdate datetime, nfrom text, user_id integer, updateonsite integer DEFAULT "0")');
 		 
-		 tx.executeSql('CREATE TABLE IF NOT EXISTS job_timesheets (id integer primary key autoincrement, job_id integer, customer_id integer, user_id integer, job_date date, from_address text, address text, customer_name text, time_type text, start_time time, end_time time, work_time time, mileage float, reimburse float, job_time_id integer DEFAULT "0")');
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS job_timesheets (id integer primary key autoincrement, job_id integer, customer_id integer, user_id integer, job_date date, from_address text, address text, customer_name text, time_type text, start_time time, end_time time, work_time time, mileage float, reimburse float, job_time_id integer DEFAULT "0", lastone integer DEFAULT "0")');
 		 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS job_totaltime (id integer primary key autoincrement, job_id integer, staff_id integer, job_date date, start_time time DEFAULT "00:00:00", end_time time DEFAULT "00:00:00", total_time time DEFAULT "00:00:00", cdate datetime, updateonsite integer DEFAULT "0")');
          
