@@ -82,24 +82,24 @@ function listschedules(){
 		jQuery('.timesheet_list').append(html);
 		var showdate=showdates(today);
 		
-		var q="SELECT * FROM job_timesheets WHERE job_date=? AND user_id=?";
+		var q="SELECT * FROM job_timesheets WHERE job_date=? AND user_id=? ORDER BY job_time_id ASC";
 		var cond=[today,uid];
 		if(jQuery.trim(date_from)!='' || jQuery.trim(date_to)!='')
 		{
 			if(jQuery.trim(date_from)!='' && jQuery.trim(date_to)!='')
 			{
-				var q="SELECT * FROM job_timesheets WHERE job_date>=? AND job_date<=? AND user_id=?";
+				var q="SELECT * FROM job_timesheets WHERE job_date>=? AND job_date<=? AND user_id=? ORDER BY job_time_id ASC";
 				var cond=[date_from,date_to,uid];
 			}
 			else if(jQuery.trim(date_from)!='' && jQuery.trim(date_to)=='')
 			{
-				var q="SELECT * FROM job_timesheets WHERE job_date=? AND user_id=?";
+				var q="SELECT * FROM job_timesheets WHERE job_date=? AND user_id=? ORDER BY job_time_id ASC";
 				var cond=[date_from,uid];
 				showdate=showdates(date_from);
 			}
 			else if(jQuery.trim(date_from)=='' && jQuery.trim(date_to)!='')
 			{
-				var q="SELECT * FROM job_timesheets WHERE job_date<=? AND user_id=?";
+				var q="SELECT * FROM job_timesheets WHERE job_date<=? AND user_id=? ORDER BY job_time_id ASC";
 				var cond=[date_to,uid];
 				showdate='Less than '+showdates(date_to);
 			}
