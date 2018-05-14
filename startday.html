@@ -589,17 +589,21 @@ function loadjob(job_id){
 							}
 						});
 						
-						localStorage.setItem('startjob_status_text','Clocked In: '+res.rows.item(i).address);
-						var startjob_status_text=localStorage.getItem('startjob_status_text');
-						jQuery('.startjob_status_text').html(startjob_status_text);
-						
+						var startjob_status_text2=localStorage.getItem('startjob_status_text');
+						if(startjob_status_text2!='Clocked out for lunch or break'){
+							localStorage.setItem('startjob_status_text','Clocked In: '+res.rows.item(i).address);
+							var startjob_status_text=localStorage.getItem('startjob_status_text');
+							jQuery('.startjob_status_text').html(startjob_status_text);
+						}
 						var newtimecount=localStorage.getItem('timecount2');
 						if(typeof newtimecount!='undefined' && newtimecount!='' && newtimecount!=null){
 							timecount2=newtimecount;
 						}
 						clearInterval(counter2);
 						counter2=setInterval(jobtimer, 1000);
-						jQuery('.job_clock_time').parents('li').addClass('clock_active');
+						if(startjob_status_text2!='Clocked out for lunch or break'){
+							jQuery('.job_clock_time').parents('li').addClass('clock_active');
+						}
 						jQuery('.general_clock_time').parents('li').addClass('glck');
 						/*var generaltime=localStorage.getItem('general_'+today);
 						if(typeof generaltime!='undefined' && generaltime!='' && generaltime!=null){
@@ -963,7 +967,9 @@ jQuery(document).ready(function(){
 		if(clock_stop_for=='lunch'){
 			jQuery('.starttodayjob').addClass('stopforlunch');
 			jQuery('.startjob_status_text').html('Clocked out for lunch or break');
-			setTimeout(function(){jQuery('.startjob_status_text').html('Clocked out for lunch or break');},1000);
+			setTimeout(function(){jQuery('.startjob_status_text').html('Clocked out for lunch or break');
+			jQuery('.starttodayjob_times li').removeClass('clock_active');
+			},1000);
 		}
 	}
 	jQuery('.step2_stop_for_lunch').click(function(){
