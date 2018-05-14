@@ -262,7 +262,7 @@ function loadjob(job_id){
 								var cond2=[job_id, form_id];
 								tx.executeSql(q2, cond2, function(tx, res3){
 									if(parseInt(res3.rows.length)>0){
-										var html='<h1>Job Form <a href="javascript:;" onclick="showform();">Edit</a></h1>';
+										var html='<h1>Job Form <a href="form.html?job_id='+job_id+'">Edit</a></h1>';
 										jQuery('#form_id').val(form_id);
 										for(var j = 0; j < res3.rows.length; j++)
 										{
@@ -418,6 +418,9 @@ jQuery(document).ready(function(){
 			
 		}
 	});
+	
+	localStorage.setItem('gotopage2', 'job.html?job_id='+job_id);
+	
 	var gotopage = localStorage.getItem('gotopage');
 	
 	if(gotopage!='undefined' && gotopage!='' && gotopage!=null){
