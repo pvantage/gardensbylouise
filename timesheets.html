@@ -29,6 +29,7 @@
   <div id="home" class="tab-pane fade in active show">
     <h1 class="myschle"><img src="images/clock.png"/> My Timesheet</h1>
     <div class="form-inline">
+		<input type="hidden" id="calmilage" value="0" />
 		<input class="form-control" name="date_from" id="date_from" placeholder="Select Date From" type="text" /><span>to</span>
 		<input class="form-control" name="date_to" id="date_to" placeholder="Select Date To" type="text" />
 		<button type="button" class="btn search_sheet_btn">Search</button>
@@ -68,6 +69,7 @@ function showdates(date){
 	var d2=date.split('-');
 	return d2[2]+' '+dayName+' '+d2[0];
 }
+
 function listschedules(){
 	db.transaction(showlistjobs, errorDB, successDB);
 	function showlistjobs(tx){
@@ -84,79 +86,157 @@ function listschedules(){
 		
 		var q="SELECT * FROM job_timesheets WHERE job_date=? AND user_id=?";
 		var cond=[today,uid];
+		var explode=false;
 		if(jQuery.trim(date_from)!='' || jQuery.trim(date_to)!='')
 		{
 			if(jQuery.trim(date_from)!='' && jQuery.trim(date_to)!='')
 			{
-				var q="SELECT * FROM job_timesheets WHERE job_date>=? AND job_date<=? AND user_id=?";
-				var cond=[date_from,date_to,uid];
+				q="SELECT * FROM job_timesheets WHERE job_date>=? AND job_date<=? AND user_id=? GROUP BY job_date ORDER BY job_date ASC";
+				cond=[date_from,date_to,uid];
+				showdate='Date between '+showdates(date_from)+' and '+showdates(date_to);
+				explode=true;
 			}
 			else if(jQuery.trim(date_from)!='' && jQuery.trim(date_to)=='')
 			{
-				var q="SELECT * FROM job_timesheets WHERE job_date=? AND user_id=?";
-				var cond=[date_from,uid];
+				q="SELECT * FROM job_timesheets WHERE job_date=? AND user_id=? GROUP BY job_date ORDER BY job_date ASC";
+				cond=[date_from,uid];
 				showdate=showdates(date_from);
+				explode=true;
 			}
 			else if(jQuery.trim(date_from)=='' && jQuery.trim(date_to)!='')
 			{
-				var q="SELECT * FROM job_timesheets WHERE job_date<=? AND user_id=?";
-				var cond=[date_to,uid];
+				q="SELECT * FROM job_timesheets WHERE job_date<=? AND user_id=? GROUP BY job_date ORDER BY job_date ASC";
+				cond=[date_to,uid];
 				showdate='Less than '+showdates(date_to);
+				explode=true;
 			}
 		}
+		//alert(q);
 		tx.executeSql(q, cond, function(tx, res){
 			html='';
+			//alert(parseInt(res.rows.length));
 			if(parseInt(res.rows.length)>0){
-				html+='<div class="schedule-day"><div class="row"><div class="col-12 dtstn">'+showdate+'</div></div></div><div class="clear-fix"></div>';
 				var totalmileage=0;
-				var totalprice=0;
-				for(var i = 0; i < res.rows.length; i++)
-				{
-					if(i>0 && res.rows.item(i-1).job_id!=res.rows.item(i).job_id)
+				
+				if(!explode){
+					html+='<div class="schedule-day"><div class="row"><div class="col-12 dtstn">'+showdate+'</div></div></div><div class="clear-fix"></div>';
+					var totalprice=0;
+					for(var i = 0; i < res.rows.length; i++)
 					{
-						html+='<hr class="sheet_border" />';
-					}
-					if(i==0 || (i>0 && res.rows.item(i-1).job_id!=res.rows.item(i).job_id))
-					{
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Name:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).customer_name+'</div></div>';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address From:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).from_address+'</div></div>';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address To:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).address_to+'</div></div>';
-						
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Mileage:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).mileage+'</div></div>';
-					}
-					if(res.rows.item(i).time_type=='startjob'){
-						if(res.rows.item(i).lastone=='0')
+						if(i>0 && res.rows.item(i-1).job_id!=res.rows.item(i).job_id)
 						{
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time Worked:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).work_time+'</div></div>';
+							html+='<hr class="sheet_border" />';
 						}
-						if(StaffMem_user_type!='gardener'){
-						//html+='<div class="row align-items-center"><div class="col-5 schedule-time">Wages Earned:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).reimburse+'</div></div>';
+						
+						if(i==0 || (i>0 && res.rows.item(i-1).job_id!=res.rows.item(i).job_id))
+						{
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Name:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).customer_name+'</div></div>';
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address From:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).from_address+'</div></div>';
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address To:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).address_to+'</div></div>';
+							
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Mileage:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).mileage+'</div></div>';
 						}
-						totalmileage=parseFloat(totalmileage)+parseFloat(res.rows.item(i).mileage);
-						totalprice=parseFloat(totalprice)+parseFloat(res.rows.item(i).reimburse);
-					}
-					else if(res.rows.item(i).time_type=='stopjob'){
-						html+='<hr class="sheet_border" />';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Name:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).customer_name+'</div></div>';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address From:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).from_address+'</div></div>';
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address To:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).address_to+'</div></div>';
+						if(res.rows.item(i).time_type=='startjob'){
+							if(res.rows.item(i).lastone=='0')
+							{
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time Worked:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).work_time+'</div></div>';
+							}
+							if(StaffMem_user_type!='gardener'){
+							//html+='<div class="row align-items-center"><div class="col-5 schedule-time">Wages Earned:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).reimburse+'</div></div>';
+							}
+							totalmileage=parseFloat(totalmileage)+parseFloat(res.rows.item(i).mileage);
+							totalprice=parseFloat(totalprice)+parseFloat(res.rows.item(i).reimburse);
+						}
+						else if(res.rows.item(i).time_type=='stopjob'){
+							html+='<hr class="sheet_border" />';
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Name:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).customer_name+'</div></div>';
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address From:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).from_address+'</div></div>';
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address To:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).address_to+'</div></div>';
+							
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Mileage:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).mileage+'</div></div>';
+							totalmileage=parseFloat(totalmileage)+parseFloat(res.rows.item(i).mileage);
+							totalprice=parseFloat(totalprice)+parseFloat(res.rows.item(i).reimburse);
+						}
+						else if(res.rows.item(i).time_type=='lunch'){
+							
+							html+='<div class="row align-items-center"><div class="col-5 schedule-time">Break:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
+						}
 						
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Mileage:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).mileage+'</div></div>';
-						totalmileage=parseFloat(totalmileage)+parseFloat(res.rows.item(i).mileage);
-						totalprice=parseFloat(totalprice)+parseFloat(res.rows.item(i).reimburse);
-					}
-					else if(res.rows.item(i).time_type=='lunch'){
 						
-						html+='<div class="row align-items-center"><div class="col-5 schedule-time">Break:</div><div class="col-7 schedule-hashtag">'+res.rows.item(i).start_time+' - '+res.rows.item(i).end_time+'</div></div>';
 					}
-					
-					
+					jQuery('.timesheet_list .schedule-wrap').append(html);
+					jQuery('.total_mileage').html('<span>Mileage: </span> '+totalmileage.toFixed(2));
+					if(StaffMem_user_type!='gardener'){
+						//jQuery('.total_price').html('<span>Total Wages Earned: </span> $'+totalprice.toFixed(2));
+					}
 				}
-				jQuery('.timesheet_list .schedule-wrap').append(html);
-				jQuery('.total_mileage').html('<span>Mileage: </span> '+totalmileage.toFixed(2));
-				if(StaffMem_user_type!='gardener'){
-					//jQuery('.total_price').html('<span>Total Wages Earned: </span> $'+totalprice.toFixed(2));
+				else{
+					jQuery('#calmilage').val(0);
+					for(var i = 0; i < res.rows.length; i++)
+					{
+						var totalmileage2=jQuery('#calmilage').val();
+						totalmileage=parseFloat(totalmileage)+parseFloat(totalmileage2);
+						//alert(res.rows.item(i).job_date);
+						//explodelist(tx,res.rows.item(i).job_date);
+						var q2="SELECT * FROM job_timesheets WHERE job_date=? AND user_id=?";
+						var cond2=[res.rows.item(i).job_date,uid];
+						tx.executeSql(q2, cond2, function(tx, res2){
+							html='';
+							if(parseInt(res2.rows.length)>0){
+								html+='<div class="schedule-day"><div class="row"><div class="col-12 dtstn">'+showdates(res2.rows.item(i).job_date)+'</div></div></div><div class="clear-fix"></div>';
+								//var totalprice=0;
+								//var totalmileage=0;
+								for(var i = 0; i < res2.rows.length; i++)
+								{
+									if(i>0 && res2.rows.item(i-1).job_id!=res2.rows.item(i).job_id)
+									{
+										html+='<hr class="sheet_border" />';
+									}
+									
+									if(i==0 || (i>0 && res2.rows.item(i-1).job_id!=res2.rows.item(i).job_id))
+									{
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Name:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).customer_name+'</div></div>';
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address From:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).from_address+'</div></div>';
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address To:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).address_to+'</div></div>';
+										
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Mileage:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).mileage+'</div></div>';
+									}
+									if(res2.rows.item(i).time_type=='startjob'){
+										if(res2.rows.item(i).lastone=='0')
+										{
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).start_time+' - '+res2.rows.item(i).end_time+'</div></div>';
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Time Worked:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).work_time+'</div></div>';
+										}
+										totalmileage=parseFloat(totalmileage)+parseFloat(res2.rows.item(i).mileage);
+										//totalprice=parseFloat(totalprice)+parseFloat(res2.rows.item(i).reimburse);
+									}
+									else if(res2.rows.item(i).time_type=='stopjob'){
+										html+='<hr class="sheet_border" />';
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Customer Name:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).customer_name+'</div></div>';
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address From:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).from_address+'</div></div>';
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Address To:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).address_to+'</div></div>';
+										
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Mileage:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).mileage+'</div></div>';
+										totalmileage=parseFloat(totalmileage)+parseFloat(res2.rows.item(i).mileage);
+										//totalprice=parseFloat(totalprice)+parseFloat(res2.rows.item(i).reimburse);
+									}
+									else if(res2.rows.item(i).time_type=='lunch'){
+										
+										html+='<div class="row align-items-center"><div class="col-5 schedule-time">Break:</div><div class="col-7 schedule-hashtag">'+res2.rows.item(i).start_time+' - '+res2.rows.item(i).end_time+'</div></div>';
+									}
+									
+									
+								}
+								jQuery('.timesheet_list .schedule-wrap').append(html);
+								jQuery('#calmilage').val(totalmileage);
+							}
+						});
+					}
+					setTimeout(function(){
+						var totalmileage2=jQuery('#calmilage').val();
+						jQuery('.total_mileage').html('<span>Mileage: </span> '+parseFloat(totalmileage2).toFixed(2));
+					},1000);
 				}
 			}
 		});

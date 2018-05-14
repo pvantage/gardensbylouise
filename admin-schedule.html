@@ -118,17 +118,21 @@ function listschedules(){
 		html+='</div>';
 		jQuery('.job_list').append(html);*/
 		
-		var q="SELECT * FROM jobs WHERE job_date<?";
+		var q="SELECT * FROM jobs WHERE job_date<? order by job_date DESC";
 		var cond=[today];
 		if(jQuery.trim(searchtext)!=''){
-			var q="SELECT * FROM jobs WHERE job_date<? AND ( contact_fname LIKE ? OR contact_lname LIKE ? OR address LIKE ? OR description LIKE ? )";
+			var q="SELECT * FROM jobs WHERE job_date<? AND ( contact_fname LIKE ? OR contact_lname LIKE ? OR address LIKE ? OR description LIKE ? ) order by job_date DESC";
 			var cond=[today,'%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%','%'+searchtext+'%'];
 		}
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)>0){
-				html='<div class="schedule-day"><div class="row"><div class="col-5"> '+showdays(res.rows.item(iii).job_date)+'</div><div class="col text-right"> '+showdates(res.rows.item(iii).job_date)+'</div></div></div>';
+				html='<div class="schedule-day"><div class="row"><div class="col-5"> '+showdays(res.rows.item(0).job_date)+'</div><div class="col text-right"> '+showdates(res.rows.item(0).job_date)+'</div></div></div>';
 				for(var iii = 0; iii < res.rows.length; iii++)
 				{
+					if(iii>0 && res.rows.item(iii-1).job_date!=res.rows.item(iii).job_date)
+					{
+						html+='<div class="schedule-day"><div class="row"><div class="col-5"> '+showdays(res.rows.item(iii).job_date)+'</div><div class="col text-right"> '+showdates(res.rows.item(iii).job_date)+'</div></div></div>';
+					}
 					if(res.rows.item(iii).status=='Assigned'){
 						html+='<div class="schedule-detail assigned-status"> <a href="job.html?job_id='+res.rows.item(iii).job_id+'"><span class="schedule-circle circle_assigned"></span>';
 					}
@@ -183,9 +187,13 @@ function listschedules(){
 		}
 		tx.executeSql(q, cond, function(tx, res){
 			if(parseInt(res.rows.length)>0){
-				html='<div class="schedule-day"><div class="row"><div class="col-5"> '+showdays(res.rows.item(iii).job_date)+'</div><div class="col text-right"> '+showdates(res.rows.item(iii).job_date)+'</div></div></div>';
+				html='<div class="schedule-day"><div class="row"><div class="col-5"> '+showdays(res.rows.item(0).job_date)+'</div><div class="col text-right"> '+showdates(res.rows.item(0).job_date)+'</div></div></div>';
 				for(var iii = 0; iii < res.rows.length; iii++)
 				{
+					if(iii>0 && res.rows.item(iii-1).job_date!=res.rows.item(iii).job_date)
+					{
+						html+='<div class="schedule-day"><div class="row"><div class="col-5"> '+showdays(res.rows.item(iii).job_date)+'</div><div class="col text-right"> '+showdates(res.rows.item(iii).job_date)+'</div></div></div>';
+					}
 					if(res.rows.item(iii).status=='Assigned'){
 						html+='<div class="schedule-detail assigned-status"> <a href="job.html?job_id='+res.rows.item(iii).job_id+'"><span class="schedule-circle circle_assigned"></span>';
 					}
