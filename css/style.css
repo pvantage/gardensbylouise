@@ -1,5 +1,15 @@
  @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
- 
+
+#addjobform .pop-head {
+    padding-top: 0px !important;
+}
+body.addjobformbody .header-top {
+    height: 60px;
+}
+body.after-login.addjobformbody {
+    padding-bottom: 0px;
+    margin: 0px;
+} 
 .pop-head {
     padding-top: 27px !important;
 }
