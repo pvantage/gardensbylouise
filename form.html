@@ -283,6 +283,9 @@ function addeditform(){
 }
 jQuery(document).ready(function(){
 	var gotopage=localStorage.getItem('gotopage2');
+	if(gotopage=='startday.html'){
+		gotopage='startday.html?recheck=1';
+	}
 	var job_id=gup('job_id');
 	jQuery('#job_id').val(job_id);
 	jQuery('a.gottoback').attr('href',gotopage);
