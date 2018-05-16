@@ -81,7 +81,7 @@
         <div class="pop-cnt">
           <div class="pop-btm-cnt">
             <ul>
-              <li class="nojobexist"><a href="javascript:;" class="step2_newxt_job">Travel to next job</a></li>
+              <li class="nojobexist"><a href="javascript:;" class="step2_newxt_job">Clock Out Of Job</a></li>
 			  <li><a href="javascript:;" class="checkforclockout">Clock out for day</a></li>
 			  <li><a href="javascript:;" class="step2_stop_for_lunch">Clock Out For Lunch Or Break</a></li>
             </ul>
@@ -392,15 +392,12 @@ function clockouttime(){
 	jQuery('.job_clock_time').parents('li').removeClass('clock_active');
 	clearInterval(counter);
 	clearInterval(counter2);
-	jQuery('#myModal1').modal('hide');
+	jQuery('#myModal1').modal('hide');*/
 	var currenttime=getcurrenttime();
 	db.transaction(startlunch, errorDB, successDB);
 	function startlunch(tx){
 		tx.executeSql("UPDATE job_daytimes set end_time='"+currenttime+"' AND status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'");
-		localStorage.removeItem('timecount');
-		localStorage.removeItem('timecount2');
-		window.location='';
-	}*/
+	}
 	jQuery('#myModal4 .alertmsg').html('Are you sure you want to close the day?');
 	jQuery('#myModal1').modal('hide');
 	jQuery('#myModal2').modal('hide');
@@ -696,12 +693,14 @@ jQuery(document).ready(function(){
 					tx.executeSql('INSERT INTO job_schedule (job_id, startfrom, endto, job_date, last_job_id, user_id, cdate) VALUES ("'+job_id+'", "job", "office","'+today+'", "'+last_job_id+'", "'+uid+'", "'+currentdatetime+'")');
 					
 					tx.executeSql('INSERT INTO job_times (job_id, assigned_to, pu_date, start_time, end_time, time_type, cdate) VALUES ("'+job_id+'", "'+uid+'","'+today+'", "'+endtime+'", "'+endtime2+'","stopjob", "'+currentdatetime+'")');
+					var qr="UPDATE job_daytimes set end_time='"+endtime+"', status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'";
+					tx.executeSql(qr);
 					if(redirect){
 						window.location='startday.html';
 					}
 				}
 				else{
-					var qr="UPDATE job_daytimes set end_time='"+currenttime+"', status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'";
+					var qr="UPDATE job_daytimes set end_time='"+endtime+"', status='complete' WHERE start_date='"+today+"' AND user_id='"+uid+"'";
 					tx.executeSql(qr);
 					localStorage.removeItem('timecount');
 					localStorage.removeItem('timecount2');
