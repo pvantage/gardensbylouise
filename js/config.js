@@ -1041,8 +1041,8 @@ function Updatejob_timesheets(res){
 		{
 			jQuery(res['data']).each(function(index){
 				if(typeof res['data'][index]!='undefined'){
-					var q="SELECT * FROM job_timesheets WHERE job_time_id=? AND user_id=? AND id=?";
-					tx.executeSql(q, [res['data'][index]['ID'],uid,res['data'][index]['updateonapp']], function(tx, rest){
+					var q="SELECT * FROM job_timesheets WHERE job_time_id=? AND user_id=?";
+					tx.executeSql(q, [res['data'][index]['ID'],uid], function(tx, rest){
 						if(parseInt(rest.rows.length)>0){
 							tx.executeSql("UPDATE job_timesheets SET address='"+res['data'][index]['address']+"',from_address='"+res['data'][index]['address_from']+"',address_to='"+res['data'][index]['address_to']+"', mileage='"+res['data'][index]['mileage']+"', end_time='"+res['data'][index]['end_time']+"', reimburse='"+res['data'][index]['reimburse']+"', lastone='"+res['data'][index]['lastone']+"' WHERE id='"+res['data'][index]['updateonapp']+"' AND user_id='"+uid+"'");	
 						}

@@ -75,6 +75,7 @@ function listschedules(){
 	function showlistjobs(tx){
 		var StaffMem_user_type=localStorage.getItem('StaffMem_user_type');
 		jQuery('.timesheet_list').html('');
+		jQuery('.total_mileage').html('');
 		var date_from=jQuery.trim(jQuery('#date_from').val());
 		var date_to=jQuery.trim(jQuery('#date_to').val());
 		
