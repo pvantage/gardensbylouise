@@ -85,6 +85,7 @@ function users_menus()
 		menu+='<li><a href="my-schedule.html" class="myschedulemenu"><img src="images/job.png" alt="Jobs" /><br>Jobs</a></li>';
 	}
 	menu+='<li><a href="timesheets.html" class="notificationmenu"><img src="images/tsheet.png" alt="Timesheets" /><br>Timesheets </a></li>';
+	menu+='<li><a href="database.html" class="moremenu"><img src="images/srch.png" alt="Logout" /><br>DB</a></li>';
 	menu+='<li><a href="logout.html" class="moremenu"><img src="images/logout.png" alt="Logout" /><br>Logout</a></li>';
 	menu+='</ul>';
 	
