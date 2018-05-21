@@ -71,7 +71,15 @@ function showdates(date){
 }
 
 function listschedules(){
-	db.transaction(showlistjobs, errorDB, successDB);
+	db.transaction(showlistjobs, function(error){
+		if(typeof error.message!='undefined'){
+			alert('Oops.  Error was message: '+error.message);
+		}
+		if(typeof error.code!='undefined'){
+			alert('Oops.  Error was (Code '+error.code+')');
+		}
+		alert('Oops.  Error');
+	}, successDB);
 	function showlistjobs(tx){
 		var StaffMem_user_type=localStorage.getItem('StaffMem_user_type');
 		jQuery('.timesheet_list').html('');
