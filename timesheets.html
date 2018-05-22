@@ -196,7 +196,8 @@ function listschedules(){
 						tx.executeSql(q2, cond2, function(tx, res2){
 							html='';
 							if(parseInt(res2.rows.length)>0){
-								html+='<div class="schedule-day"><div class="row"><div class="col-12 dtstn">'+showdates(res2.rows.item(i).job_date)+'</div></div></div><div class="clear-fix"></div>';
+								//html+='<div class="schedule-day"><div class="row"><div class="col-12 dtstn">'+showdates(res2.rows.item(i).job_date)+'</div></div></div><div class="clear-fix"></div>';
+								html+='<div class="schedule-day"><div class="row"><div class="col-12 dtstn">'+res2.rows.item(i).job_date+'</div></div></div><div class="clear-fix"></div>';
 								//var totalprice=0;
 								//var totalmileage=0;
 								for(var i = 0; i < res2.rows.length; i++)
