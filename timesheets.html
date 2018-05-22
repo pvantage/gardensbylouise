@@ -102,21 +102,24 @@ function listschedules(){
 			{
 				q="SELECT * FROM job_timesheets WHERE job_date>=? AND job_date<=? AND user_id=? GROUP BY job_date ORDER BY job_date ASC";
 				cond=[date_from,date_to,uid];
-				showdate='Date between '+showdates(date_from)+' and '+showdates(date_to);
+				//showdate='Date between '+showdates(date_from)+' and '+showdates(date_to);
+				showdate='Date between '+date_from+' and '+date_to;
 				explode=true;
 			}
 			else if(jQuery.trim(date_from)!='' && jQuery.trim(date_to)=='')
 			{
 				q="SELECT * FROM job_timesheets WHERE job_date=? AND user_id=? GROUP BY job_date ORDER BY job_date ASC";
 				cond=[date_from,uid];
-				showdate=showdates(date_from);
+				//showdate=showdates(date_from);
+				showdate=date_from;
 				explode=true;
 			}
 			else if(jQuery.trim(date_from)=='' && jQuery.trim(date_to)!='')
 			{
 				q="SELECT * FROM job_timesheets WHERE job_date<=? AND user_id=? GROUP BY job_date ORDER BY job_date ASC";
 				cond=[date_to,uid];
-				showdate='Less than '+showdates(date_to);
+				//showdate='Less than '+showdates(date_to);
+				showdate='Less than '+date_to;
 				explode=true;
 			}
 		}
