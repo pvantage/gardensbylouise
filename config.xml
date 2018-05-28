@@ -78,7 +78,7 @@
 	<preference name="SplashScreen" value="res/screen/ios/Default-568h@2x~iphone.png" />  
 	<splash src="res/screen/ios/Default-568h@2x~iphone.png"/>  
   
-  
+   <icon src="res/icon/icon.png" platform="ios" width="1024" height="1024" />
 	<icon height="57" platform="ios" src="res/icon/ios/Icon.png" width="57" />  
 	<icon height="114" platform="ios" src="res/icon/ios/Icon@2x.png" width="114" />  
 	<icon height="80" platform="ios" src="res/icon/ios/Icon-40@3x.png" width="80" />  
