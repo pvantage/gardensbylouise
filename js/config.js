@@ -1,5 +1,5 @@
-var siteurl = "http://vantageappspro.com/gardensbylouise";
-var realsiteurl = "http://vantageappspro.com/gardensbylouise/";
+var siteurl = "https://tradingjournal.com.au/gardensbylouise";
+var realsiteurl = "https://tradingjournal.com.au/gardensbylouise/";
 var db = window.openDatabase("Gardensbylouise", "1.0", "Gardens By Louise LLC", 200000);
 var days=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
